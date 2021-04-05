@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
   </head>
   <body>
 		
@@ -86,33 +87,92 @@
         </nav>
 
         <h2 class="mb-4" style="text-align:center" >Data Operasional</h2>
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOperational">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addOperational" tabindex="-1" role="dialog" aria-labelledby="addOperationalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addOperationalLabel">Add New Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <label for="desc">Keterangan</label>
+                  <input type="text" class="form-control" id="desc">
+                </div>
+                <div class="form-group">
+                  <label for="price">Biaya</label>
+                  <input type="text" class="form-control" id="price">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="date">Date</label>
+                  <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                </div>
+                <div class="form-group">
+                  <label for="photo">Fraktur</label>
+                  <input type="file" class="form-control-file" id="photo">
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
-                    <th>No</th>
-                    <th>Nota</th>
-                    <th>Tanggal</th>
+                    <th>id</th>
                     <th>Keterangan</th>
                     <th>Biaya</th>
+                    <th>Tanggal</th>
+                    <th>Fraktur</th>
                 </thead>
                 <tbody>
+                    @foreach($oprerasional as $o)
                     <tr>
-                        <td>1</td>
-                        <td></td>
-                        <td>26/01/2021</td>
-                        <td>beli tepung</td>
-                        <td>Rp 250.000</td>
+                        <td>{{$o->id}}</td>
+                        <td>{{$o->keterangan}}</td>
+                        <td>Rp. {{$o->biaya}}</td>
+                        <td>{{$o->tanggal}}</td>
+                        <td>{{$o->fraktur_id}}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
       </div>
 		</div>
 
+    <script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+    </script>
     <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
   </body>
 </html>

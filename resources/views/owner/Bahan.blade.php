@@ -86,23 +86,72 @@
         </nav>
 
         <h2 class="mb-4" style="text-align:center" >Data Bahan Baku</h2>
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStock">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="addStockLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addStockLabel">Add New Stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <label for="name">Nama</label>
+                  <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group">
+                  <label for="qty">Jumlah/label>
+                  <input type="text" class="form-control" id="qty">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="date">Date</label>
+                  <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                </div>
+                <div class="form-group">
+                  <label for="photo">Fraktur</label>
+                  <input type="file" class="form-control-file" id="photo">
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                     <th>No</th>
                     <th>Bahan</th>
                     <th>Jumlah</th>
+                    <th>Satuan</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
+                    @foreach($stok as $s)
                     <tr>
-                        <td>1</td>
-                        <td>Tepung Terigu</td>
-                        <td>5kg</td>
+                        <td>{{$s->id}}</td>
+                        <td>{{$s->nama}}</td>
+                        <td>{{$s->jumlah}}</td>
+                        <td>Kg</td>
+                        <td>Safe Available</td>
                         <td><a class="btn btn-primary" href="#" role="button">Edit</a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

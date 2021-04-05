@@ -94,20 +94,77 @@
         <!-- </form> -->
     </div><br>
     
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addRecipe" tabindex="-1" role="dialog" aria-labelledby="addRecipeLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addRecipeLabel">Add New Recipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Menu
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="qty">Jumlah </label>
+                  <input type="text" class="form-control" id="qty">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Material
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>    
+
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                     <th>Menu</th>
-                    <th>Detail Resep</th>
+                    <th>Menu</th>
+                    <th>Nama Bahan</th>
+                    <th>Jumlah</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
+                    @foreach($resep as $r)
                     <tr>
-                        <td>Goplum Cokelat</td>
-                        <td>Tepung,telor</td>
+                        <td>{{$r->id}}</td>
+                        <td>{{$r->menu}}</td>
+                        <td>{{$r->bahan}}</td>
+                        <td>{{$r->jumlah}}</td>
                         <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

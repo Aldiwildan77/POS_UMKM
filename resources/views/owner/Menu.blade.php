@@ -86,7 +86,59 @@
         </nav>
 
         <h2 class="mb-4" style="text-align:center" >Kelola Menu</h2>
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMenu">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addMenu" tabindex="-1" role="dialog" aria-labelledby="addMenuLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addMenuLabel">Add New Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <label for="menu_name">Nama Menu</label>
+                  <input type="text" class="form-control" id="menu_name">
+                </div>
+                <div class="form-group">
+                  <label for="price">Harga</label>
+                  <input type="text" class="form-control" id="price">
+                </div>
+                <div class="form-group">
+                  <label for="photo">Foto</label>
+                  <input type="file" class="form-control-file" id="photo">
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Available
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Not Available
+                  </label>
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
@@ -95,14 +147,19 @@
                     <th>Harga</th>
                     <th>Foto</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
+                  @foreach($active as $a)
                     <tr>
-                        <td>1</td>
-                        <td>Goplum Cokelat</td>
-                        <td>Rp 15.000</td>
-                        <td></td>
+                        <td>{{$a->id}}</td>
+                        <td>{{$a->nama}}</td>
+                        <td>Rp {{$a->harga}}</td>
+                         <td><img class="img-thumbnail" src="{{('$a->foto')}}"></td> <!-- TODO replace size later -->
+                        <td>Available</td>
+                        <td><button>edit</button></td>
                     </tr>
+                  @endforeach
                 </tbody>
             </table>
         </div>

@@ -86,24 +86,85 @@
         </nav>
 
         <h2 class="mb-4" style="text-align:center" >Data Karyawan</h2>
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaff">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addStaff" tabindex="-1" role="dialog" aria-labelledby="addStaffLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addStaffLabel">Add New Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <label for="staff_name">Nama Karyawan</label>
+                  <input type="text" class="form-control" id="staff_name">
+                </div>
+                <div class="form-group">
+                  <label for="phone">No Hp</label>
+                  <input type="text" class="form-control" id="phone">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                  <label for="salary">Gaji</label>
+                  <input type="text" class="form-control" id="salary">
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Active
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Not Active
+                  </label>
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
-                    <th>No</th>
+                    <th>Id</th>
                     <th>Nama</th>
                     <th>No HP</th>
                     <th>Email</th>
                     <th>Gaji</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
+                    @foreach($active as $a)
                     <tr>
-                        <td>1</td>
-                        <td>Sonia</td>
-                        <td>085226142520</td>
-                        <td>soniagita.26@gmail.com</td>
-                        <td>Rp 3.000.000</td>
+                        <td>{{$a->id}}</td>
+                        <td>{{$a->nama}}</td>
+                        <td>{{$a->nohp}}</td>
+                        <td>{{$a->email}}</td>
+                        <td>Rp {{$a->gaji}}</td>
+                        <td>Available</td>
+                        <td><button>edit</button></td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

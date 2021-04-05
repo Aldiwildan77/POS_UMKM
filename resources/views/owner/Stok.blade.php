@@ -88,22 +88,78 @@
         <h2 class="mb-4" style="text-align:center" >Data Stok</h2>
         <div class="search-container">
 
-        <a class="btn btn-primary" href="#" role="button">Tambah</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMenu">
+          Add Data
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addMenu" tabindex="-1" role="dialog" aria-labelledby="addMenuLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addMenuLabel">Add New Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form>
+                <div class="form-group">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Menu
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="qty">Jumlah</label>
+                  <input type="text" class="form-control" id="qty">
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Available
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Not Available
+                  </label>
+                </div>
+              </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Tanggal</th>
                     <th>Jumlah</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
+                    @foreach($stok as $s)
                     <tr>
-                        <td>1</td>
-                        <td>Goplum Cokelat</td>
-                        <td>26/01/2021</td>
-                        <td>20</td>
+                        <td>{{$s->id}}</td>
+                        <td>{{$s->nama}}</td>
+                        <td>{{$s->jumlah}}</td>
+                        <td><button>edit</button></td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

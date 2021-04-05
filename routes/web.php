@@ -16,21 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('/index', 'cashier/home');
+Route::view('/index', 'cashier/home'); //home kasir
 
-Route::view('/home', 'customer/Index');
+Route::view('/home', 'customer/Index'); //home customer
 
-Route::view('/menuData', 'owner/Menu');
+Route::get('/menuData', 'MenuController@showAll'); //home owner
 
-Route::view('/bahanData', 'owner/Bahan');
 
-Route::view('/karyawanData', 'owner/Karyawan');
+Route::get('/bahanData', 'StokBahanController@showAll');
 
-Route::view('/operasionalData', 'owner/Operasional');
+Route::get('/karyawanData', 'KaryawanController@showAll');
 
-Route::view('/resepData', 'owner/Resep');
+Route::get('/operasionalData', 'OperasionalController@showAll');
 
-Route::view('/stokData', 'owner/Stok');
+Route::get('/resepData', 'ResepController@showAll');
+
+Route::get('/stokData', 'StokJadiController@showAll');
 
 Route::view('/laporanData', 'owner/Laporan');
 
