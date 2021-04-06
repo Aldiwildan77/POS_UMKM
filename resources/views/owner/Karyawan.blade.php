@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   </head>
   <body>
 		
@@ -66,26 +67,23 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 
-        <h2 class="mb-4" style="text-align:center" >Data Karyawan</h2>
+        <h2 class="mb-4" style="text-align:center">Data Karyawan</h2>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaff">
           Add Data
         </button>
@@ -102,22 +100,23 @@
               </div>
               <div class="modal-body">
 
-              <form>
+              <form method="POST" action="/karyawanData">
+              @csrf
                 <div class="form-group">
-                  <label for="staff_name">Nama Karyawan</label>
-                  <input type="text" class="form-control" id="staff_name">
+                  <label for="name">Nama Karyawan</label>
+                  <input type="text" class="form-control" id="name" name="name">
                 </div>
                 <div class="form-group">
                   <label for="phone">No Hp</label>
-                  <input type="text" class="form-control" id="phone">
+                  <input type="text" class="form-control" id="phone" name="phone">
                 </div>
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email">
+                  <input type="email" class="form-control" id="email" name="email">
                 </div>
                 <div class="form-group">
                   <label for="salary">Gaji</label>
-                  <input type="text" class="form-control" id="salary">
+                  <input type="text" class="form-control" id="salary" name="salary">
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -131,13 +130,12 @@
                     Not Active
                   </label>
                 </div>
-              </form>
-
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -162,7 +160,63 @@
                         <td>{{$a->email}}</td>
                         <td>Rp {{$a->gaji}}</td>
                         <td>Available</td>
-                        <td><button>edit</button></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
+                              edit
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editStaff" tabindex="-1" role="dialog" aria-labelledby="editStafffLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editStaffLabel">Edit Staff data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+
+                                  <form method="POST" action="">
+                                  @csrf
+                                    <div class="form-group">
+                                      <label for="name">Nama Karyawan</label>
+                                      <input type="text" class="form-control" id="namerec" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="phone">No Hp</label>
+                                      <input type="text" class="form-control" id="phonerec" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="email">Email</label>
+                                      <input type="email" class="form-control" id="emailrec" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="salary">Gaji</label>
+                                      <input type="text" class="form-control" id="salaryrec" name="salary">
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
+                                      <label class="form-check-label" for="availrec">
+                                        Active
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
+                                      <label class="form-check-label" for="nonavailrec">
+                                        Not Active
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <input type="submit" class="btn btn-primary" value="Save changes">
+                                  </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -171,7 +225,23 @@
       </div>
 		</div>
 
-    <script src="{{URL::asset('assets1/js/jquery.min.js') }}"></script>
+    <script>
+      $(document).ready(function(){
+        $('#editStaff').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('name') // Extract info from data-* attributes 
+        var phone = button.data('phone')
+        var email = button.data('email')
+        var salary = button.data('salary')
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $('#namerec').val(name)
+        $('#phonerec').val(phone)
+        $('#emailrec').val(email)
+        $('#salaryrec').val(salary)
+        });
+    })
+    </script>
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>

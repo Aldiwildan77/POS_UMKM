@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   </head>
   <body>
 		
@@ -66,22 +67,19 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 
@@ -89,56 +87,57 @@
         <div class="search-container">
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMenu">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStock">
           Add Data
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="addMenu" tabindex="-1" role="dialog" aria-labelledby="addMenuLabel" aria-hidden="true">
+        <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="addStockLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addMenuLabel">Add New Menu</h5>
+                <h5 class="modal-title" id="addStockLabel">Add New Recipe</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
 
-              <form>
+              <form method="POST" action="">
+              @csrf 
                 <div class="form-group">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Menu
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+                  <label for="menu">Select Menu</label>
+                  <select class="form-control dropdown-toggle" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="menu_id">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      @foreach($menu as $m)
+                      <option class="dropdown-item" value="{{$m->id}}">{{$m->nama}}</option>
+                      @endforeach
+                    </div>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="qty">Jumlah</label>
-                  <input type="text" class="form-control" id="qty">
+                  <input type="text" class="form-control" id="qty" name="qty">
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label" for="exampleRadios1">
-                    Available
+                  <input class="form-check-input" type="radio" name="statusRadios" id="avail" value="1" checked>
+                  <label class="form-check-label" for="avail">
+                    Active
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
-                    Not Available
+                  <input class="form-check-input" type="radio" name="statusRadios" id="nonavail" value="0">
+                  <label class="form-check-label" for="nonavail">
+                    Not Active
                   </label>
                 </div>
-              </form>
-
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
+
+              </form>
             </div>
           </div>
         </div>
@@ -157,7 +156,55 @@
                         <td>{{$s->id}}</td>
                         <td>{{$s->nama}}</td>
                         <td>{{$s->jumlah}}</td>
-                        <td><button>edit</button></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStock" data-name="{{$s->nama}}" data-qty="{{$s->jumlah}}">edit
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editStockLabel">Edit Data Recipe</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+
+                                  <form method="POST" action="">
+                                  @csrf 
+                                    <div class="form-group">
+                                      <label for="qty">Nama Menu</label>
+                                      <input type="text" class="form-control" id="namerec" name="name" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="qty">Jumlah</label>
+                                      <input type="text" class="form-control" id="qtyrec" name="qty">
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
+                                      <label class="form-check-label" for="availrec">
+                                        Active
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
+                                      <label class="form-check-label" for="nonavailrec">
+                                        Not Active
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <input type="submit" class="btn btn-primary" value="Save changes">
+                                  </div>
+
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -166,7 +213,19 @@
       </div>
 		</div>
 
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
+    <script>
+      $(document).ready(function(){
+        $('#editStock').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('name') 
+        var qty = button.data('qty')// Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $('#namerec').val(name)
+        $('#qtyrec').val(qty)
+        });
+      })
+    </script>
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>

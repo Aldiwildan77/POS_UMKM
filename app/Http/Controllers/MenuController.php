@@ -17,5 +17,24 @@ class MenuController extends Controller
         ->with(['nonActive' => $MenuNonActive ]);
     }
 
+    public function addData(Request $request)
+    {
+        $menu = new menu;
+
+        // dd("test data");
+        $menu->nama = $request->name;
+        $menu->harga = $request->price;
+        $menu->foto = $request->photo;
+        $menu->status = '1';
+        $menu->save();
+
+        // TODO redirect add alert
+        return "new menu successfully added";
+    }
+
+    public function editData($id, Request $request)
+    {
+        # code...
+    }
 
 }

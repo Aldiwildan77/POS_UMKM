@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
   </head>
   <body>
 		
@@ -17,7 +19,7 @@
 				<div class="p-4 pt-5">
 		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(assets1/images/logo.jpg);"></a>
 	        <ul class="list-unstyled components mb-5">
-	          <li>
+	          <li class="active">
 	            <a href="{{url('/menuData')}}">Kelola Menu</a>
 	          </li>
 	          <li>
@@ -66,22 +68,19 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 
@@ -103,38 +102,40 @@
               </div>
               <div class="modal-body">
 
-              <form>
+              <form method="POST" action="/menuData">
+              @csrf
                 <div class="form-group">
-                  <label for="menu_name">Nama Menu</label>
-                  <input type="text" class="form-control" id="menu_name">
+                  <label for="name">Nama Menu</label>
+                  <input type="text" class="form-control" id="name" name="name">
                 </div>
                 <div class="form-group">
                   <label for="price">Harga</label>
-                  <input type="text" class="form-control" id="price">
+                  <input type="text" class="form-control" id="price" name="price">
                 </div>
                 <div class="form-group">
                   <label for="photo">Foto</label>
-                  <input type="file" class="form-control-file" id="photo">
+                  <input type="file" class="form-control-file" id="photo" name="photo">
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label" for="exampleRadios1">
+                  <input class="form-check-input" type="radio" name="radioStatus" id="avail" value="option1" checked>
+                  <label class="form-check-label" for="avail">
                     Available
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
+                  <input class="form-check-input" type="radio" name="radioStatus" id="nonavail" value="option2">
+                  <label class="form-check-label" for="nonavail">
                     Not Available
                   </label>
                 </div>
-              </form>
-
+              
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
+
+              </form>  
             </div>
           </div>
         </div>
@@ -150,14 +151,66 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                  @foreach($active as $a)
+                   @foreach($active as $a) <!--change to for later to get id -->
                     <tr>
                         <td>{{$a->id}}</td>
                         <td>{{$a->nama}}</td>
                         <td>Rp {{$a->harga}}</td>
                          <td><img class="img-thumbnail" src="{{('$a->foto')}}"></td> <!-- TODO replace size later -->
                         <td>Available</td>
-                        <td><button>edit</button></td>
+                        <td><button id="menutype" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}">
+                            edit
+                            </button>
+
+                            <!-- modal edit data -->
+                            <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenuLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editMenuLabel">Edit Menu</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="namerec">Nama Menu</label>
+                                      <input type="text" class="form-control" id="namerec">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pricerec">Harga</label>
+                                      <input type="text" class="form-control" id="pricerec">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="photo">Foto</label>
+                                      <input type="file" class="form-control-file" id="photo">
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusrec" id="recavail" value="1" checked>
+                                      <label class="form-check-label" for="avail">
+                                        Available
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="statusrec" id="recnonavail" value="0">
+                                      <label class="form-check-label" for="nonavail">
+                                        Not Available
+                                      </label>
+                                    </div>
+                                  </form>
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                        </td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -166,7 +219,20 @@
       </div>
 		</div>
 
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
+    <script>
+      $(document).ready(function(){
+        $('#editMenu').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('name') 
+        var price = button.data('price')// Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $('#namerec').val(name)
+        $('#pricerec').val(price)
+        });
+      })
+    </script>
+    
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>

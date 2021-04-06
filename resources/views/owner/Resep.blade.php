@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   </head>
   <body>
 		
@@ -66,22 +67,19 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 
@@ -92,9 +90,9 @@
         <input type="text" placeholder="Search.." name="search">
         <button type="submit"><i class="fa fa-search"></i></button>
         <!-- </form> -->
-    </div><br>
+        </div><br>
     
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">
           Add Data
         </button>
 
@@ -110,68 +108,127 @@
               </div>
               <div class="modal-body">
 
-              <form>
+              <form method="POST" action="/resepData">
+              @csrf 
                 <div class="form-group">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Menu
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+                  <label for="menu">Select Menu</label>
+                  <select class="form-control dropdown-toggle" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="menu_id">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      @foreach($menu as $m)
+                      <option class="dropdown-item" value="{{$m->id}}">{{$m->nama}}</option>
+                      @endforeach
+                    </div>
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label for="qty">Jumlah </label>
-                  <input type="text" class="form-control" id="qty">
+                  <label for="qty">Jumlah</label>
+                  <input type="text" class="form-control" id="qty" name="qty">
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Material
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+                  <label for="ingredient">Select Material</label>
+                  <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      @foreach($bahan as $b)
+                      <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
+                      @endforeach
+                    </div>
+                  </select>
                 </div>
-              </form>
 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
+
+              </form>
             </div>
           </div>
         </div>    
 
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <th>Menu</th>
-                    <th>Menu</th>
-                    <th>Nama Bahan</th>
-                    <th>Jumlah</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    @foreach($resep as $r)
-                    <tr>
-                        <td>{{$r->id}}</td>
-                        <td>{{$r->menu}}</td>
-                        <td>{{$r->bahan}}</td>
-                        <td>{{$r->jumlah}}</td>
-                        <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+          <table class="table table-hover table-striped">
+              <thead>
+                  <th>Menu</th>
+                  <th>Menu</th>
+                  <th>Nama Bahan</th>
+                  <th>Jumlah</th>
+                  <th>Action</th>
+              </thead>
+              <tbody>
+                  @foreach($resep as $r)
+                  <tr>
+                      <td>{{$r->id}}</td>
+                      <td>{{$r->menu}}</td>
+                      <td>{{$r->bahan}}</td>
+                      <td>{{$r->jumlah}}</td>
+                      <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-name="{{$r->menu}}" data-qty="{{$r->jumlah}}">
+                          Edit</a>
+                      
+                          <!-- Modal -->
+                          <div class="modal fade" id="editRecipe" tabindex="-1" role="dialog" aria-labelledby="editRecipeLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="editRecipeLabel">Edit Data Recipe</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+
+                                <form>
+                                  <div class="form-group">
+                                    <label for="name">Nama Menu</label>
+                                    <input type="text" class="form-control" id="namerec" disabled>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="qty">Jumlah</label>
+                                    <input type="text" class="form-control" id="qtyrec">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="ingredient">Select Material</label>
+                                    <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                        @foreach($bahan as $b)
+                                        <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
+                                        @endforeach
+                                      </div>
+                                    </select>
+                                  </div>
+                                </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      
+                      </td>
+                  </tr>
+                  @endforeach
+              </tbody>
+          </table>
         </div>
       </div>
 		</div>
 
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
+    <script>
+      $(document).ready(function(){
+        $('#editRecipe').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('name') 
+        var qty = button.data('qty')// Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $('#namerec').val(name)
+        $('#qtyrec').val(qty)
+        });
+      })
+    </script>
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>

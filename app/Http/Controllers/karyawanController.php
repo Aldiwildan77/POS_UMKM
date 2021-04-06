@@ -16,4 +16,18 @@ class karyawanController extends Controller
         return view('owner/Karyawan', ['active' => $active])
         ->with(['nonActive' => $NonActive]);
     }
+
+    public function addData(Request $request)
+    {
+        $karyawan = new karyawan;
+        $karyawan->id = date("Ymdhi");
+        $karyawan->nama = $request->name;
+        $karyawan->nohp = $request->phone;
+        $karyawan->email = $request->email;
+        $karyawan->gaji = $request->salary;
+        $karyawan->status = '1';
+        $karyawan->save();
+
+        return "input data success";
+    }
 }

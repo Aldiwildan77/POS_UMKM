@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   </head>
   <body>
 		
@@ -67,22 +68,19 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 
@@ -96,41 +94,41 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addOperationalLabel">Add New Menu</h5>
+                <h5 class="modal-title" id="addOperationalLabel">Add Operational data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
 
-              <form>
+              <form method="POST" action="/operasionalData">
+              @csrf
                 <div class="form-group">
                   <label for="desc">Keterangan</label>
-                  <input type="text" class="form-control" id="desc">
+                  <input type="text" class="form-control" id="desc" name="desc">
                 </div>
                 <div class="form-group">
                   <label for="price">Biaya</label>
-                  <input type="text" class="form-control" id="price">
+                  <input type="text" class="form-control" id="price" name="price">
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="date">Date</label>
-                  <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text"/>
                 </div>
                 <div class="form-group">
                   <label for="photo">Fraktur</label>
                   <input type="file" class="form-control-file" id="photo">
                 </div>
-              </form>
-
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
+
+              </form>
             </div>
           </div>
         </div>
-
 
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
@@ -140,6 +138,7 @@
                     <th>Biaya</th>
                     <th>Tanggal</th>
                     <th>Fraktur</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach($oprerasional as $o)
@@ -149,6 +148,51 @@
                         <td>Rp. {{$o->biaya}}</td>
                         <td>{{$o->tanggal}}</td>
                         <td>{{$o->fraktur_id}}</td>
+                        <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#editOperational" data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
+                            edit</button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="editOperational" tabindex="-1" role="dialog" aria-labelledby="editOperationalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="editOperationalLabel">Edit data operasional</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+
+                              <form method="POST" action="">
+                              @csrf
+                                <div class="form-group">
+                                  <label for="desc">Keterangan</label>
+                                  <input type="text" class="form-control" id="descrec" name="desc">
+                                </div>
+                                <div class="form-group">
+                                  <label for="price">Biaya</label>
+                                  <input type="text" class="form-control" id="pricerec" name="price">
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label" for="date">Date</label>
+                                  <input class="form-control" id="date" name="daterec" placeholder="YYYY/MM/DD" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                  <label for="photo">Fraktur</label>
+                                  <input type="file" class="form-control-file" id="photorec">
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                              </div>
+
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -159,17 +203,29 @@
 
     <script>
     $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
+      $('#editOperational').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var desc = button.data('desc') 
+      var price = button.data('price')
+      var date = button.data('date')// Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      $('#descrec').val(desc)
+      $('#pricerec').val(price)
+      $('#daterec').val(date)
+      });
+
+      var date_input=$('input[id="date"]'); //our date input has the id "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      date_input.datepicker({
+          format: 'yyyy/mm/dd',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+      });
     })
     </script>
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
+
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>

@@ -13,4 +13,18 @@ class StokBahanController extends Controller
 
         return view('owner/Bahan', ['stok' => $stok]);
     }
+
+    public function addData(Request $request)
+    {
+        $stok = new stok_bahan;
+
+        $stok->nama = $request->name;
+        $stok->jumlah = $request->qty;
+        $stok->tgl_beli = $request->date;
+        $stok->fraktur_id = '3';
+        $stok->save();
+
+        return "data saved";
+
+    }
 }

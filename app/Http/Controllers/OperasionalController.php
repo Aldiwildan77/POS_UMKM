@@ -13,4 +13,16 @@ class OperasionalController extends Controller
 
         return view('owner/Operasional', ['oprerasional' => $operasional]);
     }
+
+    public function addData(Request $request)
+    {
+        $operasional = new operasional;
+        $operasional->keterangan = $request->desc;
+        $operasional->biaya = $request->price;
+        $operasional->tanggal = $request->date;
+        $operasional->fraktur_id = '4'; //think later
+        $operasional->save();
+
+        return "data saved";
+    }
 }
