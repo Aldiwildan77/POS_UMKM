@@ -17,6 +17,9 @@
         <script type="text/javascript" src="{{URL::asset('assets3/js/jquery-1.10.2.min.js')}}"></script>
         <script type="text/javascript" src="{{URL::asset('assets3/bootstrap/js/bootstrap.min.js')}}"></script>
         <!-- end -->
+
+        <!-- chart req -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js" integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
     </head>
   <body>
 		
@@ -91,126 +94,75 @@
         <div class="search-container">
 
         <!-- Bootstrap Charts - START -->
-            <!-- <div class="container"> -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <!-- <div class="panel-heading">
-                                <h3>Line Series</h3>
-                            </div> -->
-                            <div class="panel-body">
-                                <div id="chart1"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3>Polar Series</h3>
-                            </div>
-                            <div id="chart2" class="panel-body">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3>Area Series</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="chart3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3>StepLine Series</h3>
-                            </div>
-                            <div id="chart4" class="panel-body">
-                            </div>
-                        </div>
-                    </div>
-                </div>    -->
+            
+            <div class="row table-responsive">
+                <canvas id="myChart" width="500" height="200"></canvas>
             </div>
 
-            <!-- you need to include the shieldui css and js assets in order for the charts to work -->
-            <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
-            <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+            <div class="row">
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <th>Id</th>
+                            <th>Nama</th>
+                            <th>No HP</th>
+                            <th>Pembayaran</th>
+                            <th>Menu</th>
+                            <th>Harga</th>
+                            <th>QTY</th>
+                            <th>Total</th>
+                        </thead>
+                        <tbody>
+                            @foreach($transaksi as $t)
+                            <tr>
+                                <td>{{$t->id}}</td>
+                                <td>{{$t->nama}}</td>
+                                <td>{{$t->no_hp}}</td>
+                                <td>{{$t->metode}}</td>
+                                <td>{{$t->menu}}</td>
+                                <td>{{$t->harga}}</td>
+                                <td>{{$t->qty}}</td>
+                                <td>{{$t->total}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-            <script type="text/javascript">
-                jQuery(function ($) {
-                    var data1 = [12, 3, 4, 2, 12, 3, 4, 17, 22, 34, 54, 67];
-                    var data2 = [3, 9, 12, 14, 22, 32, 45, 12, 67, 45, 55, 7];
-                    var data3 = [23, 19, 11, 134, 242, 352, 435, 22, 637, 445, 555, 57];
-                    var data4 = [13, 19, 112, 114, 212, 332, 435, 132, 67, 45, 55, 7];
-                        
-                    $("#chart1").shieldChart({
-                        exportOptions: {
-                            image: false,
-                            print: false
-                        },
-                        axisY: {
-                            title: {
-                                text: "Break-Down for selected quarter"
-                            }
-                        },
-                        dataSeries: [{
-                            seriesType: "line",
-                            data: data1
-                        }]
-                    });
-
-                    $("#chart2").shieldChart({
-                        exportOptions: {
-                            image: false,
-                            print: false
-                        },
-                        axisY: {
-                            title: {
-                                text: "Break-Down for selected quarter"
-                            }
-                        },
-                        dataSeries: [{
-                            seriesType: "polarbar",
-                            data: data2
-                        }]
-                    });
-
-                    $("#chart3").shieldChart({
-                        exportOptions: {
-                            image: false,
-                            print: false
-                        },
-                        axisY: {
-                            title: {
-                                text: "Break-Down for selected quarter"
-                            }
-                        },
-                        dataSeries: [{
-                            seriesType: "area",
-                            data: data3
-                        }]
-                    });
-
-                    $("#chart4").shieldChart({
-                        exportOptions: {
-                            image: false,
-                            print: false
-                        },
-                        axisY: {
-                            title: {
-                                text: "Break-Down for selected quarter"
-                            }
-                        },
-                        dataSeries: [{
-                            seriesType: "stepline",
-                            data: data4
-                        }]
-                    });
-                });
+            <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                    }
+                }
+            });
             </script>
             <!-- Bootstrap Charts - END -->
             </div>

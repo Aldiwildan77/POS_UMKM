@@ -37,6 +37,6 @@ Route::post('/resepData', 'ResepController@addData');
 
 Route::get('/stokData', 'StokJadiController@showAll');
 
-Route::view('/laporanData', 'owner/Laporan');
+Route::get('/laporanData', 'TranksaksiController@showDataTrx');
 
-Route::view('/topData', 'owner/Top');
+Route::get('/topData', 'TranksaksiController@showDataMenu');

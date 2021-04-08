@@ -408,8 +408,15 @@ mark,
   padding: 0.25rem;
   border-radius: 1rem;
   max-width: 100%;
-  width: 70px;
-  height: 70px; }    
+  width: 75px;
+  height: 75px; }
+  
+.img-cart {
+  padding: 0.25rem;
+  border-radius: 1rem;
+  max-width: 100%;
+  width: 45px;
+  height: 45px; }    
 
 .figure {
   display: inline-block; }
@@ -471,7 +478,7 @@ pre {
   @media (min-width: 1200px) {
     .container {
       /* max-width: 1140px; } } */
-      max-width: 1260px; } }
+      max-width: 1240px; } }
 
 .container-fluid {
   width: 100%;
@@ -505,8 +512,8 @@ pre {
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px; }
+  padding-right: 12px;
+  padding-left: 12px; }
 
 .col {
   -ms-flex-preferred-size: 0;
@@ -7926,6 +7933,13 @@ button.bg-dark:focus {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap; }
+
+.text-truncate-sm {
+  font-size: small;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap; }  
 
 .text-left {
   text-align: left !important; }

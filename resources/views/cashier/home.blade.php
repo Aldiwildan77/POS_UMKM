@@ -51,16 +51,18 @@
                 <div class="row my-4">
                     <!-- loop menu start here -->
                     <div class="col-4">
-                        <div class="card stretched-link">
-                            <div class="media">
-                                <div class="media-body p-1">
-                                    <h5 class="card-title stretched-link">Pork Chop Dinner</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                    <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
+                        <a href="#">
+                            <div class="card ">
+                                <div class="media">
+                                    <div class="media-body p-1">
+                                        <h5 class="card-title">Pork Chop Dinner</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
+                                        <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
+                                    </div>
+                                    <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
                                 </div>
-                                <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <!-- loop menu end here -->
                     <div class="col-4">
@@ -132,23 +134,66 @@
             </div>
 
             <div class="col-3">
-                <div class="row">
-                    <h5 class="mr-5"> Current Order</h5>
+                <div class="row my-2 mx-0">
+                    <h5 class="ml-0"> Current Order</h5>
                     <button class="btn btn-danger ml-5">clear</button>
                 </div>
                 <div class="row">
-                    <div class="col-3">
-                        Menu
+                    <div class="col-6 mr-6">
+                        <div class="media">
+                            <img class="img-cart" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
+                            <div class="media-body">
+                                <p class="text-truncate-sm">Pork Chop ...</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-3">
-                        QTY
+                        <!-- <i class="far fa-plus-square"></i> -->
+                        <input type="number" class="form-control" id="qty" name="qty">
+                        <!-- <i class="far fa-minus-square"></i> -->
                     </div>
-                    <div class="col-3">
-                        Subtotal
+                    <div class="col-2">
+                        <p>Rp.....</p>
                     </div>
-                    <div class="col-3">
-                        Cancel
+                </div> <br><br><br>
+                <div class="row shadow p-1 mb-5 bg-white rounded">
+                    <div class="col-6">
+                        <p>Sub Total</p>
+                        <p>Ongkir</p>
+                        <p>Total</p>
                     </div>
+                    <div class="col-6">
+                        <p>Rp .....</p> 
+                        <p>Rp .....</p>
+                        <p>Rp .....</p> 
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Checkout Transaction
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Here comes the customer form
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
