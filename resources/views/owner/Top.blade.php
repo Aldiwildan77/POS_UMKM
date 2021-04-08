@@ -32,25 +32,28 @@
 	            <a href="{{url('/menuData')}}">Kelola Menu</a>
 	          </li>
 	          <li>
-	              <a href="{{url('/karyawanData')}}">Data Karyawan</a>
+	            <a href="{{url('/karyawanData')}}">Data Karyawan</a>
 	          </li>
 	          <li>
-              <a href="{{url('/operasionalData')}}">Data Operasional</a>
+                <a href="{{url('/operasionalData')}}">Data Operasional</a>
 	          </li>
               <li>
-              <a href="{{url('/bahanData')}}">Data Bahan Baku</a>
+                <a href="{{url('/bahanData')}}">Data Bahan Baku</a>
 	          </li>
 	          <li>
-              <a href="{{url('/resepData')}}">Data Menu & Resep</a>
+                <a href="{{url('/resepData')}}">Data Menu & Resep</a>
 	          </li>
 	          <li>
-              <a href="{{url('/stokData')}}">Stok Menu</a>
+                <a href="{{url('/stokData')}}">Stok Menu</a>
               </li>
               <li>
-              <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
+                <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
               </li>
+              <li >
+                <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
+	          </li>
               <li class="active">
-              <a href="{{url('/topData')}}">Top Menu</a>
+                <a href="{{url('/topData')}}">Top Menu</a>
 	          </li>
 	        </ul>
 
@@ -77,22 +80,19 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="#">Logout</a>
                 </li>
               </ul>
-            </div> -->
+            </div>
           </div>
         </nav>
 

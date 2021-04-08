@@ -7,7 +7,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -36,11 +36,14 @@
 	          </li>
 	          <li>
               <a href="{{url('/stokData')}}">Stok Menu</a>
-              </li>
-              <li>
+            </li>
+            <li>
               <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
-              </li>
-              <li>
+            </li>
+            <li>
+              <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
+	          </li>
+            <li>
               <a href="{{url('/topData')}}">Top Menu</a>
 	          </li>
 	        </ul>
@@ -85,6 +88,15 @@
         </nav>
 
         <h2 class="mb-4" style="text-align:center" >Data Operasional</h2>
+
+        <!-- search bar -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOperational">
           Add Data
         </button>

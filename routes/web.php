@@ -40,3 +40,5 @@ Route::get('/stokData', 'StokJadiController@showAll');
 Route::get('/laporanData', 'TranksaksiController@showDataTrx');
 
 Route::get('/topData', 'TranksaksiController@showDataMenu');
+
+Route::view('/laporanAll', 'owner/Report');
