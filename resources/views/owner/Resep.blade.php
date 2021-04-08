@@ -193,15 +193,26 @@
                                     <label for="qty">Jumlah</label>
                                     <input type="text" class="form-control" id="qtyrec">
                                   </div>
-                                  <div class="form-group">
-                                    <label for="ingredient">Select Material</label>
-                                    <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                        @foreach($bahan as $b)
-                                        <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
-                                        @endforeach
+                                  <div class="form-group" id="formBahan2">
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <label for="ingredient">Select Material</label>
+                                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                            @foreach($bahan as $b)
+                                            <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
+                                            @endforeach
+                                          </div>
+                                        </select>
                                       </div>
-                                    </select>
+                                      <div class="col-6">
+                                        <label for="qty">Jumlah</label>
+                                        <input type="text" class="form-control" id="qty" name="qty">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group align-self-end">
+                                    <button type="button" id="btnmat2" class="btn btn-primary">Add Material</button>
                                   </div>
                                 </form>
 
@@ -237,6 +248,27 @@
 
         $("#btnmat").click(function(){
           $("#formBahan").append(`<div class="form-group">
+                  <div class="row">
+                    <div class="col-6">
+                      <label for="ingredient">Select Material</label>
+                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                          @foreach($bahan as $b)
+                          <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
+                          @endforeach
+                        </div>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="qty">Jumlah</label>
+                      <input type="text" class="form-control" id="qty" name="qty">
+                    </div>
+                  </div>
+                </div>`);
+        });
+
+        $("#btnmat2").click(function(){
+          $("#formBahan2").append(`<div class="form-group">
                   <div class="row">
                     <div class="col-6">
                       <label for="ingredient">Select Material</label>
