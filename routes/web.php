@@ -42,3 +42,5 @@ Route::get('/laporanData', 'TranksaksiController@showDataTrx');
 Route::get('/topData', 'TranksaksiController@showDataMenu');
 
 Route::view('/laporanAll', 'owner/Report');
+
+Route::view('cart', 'cashier/CartCheck');
