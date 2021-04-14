@@ -14,7 +14,7 @@
     <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Alsinsky Frozen</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,17 +24,15 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Transaction</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
+                Cashier
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Logout</a>
                 </div>
             </li>
             </ul>
@@ -51,7 +49,7 @@
                 <div class="row my-4">
                     <!-- loop menu start here -->
                     <div class="col-4">
-                        <a href="" data-name="porkchop" data-price="1000" class="add-to-cart">
+                        <a href="" data-name="porkchop" data-price="10000" data-photo="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
                             <div class="card">
                                 <div class="media">
                                     <div class="media-body p-1">
@@ -66,7 +64,7 @@
                     </div>
                     <!-- loop menu end here -->
                     <div class="col-4">
-                        <a  data-name="Pastakind" data-price="1300" class="add-to-cart">
+                        <a href="" data-name="Pastakind" data-price="1300" data-photo="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
                             <div class="card">
                                 <div class="media">
                                     <div class="media-body p-1">
@@ -80,7 +78,7 @@
                         </a>
                     </div>
                     <div class="col-4">
-                        <a  data-name="tend" data-price="2050" class="add-to-cart">
+                        <a href="" data-name="tend" data-price="2050" data-photo="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
                             <div class="card">
                                 <div class="media">
                                     <div class="media-body p-1">
@@ -144,20 +142,7 @@
                 </div>
                 <!-- cart load here-->
                 <table class="show-cart mx-0">
-                    <tr>
-                        <td class="p-1">
-                            <img class="img-cart" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                        </td>
-                        <td class="p-1">
-                            <p class="text-truncate-sm">Pork Chop</p>
-                        </td>
-                        <td class="p-1">
-                            <input type="number" class="form-control" id="qty" name="qty" style="width: 75px;">
-                        </td>
-                        <td  class="p-1">
-                            <p>Rp.....</p>
-                        </td>
-                    </tr>
+                    
                 </table>
                 <br><br><br>
                 <div class="row shadow p-1 mb-5 bg-white rounded">

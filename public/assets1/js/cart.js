@@ -1,10 +1,11 @@
 var shoppingCart = (function() {
     cart = []; //private
 
-    function Item(name, price, count) {
+    function Item(name, price, count, photo) {
         this.name = name;
         this.price = price;
         this.count = count;
+        this.photo = photo;
     }
 
     // Save cart
@@ -24,7 +25,7 @@ var shoppingCart = (function() {
     var obj = {}; //public
 
     // Add to cart
-    obj.addItemToCart = function(name, price, count) {
+    obj.addItemToCart = function(name, price, count, photo) {
         for (var item in cart) {
             if (cart[item].name === name) {
                 cart[item].count++;
@@ -32,7 +33,7 @@ var shoppingCart = (function() {
                 return;
             }
         }
-        var item = new Item(name, price, count);
+        var item = new Item(name, price, count, photo);
         cart.push(item);
         saveCart();
     }
@@ -134,8 +135,9 @@ var shoppingCart = (function() {
 $('.add-to-cart').click(function(event) {
     event.preventDefault();
     var name = $(this).data('name');
+    var photo = $(this).data('photo');
     var price = Number($(this).data('price'));
-    shoppingCart.addItemToCart(name, price, 1);
+    shoppingCart.addItemToCart(name, price, 1, photo);
     displayCart();
 });
 
@@ -151,10 +153,10 @@ function displayCart() {
     var output = "";
     for (var i in cartArray) {
         output += "<tr>" +
-        "<td><img class='img-cart' src='https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60' alt='Generic placeholder image'></td>" +
+        "<td><img class='img-cart' src=' "+ cartArray[i].photo +"' alt='Generic placeholder image'></td>" +
             "<td>" + cartArray[i].name + "</td>" +
             "<td><div class='input-group'><button style='width: 10px;' class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>" +
-            "<input type='text' style='width: 30px;' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
+            "<input type='text' style='width: 35px;' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
             "<button style='width: 10px;' class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>" +
             "<td><button style='width: 10px;' class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>" +
             " = " +
