@@ -23,8 +23,21 @@ class TranksaksiController extends Controller
         ->get();
 
         //dd($allTrans);
-
+        //TODO check level to decide which view
         return view('owner/Laporan', ['transaksi' => $allTrans]);
+    }
+
+    public function cashierTrx()
+    {
+        //just temporary fun, change later
+        $allTrans = DB::table('transaksi AS t')
+        ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
+        ->join('menu AS m', 'd.menu_id', '=', 'm.id')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', 'm.nama as menu', 'm.harga','d.qty', DB::raw('SUM(d.sub_total) AS total'))
+        ->groupBy('d.transaksi_id')
+        ->get();
+
+        return view('cashier/Transaction', ['transaksi' => $allTrans]);
     }
 
     public function showDataMenu()

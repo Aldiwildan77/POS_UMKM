@@ -43,4 +43,4 @@ Route::get('/topData', 'TranksaksiController@showDataMenu');
 
 Route::view('/laporanAll', 'owner/Report');
 
-Route::view('cart', 'cashier/CartCheck');
+Route::get('/transaksi', 'TranksaksiController@cashierTrx');
