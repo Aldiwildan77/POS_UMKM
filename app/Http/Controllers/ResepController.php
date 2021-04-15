@@ -16,7 +16,7 @@ class ResepController extends Controller
         ->join('stok_bahan AS s', 'r.stok_bahan_id', '=', 's.id')
         ->join('menu AS m', 'r.menu_id', '=', 'm.id')
         ->select('r.id', 's.nama AS bahan', 'm.nama AS menu', 'r.jumlah')
-        ->get();
+        ->paginate(10);
 
         $menu = menu::all(); //TODO pilih yang aktif aja
 

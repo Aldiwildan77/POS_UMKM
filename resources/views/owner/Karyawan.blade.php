@@ -233,6 +233,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="mx-5">{{ $active->links('vendor.pagination.bootstrap-4') }}</div> 
         </div>
       </div>
 		</div>

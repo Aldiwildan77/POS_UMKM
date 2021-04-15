@@ -199,6 +199,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="mx-5">{{ $transaksi->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
     </div>
 

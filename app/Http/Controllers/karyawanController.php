@@ -9,9 +9,9 @@ class karyawanController extends Controller
 {
     public function showAll()
     {
-        $active = karyawan::all()->where('status', '=', '1');
+        $active = karyawan::where('status', '=', '1')->paginate(10);
 
-        $NonActive = karyawan::all()->where('status', '=', '0');
+        $NonActive = karyawan::where('status', '=', '0')->paginate(10);
 
         return view('owner/Karyawan', ['active' => $active])
         ->with(['nonActive' => $NonActive]);

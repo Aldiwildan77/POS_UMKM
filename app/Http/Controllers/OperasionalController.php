@@ -9,9 +9,9 @@ class OperasionalController extends Controller
 {
     public function showAll()
     {
-        $operasional = operasional::all();
+        $operasional = operasional::paginate(10);
 
-        return view('owner/Operasional', ['oprerasional' => $operasional]);
+        return view('owner/Operasional', ['operasional' => $operasional]);
     }
 
     public function addData(Request $request)

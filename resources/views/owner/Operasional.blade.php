@@ -153,7 +153,7 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                    @foreach($oprerasional as $o)
+                    @foreach($operasional as $o)
                     <tr>
                         <td>{{$o->id}}</td>
                         <td>{{$o->keterangan}}</td>
@@ -209,6 +209,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mx-5">{{ $operasional->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
       </div>
 		</div>

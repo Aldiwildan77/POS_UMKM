@@ -234,6 +234,7 @@
                   @endforeach
               </tbody>
           </table>
+          <div class="mx-5">{{ $resep->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
       </div>
 		</div>

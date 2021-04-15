@@ -13,7 +13,7 @@ class StokJadiController extends Controller
         $stok = DB::table('stok_jadi AS j')
         ->join('menu AS m', 'j.menu_id', '=', 'm.id')
         ->select('j.id', 'm.nama', 'j.jumlah')
-        ->get();
+        ->paginate(10);
 
         $menu = menu::all();
 

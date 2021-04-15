@@ -9,7 +9,7 @@ class StokBahanController extends Controller
 {
     public function showAll()
     {
-        $stok = stok_bahan::all();
+        $stok = stok_bahan::paginate(10);
 
         return view('owner/Bahan', ['stok' => $stok]);
     }

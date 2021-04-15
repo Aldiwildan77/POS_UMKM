@@ -206,7 +206,11 @@
                     </tr>
                     @endforeach
                 </tbody>
+              
             </table>
+
+            <div class="mx-5">{{ $stok->links('vendor.pagination.bootstrap-4') }}</div> 
+            <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
         </div>
 
       </div>
