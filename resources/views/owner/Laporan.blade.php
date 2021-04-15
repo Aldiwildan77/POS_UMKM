@@ -105,7 +105,6 @@
                         <th>No HP</th>
                         <th>Pembayaran</th>
                         <th>Menu</th>
-                        <th>Harga</th>
                         <th>QTY</th>
                         <th>Total</th>
                         <th>Status</th>
@@ -118,7 +117,6 @@
                             <td>{{$t->no_hp}}</td>
                             <td>{{$t->metode}}</td>
                             <td>{{$t->menu}}</td>
-                            <td>{{$t->harga}}</td>
                             <td>{{$t->qty}}</td>
                             <td>{{$t->nominal}}</td>
                             <td><div style="background-color: green;width: max-content;"><span class="mx-1">Delivered</span></div>
@@ -129,11 +127,11 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" data-toggle="modal" data-target="#viewModal" href="#viewModal"
                                         data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                        data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                        data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" >
                                         View Detail</a>
                                     <a class="dropdown-item" data-toggle="modal" data-target="#editModal" href="#editModal"
                                         data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                        data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                        data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" >
                                         Edit Status</a>
                                 </div>
                             </td>
@@ -249,134 +247,47 @@
         </div>
 
     <script>
-        $(document).ready(function(){
-            $('#viewModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var id = button.data('id')// Extract info from data-* attributes 
-            var name = button.data('name') 
-            var phone = button.data('phone')
-            var pm = button.data('pm')
-            var menu = button.data('menu')  
-            var qtyeach = button.data('eachqty')
-            var price = button.data('price')
-            var qty = button.data('qty') // TODO use detail later
-            var total = button.data('total')
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#viewModalLabel').val('Transaction id' + id)
-            $('#namerec').val(name)
-            $('#phonerec').val(phone)
-            $('#payrec').val(total)
-            var menuArr = menu.split(',');
-            var qtyArr = qtyeach.split(',');
-            for (var i = 0; i < menuArr.length; i++) {
-                $('#menudetail').append(`<div class="row">
-                                        <div class="col-6">
-                                            <label for="menurec">Menu</label>
-                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="qty">Jumlah</label>
-                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
-                                        </div>
-                                    </div>`)
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
             }
-
-            });
-
-            $('#viewModal').on('hide.bs.modal', function (event) {
-                var e = document.getElementById("menudetail");
-                var child = e.lastElementChild; 
-                while (child) {
-                    e.removeChild(child);
-                    child = e.lastElementChild;
-                }
-            });
-
-            $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var id = button.data('id')// Extract info from data-* attributes 
-            var name = button.data('name') 
-            var phone = button.data('phone')
-            var pm = button.data('pm')
-            var menu = button.data('menu')
-            var qtyeach = button.data('eachqty')
-            var price = button.data('price')
-            var qty = button.data('qty') // TODO use detail later
-            var total = button.data('total')
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#editModalLabel').val('Transaction id' + id)
-            $('#namerecx').val(name)
-            $('#phonerecx').val(phone)
-            $('#payrecx').val(total)
-            var menuArr = menu.split(',');
-            var qtyArr = qtyeach.split(',');
-            for (var i = 0; i < menuArr.length; i++) {
-                $('#menudetailx').append(`<div class="row">
-                                        <div class="col-6">
-                                            <label for="menurec">Menu</label>
-                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="qty">Jumlah</label>
-                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
-                                        </div>
-                                    </div>`)
-            }
-            });
-
-            $('#editModal').on('hide.bs.modal', function (event) {
-                var e = document.getElementById("menudetailx");
-                var child = e.lastElementChild; 
-                while (child) {
-                    e.removeChild(child);
-                    child = e.lastElementChild;
-                }
-            });
-        })
+        }
+    });
     </script>
-
-            <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                    }
-                }
-            });
-            </script>
-            <!-- Bootstrap Charts - END -->
+    <!-- Bootstrap Charts - END -->
             </div>
 
     <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+
+    <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
   </body>
 </html>

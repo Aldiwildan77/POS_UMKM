@@ -61,7 +61,6 @@
                     <th>No HP</th>
                     <th>Pembayaran</th>
                     <th>Menu</th>
-                    <th>Harga</th>
                     <th>QTY</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -74,7 +73,6 @@
                         <td>{{$t->no_hp}}</td>
                         <td>{{$t->metode}}</td>
                         <td>{{$t->menu}}</td>
-                        <td>{{$t->harga}}</td>
                         <td>{{$t->qty}}</td>
                         <td>{{$t->nominal}}</td>
                         <td>
@@ -86,11 +84,11 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" data-toggle="modal" data-target="#viewModal" href="#viewModal"
                                     data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                    data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}">
                                     View Detail</a>
                                 <a class="dropdown-item" data-toggle="modal" data-target="#editModal" href="#editModal"
                                     data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                    data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" >
                                     Edit Status</a>
                             </div>
                         </td>
@@ -160,16 +158,7 @@
                                                 <input type="text" class="form-control" id="addrrecx" disabled>
                                             </div>
                                             <div class="form-group" id="menudetailx">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="menurecx">Menu</label>
-                                                        <input type="text" class="form-control" id="menurecx" value="Tahu" disabled>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label for="qtyx">Jumlah</label>
-                                                        <input type="text" class="form-control" id="qtyx" disabled>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label for="payrec">Total</label>
@@ -213,99 +202,10 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function(){
-            $('#viewModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var id = button.data('id')// Extract info from data-* attributes 
-            var name = button.data('name') 
-            var phone = button.data('phone')
-            var pm = button.data('pm')
-            var menu = button.data('menu')  
-            var qtyeach = button.data('eachqty')
-            var price = button.data('price')
-            var qty = button.data('qty') // TODO use detail later
-            var total = button.data('total')
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#viewModalLabel').val('Transaction id' + id)
-            $('#namerec').val(name)
-            $('#phonerec').val(phone)
-            $('#payrec').val(total)
-            var menuArr = menu.split(',');
-            var qtyArr = qtyeach.split(',');
-            for (var i = 0; i < menuArr.length; i++) {
-                $('#menudetail').append(`<div class="row">
-                                        <div class="col-6">
-                                            <label for="menurec">Menu</label>
-                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="qty">Jumlah</label>
-                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
-                                        </div>
-                                    </div>`)
-            }
-
-            });
-
-            $('#viewModal').on('hide.bs.modal', function (event) {
-                var e = document.getElementById("menudetail");
-                var child = e.lastElementChild; 
-                while (child) {
-                    e.removeChild(child);
-                    child = e.lastElementChild;
-                }
-            });
-
-            $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var id = button.data('id')// Extract info from data-* attributes 
-            var name = button.data('name') 
-            var phone = button.data('phone')
-            var pm = button.data('pm')
-            var menu = button.data('menu')
-            var qtyeach = button.data('eachqty')
-            var price = button.data('price')
-            var qty = button.data('qty') // TODO use detail later
-            var total = button.data('total')
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#editModalLabel').val('Transaction id' + id)
-            $('#namerecx').val(name)
-            $('#phonerecx').val(phone)
-            $('#payrecx').val(total)
-            var menuArr = menu.split(',');
-            var qtyArr = qtyeach.split(',');
-            for (var i = 0; i < menuArr.length; i++) {
-                $('#menudetailx').append(`<div class="row">
-                                        <div class="col-6">
-                                            <label for="menurec">Menu</label>
-                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="qty">Jumlah</label>
-                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
-                                        </div>
-                                    </div>`)
-            }
-            });
-
-            $('#editModal').on('hide.bs.modal', function (event) {
-                var e = document.getElementById("menudetailx");
-                var child = e.lastElementChild; 
-                while (child) {
-                    e.removeChild(child);
-                    child = e.lastElementChild;
-                }
-            });
-        })
-    </script>
-
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
 </body>
 
 </html>
