@@ -9,35 +9,54 @@ class TranksaksiController extends Controller
 {
     public function showDataTrx()
     {
-        // SELECT t.id, t.metode, t.nama, t.no_hp, m.nama as menu, m.harga, d.qty, sum(d.sub_total) as total
-        // FROM transaksi as t
-        // INNER JOIN detail_transaksi as d ON d.transaksi_id = t.id
-        // INNER JOIN menu as m ON d.menu_id = m.id
-        // group by d.transaksi_id;
-        
-        $allTrans = DB::table('transaksi AS t')
+        //just sum of menu ordered
+        $transaction = DB::table('transaksi AS t')
         ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
         ->join('menu AS m', 'd.menu_id', '=', 'm.id')
-        ->select('t.id', 't.metode', 't.nama', 't.no_hp', 'm.nama as menu', 'm.harga','d.qty', DB::raw('SUM(d.sub_total) AS total'))
-        ->groupBy('d.transaksi_id')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), 'm.harga', DB::raw('SUM(d.qty) AS qty'), 't.nominal')
+        ->groupBy('t.id')
+        //->orderBy('t.id', 'desc') //use later
+        ->get();
+
+        //qty of each menu ordered
+        $detailTransaction = DB::table('transaksi AS t')
+        ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
+        ->join('menu AS m', 'd.menu_id', '=', 'm.id')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', 'm.nama as menu', 'm.harga','d.qty', 't.nominal')
+        ->groupBy('d.id')
+        //->orderBy('t.id', 'desc') //use later
         ->get();
 
         //dd($allTrans);
         //TODO check level to decide which view
-        return view('owner/Laporan', ['transaksi' => $allTrans]);
+        return view('owner/Laporan', ['transaksi' => $transaction]);
     }
 
     public function cashierTrx()
     {
         //just temporary fun, change later
-        $allTrans = DB::table('transaksi AS t')
+        //just sum of menu ordered
+        $transaction = DB::table('transaksi AS t')
         ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
         ->join('menu AS m', 'd.menu_id', '=', 'm.id')
-        ->select('t.id', 't.metode', 't.nama', 't.no_hp', 'm.nama as menu', 'm.harga','d.qty', DB::raw('SUM(d.sub_total) AS total'))
-        ->groupBy('d.transaksi_id')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), 'm.harga', DB::raw('SUM(d.qty) AS qty'), 't.nominal')
+        ->groupBy('t.id')
+        //->orderBy('t.id', 'desc') //use later
         ->get();
 
-        return view('cashier/Transaction', ['transaksi' => $allTrans]);
+        //qty of each menu ordered
+        $detailTransaction = DB::table('transaksi AS t')
+        ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
+        ->join('menu AS m', 'd.menu_id', '=', 'm.id')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', 'm.nama as menu', 'm.harga','d.qty', 't.nominal')
+        ->groupBy('d.id')
+        //->orderBy('t.id', 'desc') //use later
+        ->get();
+
+        //dd($allTrans);
+        //TODO check level to decide which view
+        //dd($transaction);
+        return view('cashier/Transaction', ['transaksi' => $transaction]);
     }
 
     public function showDataMenu()

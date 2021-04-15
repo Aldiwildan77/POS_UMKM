@@ -5,14 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
-
-        <!-- grafik -->
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('assets3/bootstrap/css/bootstrap.min.css')}}" />
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('assets3/font-awesome/css/font-awesome.min.css')}}" />
 
         <script type="text/javascript" src="{{URL::asset('assets3/js/jquery-1.10.2.min.js')}}"></script>
         <script type="text/javascript" src="{{URL::asset('assets3/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -20,6 +14,9 @@
 
         <!-- chart req -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js" integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     </head>
   <body>
 		
@@ -49,7 +46,7 @@
                     <li class="active">
                         <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
                     </li>
                     <li>
@@ -95,40 +92,250 @@
 
         <!-- Bootstrap Charts - START -->
             
-            <div class="row table-responsive">
-                <canvas id="myChart" width="500" height="200"></canvas>
-            </div>
+        <div class="row table-responsive">
+            <canvas id="myChart" width="500" height="200"></canvas>
+        </div>
 
-            <div class="row">
-                <div class="card-body table-full-width table-responsive">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <th>Id</th>
-                            <th>Nama</th>
-                            <th>No HP</th>
-                            <th>Pembayaran</th>
-                            <th>Menu</th>
-                            <th>Harga</th>
-                            <th>QTY</th>
-                            <th>Total</th>
-                        </thead>
-                        <tbody>
-                            @foreach($transaksi as $t)
-                            <tr>
-                                <td>{{$t->id}}</td>
-                                <td>{{$t->nama}}</td>
-                                <td>{{$t->no_hp}}</td>
-                                <td>{{$t->metode}}</td>
-                                <td>{{$t->menu}}</td>
-                                <td>{{$t->harga}}</td>
-                                <td>{{$t->qty}}</td>
-                                <td>{{$t->total}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped"> 
+                    <thead>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>No HP</th>
+                        <th>Pembayaran</th>
+                        <th>Menu</th>
+                        <th>Harga</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        @foreach($transaksi as $t)
+                        <tr>
+                            <td>{{$t->id}}</td>
+                            <td>{{$t->nama}}</td>
+                            <td>{{$t->no_hp}}</td>
+                            <td>{{$t->metode}}</td>
+                            <td>{{$t->menu}}</td>
+                            <td>{{$t->harga}}</td>
+                            <td>{{$t->qty}}</td>
+                            <td>{{$t->nominal}}</td>
+                            <td><div style="background-color: green;width: max-content;"><span class="mx-1">Delivered</span></div>
+                            </td>
+                            <td class="dropdown show">
+                                <a class="fas fa-ellipsis-v" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#viewModal" href="#viewModal"
+                                        data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
+                                        data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                        View Detail</a>
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#editModal" href="#editModal"
+                                        data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
+                                        data-menu="{{$t->menu}}" data-price="{{$t->harga}}" data-qty="{{$t->qty}}" data-total="{{$t->nominal}}" data-eachqty="{{$t->qeach}}">
+                                        Edit Status</a>
+                                </div>
+                            </td>
+
+                            <!-- Modal view-->
+                            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="viewModalLabel">Transaction id {{$t->id}}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="namerec">Nama Pemesan</label>
+                                                    <input type="text" class="form-control" id="namerec" value="{{$t->nama}}" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phonerec">No hp</label>
+                                                    <input type="text" class="form-control" id="phonerec" value="{{$t->no_hp}}" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="addrrec">Alamat</label>
+                                                    <input type="text" class="form-control" id="addrrec" value="Malang" disabled>
+                                                </div>
+                                                <div class="form-group" id="menudetail">
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="payrec">Total</label>
+                                                    <input type="text" class="form-control" id="payrec" value="{{$t->nominal}}" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="statusrrec">Status</label>
+                                                    <input type="text" class="form-control" id="statusrrec" value="Delivered" disabled>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal edit-->
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">Transaction id xxx</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="namerecx">Nama Pemesan</label>
+                                                    <input type="text" class="form-control" id="namerecx" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phonerecx">No hp</label>
+                                                    <input type="text" class="form-control" id="phonerecx" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="addrrecx">Alamat</label>
+                                                    <input type="text" class="form-control" id="addrrecx" disabled>
+                                                </div>
+                                                <div class="form-group" id="menudetailx">
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="payrec">Total</label>
+                                                    <input type="text" class="form-control" id="payrec" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="statusrrec">Status</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                                        <label class="form-check-label" for="exampleRadios1">
+                                                            Proccessed
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                                        <label class="form-check-label" for="exampleRadios1">
+                                                            On the way
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                                        <label class="form-check-label" for="exampleRadios2">
+                                                            Delivered
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#viewModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id')// Extract info from data-* attributes 
+            var name = button.data('name') 
+            var phone = button.data('phone')
+            var pm = button.data('pm')
+            var menu = button.data('menu')  
+            var qtyeach = button.data('eachqty')
+            var price = button.data('price')
+            var qty = button.data('qty') // TODO use detail later
+            var total = button.data('total')
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            $('#viewModalLabel').val('Transaction id' + id)
+            $('#namerec').val(name)
+            $('#phonerec').val(phone)
+            $('#payrec').val(total)
+            var menuArr = menu.split(',');
+            var qtyArr = qtyeach.split(',');
+            for (var i = 0; i < menuArr.length; i++) {
+                $('#menudetail').append(`<div class="row">
+                                        <div class="col-6">
+                                            <label for="menurec">Menu</label>
+                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="qty">Jumlah</label>
+                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
+                                        </div>
+                                    </div>`)
+            }
+
+            });
+
+            $('#viewModal').on('hide.bs.modal', function (event) {
+                var e = document.getElementById("menudetail");
+                var child = e.lastElementChild; 
+                while (child) {
+                    e.removeChild(child);
+                    child = e.lastElementChild;
+                }
+            });
+
+            $('#editModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id')// Extract info from data-* attributes 
+            var name = button.data('name') 
+            var phone = button.data('phone')
+            var pm = button.data('pm')
+            var menu = button.data('menu')
+            var qtyeach = button.data('eachqty')
+            var price = button.data('price')
+            var qty = button.data('qty') // TODO use detail later
+            var total = button.data('total')
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            $('#editModalLabel').val('Transaction id' + id)
+            $('#namerecx').val(name)
+            $('#phonerecx').val(phone)
+            $('#payrecx').val(total)
+            var menuArr = menu.split(',');
+            var qtyArr = qtyeach.split(',');
+            for (var i = 0; i < menuArr.length; i++) {
+                $('#menudetailx').append(`<div class="row">
+                                        <div class="col-6">
+                                            <label for="menurec">Menu</label>
+                                            <input type="text" class="form-control" value="`+ menuArr[i]+`" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="qty">Jumlah</label>
+                                            <input type="text" class="form-control" value="`+ qtyArr[i]+`" disabled>
+                                        </div>
+                                    </div>`)
+            }
+            });
+
+            $('#editModal').on('hide.bs.modal', function (event) {
+                var e = document.getElementById("menudetailx");
+                var child = e.lastElementChild; 
+                while (child) {
+                    e.removeChild(child);
+                    child = e.lastElementChild;
+                }
+            });
+        })
+    </script>
 
             <script>
             var ctx = document.getElementById('myChart').getContext('2d');
