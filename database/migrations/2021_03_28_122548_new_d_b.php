@@ -45,6 +45,8 @@ class NewDB extends Migration
             $table->integer('nominal');
             $table->string('nama', 45);
             $table->string('no_hp', 45);
+            $table->string('alamat', 100)->nullable();
+            $table->enum('status', ['1','2','3'])->nullable(); // 1 delivered, 2 processed, 3 received
             $table->timestamps();
         });
 
@@ -52,8 +54,8 @@ class NewDB extends Migration
             $table->id();
             $table->string('nama', 45);
             $table->string('nohp', 45);
-            $table->string('email', 45);
-            $table->integer('gaji');
+            $table->string('email', 45)->nullable();
+            $table->integer('gaji')->nullable();
             $table->enum('status', ['1', '0']);
             $table->timestamps();
         });
@@ -93,8 +95,15 @@ class NewDB extends Migration
         Schema::create('stok_bahan', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 45);
-            $table->integer('jumlah');
+            $table->timestamps();
+        });
+
+        Schema::create('stok_bahan_detail', function (Blueprint $table) {
+            $table->id();
+            $table->integer('jumlah'); //satuan rupiah aja
             $table->date('tgl_beli');
+            $table->unsignedBigInteger('stok_bahan_id');
+            $table->foreign('stok_bahan_id')->references('id')->on('stok_bahan');
             $table->unsignedBigInteger('fraktur_id');
             $table->foreign('fraktur_id')->references('id')->on('fraktur');
             $table->timestamps();
@@ -112,10 +121,19 @@ class NewDB extends Migration
 
         Schema::create('stok_jadi', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 45);
             $table->string('jumlah', 45);
+            $table->date('tgl_produksi');
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menu');
+            $table->timestamps();
+        });
+
+        Schema::create('limiter', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('menu_id');
+            $table->foreign('menu_id')->references('id')->on('menu');
+            $table->string('jumlah', 45);
+            $table->enum('status', ['1', '0']); // 1 active, 0 warn non active
             $table->timestamps();
         });
     }

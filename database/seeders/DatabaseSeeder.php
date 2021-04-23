@@ -10,6 +10,7 @@ use App\Models\menu;
 use App\Models\operasional;
 use App\Models\resep;
 use App\Models\stok_bahan;
+use App\Models\stok_bahan_detail;
 use App\Models\stok_jadi;
 use App\Models\tranksaksi;
 use App\Models\User;
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         for ($i=0; $i < 5; $i++) { 
             fraktur::create([
-                'foto' => $faker->imageUrl(640, 480, 'food', true)
+                'foto' => $faker->imageUrl(360, 360, 'fraktur', true)
             ]);
         }
 
@@ -38,13 +39,12 @@ class DatabaseSeeder extends Seeder
                 'keterangan' => $faker->sentence(3),
                 'biaya' =>  $faker->randomNumber(5, true),
                 'tanggal' => $faker->dateTimeBetween('-1 week', '+1 week'),
-                'fraktur_id' => $i
+                'fraktur_id' => $faker->randomElement(['1', '2', '3','4','5'])
             ]);
         }
 
-        for ($i=1; $i < 10; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             laporan::create([
-                'id' => '2021'.$i,
                 'jenis' => $faker->word(),
                 'periode' =>  $faker->monthName(),
                 'pemasukan' => $faker->randomNumber(6, true),
@@ -56,14 +56,13 @@ class DatabaseSeeder extends Seeder
             menu::create([
                 'nama' => $faker->word(),
                 'harga' => $faker->randomNumber(5, true),
-                'foto' => $faker->imageUrl(640, 480, 'food', true),
+                'foto' => $faker->imageUrl(360, 360, 'food', true),
                 'status' => '1'
             ]);
         }
 
         for ($i=0; $i < 10; $i++) { 
             karyawan::create([
-                'id' => '2021'.$i,
                 'nama' => $faker->name(),
                 'nohp' => '08'.$faker->randomNumber(9, true),
                 'email' => $faker->email(),
@@ -74,10 +73,16 @@ class DatabaseSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) { 
             stok_bahan::create([
-                'nama' => $faker->word(),
-                'jumlah' => $faker->randomDigitNotNull(),
+                'nama' => $faker->word()
+            ]);
+        }
+
+        for ($i=0; $i < 10; $i++) { 
+            stok_bahan_detail::create([
+                'jumlah' => $faker->randomNumber(5, true),
                 'tgl_beli' => $faker->date(),
-                'fraktur_id' => $faker->randomDigitNotNull()
+                'stok_bahan_id' => $faker->randomDigit(),
+                'fraktur_id' => $faker->randomElement(['1', '2', '3','4','5'])
             ]);
         }
 
@@ -91,8 +96,8 @@ class DatabaseSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) { 
             stok_jadi::create([
-                'nama' => $faker->word(),
                 'jumlah' => $faker->randomDigitNotNull(),
+                'tgl_produksi' => $faker->date(),
                 'menu_id' => $faker->randomDigitNotNull()
             ]);
         }
@@ -103,7 +108,9 @@ class DatabaseSeeder extends Seeder
                 'metode' => $faker->randomElement(['cash', 'transfer', 'ovo', 'gopay']),
                 'nominal' => $faker->numerify('#####'),
                 'nama' => $faker->name(),
-                'no_hp' => '08'.$faker->numerify('#########').''
+                'no_hp' => '08'.$faker->numerify('#########').'',
+                'alamat' => $faker->streetAddress(),
+                'status' => $faker->randomElement(['1', '2', '3'])
             ]);
         }
 
@@ -123,7 +130,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'adminpass',
             'status' => '1',
             'level' => '1',
-            'karyawan_id' => '20210'
+            'karyawan_id' => '10'
         ]);
 
         User::create([
@@ -132,8 +139,10 @@ class DatabaseSeeder extends Seeder
             'password' => 'kasirpass',
             'status' => '1',
             'level' => '0',
-            'karyawan_id' => '20212'
+            'karyawan_id' => '2'
         ]);
+
+        
         
 
     }
