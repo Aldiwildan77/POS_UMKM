@@ -21,7 +21,6 @@ class MenuController extends Controller
     {
         $menu = new menu;
 
-        // dd("test data");
         $menu->nama = $request->name;
         $menu->harga = $request->price;
         $menu->foto = $request->photo;

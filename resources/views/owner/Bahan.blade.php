@@ -148,7 +148,6 @@
                     <th>No</th>
                     <th>Bahan</th>
                     <th>Jumlah</th>
-                    <th>Satuan</th>
                     <th>Status</th>
                     <th>Action</th>
                 </thead>
@@ -157,8 +156,7 @@
                     <tr>
                         <td>{{$s->id}}</td>
                         <td>{{$s->nama}}</td>
-                        <td>{{$s->jumlah}}</td>
-                        <td>Kg</td>
+                        <td>Rp. {{$s->jumlah}}</td>
                         <td>Safe Available</td>
                         <td><a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#editStock" data-name="{{$s->nama}}" data-qty="{{$s->jumlah}}">Edit</a>
                         
@@ -213,6 +211,31 @@
             <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
         </div>
 
+        <!-- Laporan belanja -->
+        <div class="card-body table-full-width table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th>No</th>
+                    <th>Bahan</th>
+                    <th>Jumlah</th>
+                    <th>Tanggal Pembelian</th>
+                </thead>
+                <tbody>
+                    @foreach($fullstock as $fs)
+                    <tr>
+                        <td>{{$fs->id}}</td>
+                        <td>{{$fs->nama}}</td>
+                        <td>Rp. {{$fs->jumlah}}</td>
+                        <td>{{$fs->tgl_beli}}</td>                    
+                    </tr>
+                    @endforeach
+                </tbody>
+              
+            </table>
+
+            <div class="mx-5">{{ $fullstock->links('vendor.pagination.bootstrap-4') }}</div> 
+            <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
+        </div>
       </div>
 		</div>
 

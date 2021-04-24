@@ -173,7 +173,7 @@
                       <td>{{$r->menu}}</td>
                       <td>{{$r->bahan}}</td>
                       <td>{{$r->jumlah}}</td>
-                      <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-name="{{$r->menu}}" data-qty="{{$r->jumlah}}">
+                      <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-name="{{$r->menu}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}">
                           Edit</a>
                       
                           <!-- Modal -->
@@ -193,27 +193,8 @@
                                     <label for="name">Nama Menu</label>
                                     <input type="text" class="form-control" id="namerec" disabled>
                                   </div>
-                                  <div class="form-group">
-                                    <label for="qty">Jumlah</label>
-                                    <input type="text" class="form-control" id="qtyrec">
-                                  </div>
                                   <div class="form-group" id="formBahan2">
-                                    <div class="row">
-                                      <div class="col-6">
-                                        <label for="ingredient">Select Material</label>
-                                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                            @foreach($bahan as $b)
-                                            <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
-                                            @endforeach
-                                          </div>
-                                        </select>
-                                      </div>
-                                      <div class="col-6">
-                                        <label for="qty">Jumlah</label>
-                                        <input type="text" class="form-control" id="qty" name="qty">
-                                      </div>
-                                    </div>
+
                                   </div>
                                   <div class="form-group align-self-end">
                                     <button type="button" id="btnmat2" class="btn btn-primary">Add Material</button>
@@ -244,11 +225,32 @@
         $('#editRecipe').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
+        var mat = button.data('mat')
         var qty = button.data('qty')// Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
-        $('#qtyrec').val(qty)
+        var matArr = mat.split(',')
+        var x = qty.toString()
+        var qtyArr = x.split(',')
+        for (var i = 0; i < matArr.length; i++) {
+          $('#formBahan2').append(`<div class="form-group">
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="ingredient">Select Material</label>
+                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                            <option class="dropdown-item" >`+ matArr[i]+`</option>
+                          </div>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label for="qty">Jumlah</label>
+                        <input type="text" class="form-control" id="qty" name="qty" value="`+ qtyArr[i] +`">
+                      </div>
+                    </div>
+                  </div>`)
+          }
         });
 
         $("#btnmat").click(function(){
@@ -292,6 +294,15 @@
                   </div>
                 </div>`);
         });
+
+        $('#editRecipe').on('hide.bs.modal', function (event) {
+        var e = document.getElementById("formBahan2");
+        var child = e.lastElementChild; 
+        while (child) {
+            e.removeChild(child);
+            child = e.lastElementChild;
+        }
+    });
 
       })
     </script>

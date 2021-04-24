@@ -171,7 +171,7 @@
                         <td>{{$a->nohp}}</td>
                         <td>{{$a->email}}</td>
                         <td>Rp {{$a->gaji}}</td>
-                        <td>Available</td>
+                        <td>Active</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
                               edit
                             </button>

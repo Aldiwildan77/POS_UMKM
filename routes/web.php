@@ -24,7 +24,7 @@ Route::get('/menuData', 'MenuController@showAll'); //home owner
 Route::post('/menuData', 'MenuController@addData');
 
 Route::get('/bahanData', 'StokBahanController@showAll');
-Route::post('/bahanData', 'StokBahanController@addData');
+// Route::post('/bahanData', 'StokBahanController@addData'); //handle input to detail
 
 Route::get('/karyawanData', 'KaryawanController@showAll');
 Route::post('/karyawanData', 'KaryawanController@addData');
@@ -33,7 +33,7 @@ Route::get('/operasionalData', 'OperasionalController@showAll');
 Route::post('/operasionalData', 'OperasionalController@addData');
 
 Route::get('/resepData', 'ResepController@showAll');
-Route::post('/resepData', 'ResepController@addData');
+// Route::post('/resepData', 'ResepController@addData'); //need to handle >1 material script
 
 Route::get('/stokData', 'StokJadiController@showAll');
 
