@@ -40,7 +40,7 @@ class StokJadiController extends Controller
         $stok = new stok_jadi;
         $stok->menu_id = $request->menu_id;
         $stok->jumlah = $request->qty;
-        $stok->tgl_produksi = $request->prodDate;
+        $stok->tgl_produksi = $request->date;
         $stok->save();
 
         return "new data input success";

@@ -202,6 +202,8 @@ displayCart();
 
 // // ordering modal
 $('#checkoutModal').on('show.bs.modal', function (event) {
+    //var button = $(event.relatedTarget) // Button that triggered the modal
+    //var name = button.data('name') 
     var cartArray = shoppingCart.listCart();
     for (var i = 0; i < cartArray.length; i++) {
         $('#menudetail').append(`<div class="row">
@@ -217,9 +219,24 @@ $('#checkoutModal').on('show.bs.modal', function (event) {
                                     <label for="qty">Sub total</label>
                                     <input type="text" class="form-control" value="`+ cartArray[i].total +`" disabled>
                                 </div>
-                            </div>`)
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="hidden" class="form-control" value="`+ cartArray[i].name+`" name="menuname`+i+`">
+                                </div>
+                                <div class="col-4">
+                                    <input type="hidden" class="form-control" value="`+ cartArray[i].count +`" name="menuqty`+i+`">
+                                </div>
+                                <div class="col-4">
+                                    <input type="hidden" class="form-control" value="`+ cartArray[i].total +`" name="menutotal`+i+`">
+                                </div>
+                            </div>
+                            `)
     }
     $('#payrec').val(shoppingCart.totalCart());
+    $('#paytotal').val(shoppingCart.totalCart());
+    $('#item').val(cartArray.length);
     });
 
     $('#checkoutModal').on('hide.bs.modal', function (event) {

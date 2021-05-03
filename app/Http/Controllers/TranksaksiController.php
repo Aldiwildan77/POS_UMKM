@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detailTransaksi;
+use App\Models\menu;
+use App\Models\tranksaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -106,7 +109,40 @@ class TranksaksiController extends Controller
 
         //dd($allMenu);
         return view('cashier/home', ['menu' => $allMenu]);
+    }
 
+    public function addData(Request $request)
+    {
+        $transaksi = new tranksaksi();
+
+        $transaksi->metode = $request->pm;
+        $transaksi->nominal = $request->total;
+        $transaksi->nama = $request->name;
+        $transaksi->no_hp = $request->phone;
+        $transaksi->alamat = $request->addr;
+        $transaksi->status = $request->status;
+
+        //dd($request->all());
+        //dd($request->$indexqty);
+        $transaksi->save();
+        $currentid = $transaksi->id;
+        $itemtotal = $request->itemtotal;
+
+        for ($i=0; $i < $itemtotal; $i++) { 
+            $detailTransaksi = new detailTransaksi();
+            $indexqty = "menuqty".$i;
+            $detailTransaksi->qty = $request->$indexqty;
+            $indextotal = "menutotal".$i;
+            $detailTransaksi->sub_total = $request->$indextotal;
+            $detailTransaksi->transaksi_id = $currentid;
+            $menuindex = "menuname".$i;
+            $namaMenu = $request->$menuindex;
+            $detailTransaksi->menu_id = menu::where('nama', $namaMenu)->value('id');
+
+            $detailTransaksi->save();
+        }
+
+        return "input data success";
     }
 
 }

@@ -175,7 +175,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form method="POST" action="">
+                            <form method="POST" action="/index">
                               @csrf
                                 <div class="form-group">
                                   <label for="name">Nama Pemesan</label>
@@ -195,44 +195,34 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="payrec">Total</label>
-                                    <input type="text" class="form-control total-cart" id="payrec" disabled>
+                                    <input type="text" class="form-control" id="payrec" disabled>
+                                    <input type="hidden" class="form-control" id="paytotal" name="total">
+                                    <input type="hidden" class="form-control" id="item" name="itemtotal">
                                 </div>
                                 <div class="form-group">
                                     <label for="paymethod">Select Payment Method</label>
-                                    <select class="form-control dropdown-toggle" id="paymethod" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="pay_id">
+                                    <select class="form-control dropdown-toggle" id="paymethod" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="pm">
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                                         <option class="dropdown-item" value="ovo">ovo</option>
-                                        <option class="dropdown-item" value="transfer">transfer bank</option>
+                                        <option class="dropdown-item" value="transfer">transfer</option>
                                         <option class="dropdown-item" value="cash">cash</option>
                                         </div>
                                     </select>
-                                    
                                 </div>
                                 <div class="form-group">
-                                    <label for="statusrrec">Status</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            Proccessed
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            On the way
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                            Delivered
-                                        </label>
-                                    </div>
+                                    <label for="status">Select Delivery Status</label>
+                                    <select class="form-control dropdown-toggle" id="status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="status">
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                        <option class="dropdown-item" value="1">Processed</option>
+                                        <option class="dropdown-item" value="2">On the way</option>
+                                        <option class="dropdown-item" value="3">Arrived</option>
+                                        </div>
+                                    </select>
                                 </div>
                             </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                <input type="submit" class="btn btn-primary" value="Save Changes">
+                                <input type="submit" class="btn btn-primary clear-cart" value="Save Changes">
                               </div>
                               </form>
                             </div>
@@ -243,7 +233,7 @@
             </div>
         </div>
     </div>
-     
+
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

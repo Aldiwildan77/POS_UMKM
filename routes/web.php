@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/index', 'TranksaksiController@showMenuCashier');//home kasir
+Route::post('/index', 'TranksaksiController@addData');//post new transaction //TODO input to transaction_detail
 
 Route::view('/home', 'customer/Index'); //home customer
 
@@ -29,7 +30,7 @@ Route::post('/menuData/{id}', 'MenuController@editData');
 Route::get('/bahanData', 'StokBahanController@showAll');
 Route::post('/bahanData', 'StokBahanController@newIngredient'); //new bahan
 Route::post('/bahanEdit', 'StokBahanController@editData'); //edit data belanja
-Route::post('/bahanNew', 'StokBahanController@newShop'); //new belanja 
+Route::post('/bahanNew', 'StokBahanController@newShop'); //new belanja
 
 Route::get('/karyawanData', 'KaryawanController@showAll');
 Route::post('/karyawanData', 'KaryawanController@addData');
@@ -39,7 +40,7 @@ Route::get('/operasionalData', 'OperasionalController@showAll');
 Route::post('/operasionalData', 'OperasionalController@addData');
 Route::post('/operasionalData/{id}', 'OperasionalController@editData');
 
-Route::get('/resepData', 'ResepController@showAll');
+Route::get('/resepData', 'ResepController@showAll'); //only show menu yang gaada di tbl resep
 // Route::post('/resepData', 'ResepController@addData'); //need to handle >1 material script
 
 Route::get('/stokData', 'StokJadiController@showAll');

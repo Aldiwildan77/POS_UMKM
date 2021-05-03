@@ -24,7 +24,7 @@ class ResepController extends Controller
         ->groupBy('m.id')
         ->paginate(10);
 
-        $menu = menu::all(); //TODO pilih yang aktif aja
+        $menu = menu::all(); //TODO pilih yang belum ada resep aja  ->whereNotIn('id', [1, 2, 3])
 
         $bahan = stok_bahan::all();
 
