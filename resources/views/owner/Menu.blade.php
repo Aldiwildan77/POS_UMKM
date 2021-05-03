@@ -170,7 +170,8 @@
                         <td>Rp {{$a->harga}}</td>
                          <td><img class="img-thumbnail" src="{{('$a->foto')}}"></td> <!-- TODO replace size later -->
                         <td>Available</td>
-                        <td><button id="menutype" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}">
+                        <td><button id="menutype" type="button" class="btn btn-primary" data-toggle="modal" 
+                        data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}" data-id="{{$a->id}}">
                             edit
                             </button>
 
@@ -186,18 +187,19 @@
                                   </div>
                                   <div class="modal-body">
 
-                                  <form>
+                                  <form method="POST" id="editForm">
+                                  @csrf
                                     <div class="form-group">
                                       <label for="namerec">Nama Menu</label>
-                                      <input type="text" class="form-control" id="namerec">
+                                      <input type="text" class="form-control" id="namerec" name="name">
                                     </div>
                                     <div class="form-group">
                                       <label for="pricerec">Harga</label>
-                                      <input type="text" class="form-control" id="pricerec">
+                                      <input type="text" class="form-control" id="pricerec" name="price">
                                     </div>
                                     <div class="form-group">
                                       <label for="photo">Foto</label>
-                                      <input type="file" class="form-control-file" id="photo">
+                                      <input type="file" class="form-control-file" id="photo" name="photo">
                                     </div>
                                     <div class="form-check">
                                       <input class="form-check-input" type="radio" name="statusrec" id="recavail" value="1" checked>
@@ -211,13 +213,14 @@
                                         Not Available
                                       </label>
                                     </div>
-                                  </form>
-
+                                  
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <input type="submit" class="btn btn-primary" value="Save changes">
                                   </div>
+
+                                  </form>
                                 </div>
                               </div>
                             </div>
@@ -234,15 +237,19 @@
 		</div>
 
     <script>
+
       $(document).ready(function(){
         $('#editMenu').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
-        var price = button.data('price')// Extract info from data-* attributes
+        var price = button.data('price')
+        var id = button.data('id')// Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
         $('#pricerec').val(price)
+
+        document.getElementById("editForm").action = "/menuData/"+id 
         });
       })
     </script>

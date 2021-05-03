@@ -302,7 +302,7 @@
             e.removeChild(child);
             child = e.lastElementChild;
         }
-    });
+        });
 
       })
     </script>

@@ -20,20 +20,28 @@ class MenuController extends Controller
     public function addData(Request $request)
     {
         $menu = new menu;
+        $menu->nama = $request->name;
+        $menu->harga = $request->price;
+        $menu->foto = $request->photo;
+        $menu->status = '1';
+        //$menu->save();
 
+        dd($request->name);
+
+        // TODO redirect add alert
+        return "new menu successfully created";
+    }
+
+    public function editData($id, Request $request)
+    {
+        $menu = menu::find($id);
         $menu->nama = $request->name;
         $menu->harga = $request->price;
         $menu->foto = $request->photo;
         $menu->status = '1';
         $menu->save();
 
-        // TODO redirect add alert
-        return "new menu successfully added";
-    }
-
-    public function editData($id, Request $request)
-    {
-        # code...
+        return "new menu successfully edited";
     }
 
 }

@@ -172,7 +172,8 @@
                         <td>{{$a->email}}</td>
                         <td>Rp {{$a->gaji}}</td>
                         <td>Active</td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" 
+                        data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
                               edit
                             </button>
 
@@ -188,7 +189,7 @@
                                   </div>
                                   <div class="modal-body">
 
-                                  <form method="POST" action="">
+                                  <form method="POST" id="editForm">
                                   @csrf
                                     <div class="form-group">
                                       <label for="name">Nama Karyawan</label>
@@ -247,12 +248,15 @@
         var phone = button.data('phone')
         var email = button.data('email')
         var salary = button.data('salary')
+        var id = button.data('id')
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
         $('#phonerec').val(phone)
         $('#emailrec').val(email)
         $('#salaryrec').val(salary)
+
+        document.getElementById("editForm").action = "/karyawanData/"+id; 
         });
     })
     </script>

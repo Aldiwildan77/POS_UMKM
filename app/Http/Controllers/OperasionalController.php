@@ -25,4 +25,16 @@ class OperasionalController extends Controller
 
         return "data saved";
     }
+
+    public function editData(Request $request, $id)
+    {
+        $operasional = operasional::find($id);
+        $operasional->keterangan = $request->desc;
+        $operasional->biaya = $request->price;
+        $operasional->tanggal = $request->date;
+        $operasional->fraktur_id = '4'; //think later
+        $operasional->save();
+
+        return "data edited";
+    }
 }

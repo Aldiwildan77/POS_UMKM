@@ -416,7 +416,20 @@ mark,
   border-radius: 1rem;
   max-width: 100%;
   width: 45px;
-  height: 45px; }    
+  height: 45px; }
+  
+.text-cart{
+  white-space: nowrap; 
+  width: 65px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+.price-cart{
+  white-space: nowrap; 
+  width: 100px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}    
 
 .figure {
   display: inline-block; }

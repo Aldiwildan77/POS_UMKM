@@ -100,7 +100,7 @@
           Add Data
         </button>
 
-        <!-- Modal -->
+        <!-- new bahan Modal -->
         <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="addStockLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -118,23 +118,9 @@
                   <label for="name">Nama</label>
                   <input type="text" class="form-control" id="name" name="name">
                 </div>
-                <div class="form-group">
-                  <label for="qty">Jumlah </label>
-                  <input type="text" class="form-control" id="qty" name="qty">
-                </div>
-                <div class="form-group">
-                  <label class="control-label" for="date">Date</label>
-                  <input class="form-control" id="date" name="date" placeholder="YYY/MM/DD" type="text"/>
-                </div>
-                <div class="form-group">
-                  <label for="photo">Fraktur</label>
-                  <input type="file" class="form-control-file" id="photo" name="photo">
-                </div>
-              
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                <input type="submit" class="btn btn-primary" value="Save changes">
+                <input type="submit" class="btn btn-primary" value="Save Data">
               </div>
 
               </form>
@@ -158,44 +144,46 @@
                         <td>{{$s->nama}}</td>
                         <td>Rp. {{$s->jumlah}}</td>
                         <td>Safe Available</td>
-                        <td><a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#editStock" data-name="{{$s->nama}}" data-qty="{{$s->jumlah}}">Edit</a>
+                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStockrt"
+                         data-name="{{$s->nama}}" data-id="{{$s->id}}">add Stock</a>
                         
                          <!-- Modal Edit-->
-                        <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
+                        <div class="modal fade" id="editStockrt" tabindex="-1" role="dialog" aria-labelledby="editStockrtLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="editStockLabel">Edit Stock</h5>
+                                <h5 class="modal-title" id="editStockrtLabel">Add Stock</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
                               <div class="modal-body">
 
-                              <form>
+                              <form method="POST" action="/bahanNew">
+                              @csrf
                                 <div class="form-group">
                                   <label for="namerec">Nama</label>
-                                  <input type="text" class="form-control" id="namerec" value="{{$s->nama}}">
+                                  <input type="text" class="form-control" id="nameadd" disabled>
+                                  <input type="hidden" class="form-control" id="idBahan" name="ingrId">
                                 </div>
                                 <div class="form-group">
                                   <label for="qtyrec">Jumlah </label>
-                                  <input type="text" class="form-control" id="qtyrec" value="{{$s->jumlah}}">
+                                  <input type="text" class="form-control" name="qty">
                                 </div>
                                 <div class="form-group">
                                   <label class="control-label" for="date">Date</label>
-                                  <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                                  <input class="form-control"  name="date" placeholder="YYYY/MM/DD" type="text"/>
                                 </div>
                                 <div class="form-group">
                                   <label for="photo">Fraktur</label>
                                   <input type="file" class="form-control-file" id="photo">
                                 </div>
-                              </form>
-
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
                               </div>
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -211,6 +199,7 @@
             <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
         </div>
 
+        <h4>Laporan Belanja</h4>
         <!-- Laporan belanja -->
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
@@ -219,6 +208,7 @@
                     <th>Bahan</th>
                     <th>Jumlah</th>
                     <th>Tanggal Pembelian</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach($fullstock as $fs)
@@ -226,7 +216,53 @@
                         <td>{{$fs->id}}</td>
                         <td>{{$fs->nama}}</td>
                         <td>Rp. {{$fs->jumlah}}</td>
-                        <td>{{$fs->tgl_beli}}</td>                    
+                        <td>{{$fs->tgl_beli}}</td> 
+                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" 
+                        data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-qty="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">Edit Data</a>
+                        
+                         <!-- Modal Edit-->
+                        <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="editStockLabel">Edit Data</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+
+                              <form method="POST" action="/bahanEdit">
+                                @csrf
+                                <div class="form-group">
+                                  <label for="namerec">Nama</label>
+                                  <input type="text" class="form-control" id="namerec" disabled>
+                                  <input type="hidden" class="form-control" id="idDetail" name="idDetail">
+                                  <input type="hidden" class="form-control" id="idIngr" name="idbahan">
+                                </div>
+                                <div class="form-group">
+                                  <label for="qtyrec">Jumlah </label>
+                                  <input type="text" class="form-control" id="qtyrec" name="qty">
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label" for="date">Date</label>
+                                  <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                  <label for="photo">Fraktur</label>
+                                  <input type="file" class="form-control-file" id="photo">
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      
+                        </td>                   
                     </tr>
                     @endforeach
                 </tbody>
@@ -244,17 +280,46 @@
         $('#editStock').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
-        var qty = button.data('qty')// Extract info from data-* attributes
+        var qty = button.data('qty')
+        var date = button.data('date')
+        var id = button.data('id')
+        var idIngr = button.data('idx')// Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
         $('#qtyrec').val(qty)
+        $('#daterec').val(date)
+        $('#idDetail').val(id)
+        $('#idIngr').val(idIngr)
+
         });
+
+        $('#editStockrt').on('show.bs.modal', function(event){
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var name = button.data('name')
+          var id = button.data('id') // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          $('#nameadd').val(name)
+          $('#idBahan').val(id)
+        });
+
+        var date_input=$('input[name="date"]'); //our date input has the id "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'yyyy/mm/dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        });
+
+        
     })
     </script>
 
     <script src="{{URL::asset('assets1/js/popper.js')}} "></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}} "></script>
     <script src="{{URL::asset('assets1/js/main.js')}} "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
   </body>
 </html>

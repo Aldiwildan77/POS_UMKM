@@ -91,4 +91,22 @@ class TranksaksiController extends Controller
         return view('owner/Top', ['menu' => $bestSellMenu]);
     }
 
+    public function showMenuCashier()
+    {
+        // SELECT m.id,m.nama, m.harga, m.foto,sum(j.jumlah) FROM menu m
+        // INNER JOIN stok_jadi_realtime j ON m.id = j.menu_id
+        // WHERE m.status = 1
+        // GROUP BY m.id;
+        $allMenu = DB::table('menu AS m')
+        ->join('stok_jadi_realtime AS j', 'm.id', '=', 'j.menu_id')
+        ->select('m.id','m.nama','m.harga', 'm.foto',DB::raw('sum(j.jumlah) AS qty'))
+        ->where('m.status', '=' ,'1')
+        ->groupBy('m.id')
+        ->get();
+
+        //dd($allMenu);
+        return view('cashier/home', ['menu' => $allMenu]);
+
+    }
+
 }

@@ -16,31 +16,40 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('/index', 'cashier/home'); //home kasir
+Route::get('/index', 'TranksaksiController@showMenuCashier');//home kasir
 
 Route::view('/home', 'customer/Index'); //home customer
 
-Route::get('/menuData', 'MenuController@showAll'); //home owner
+Route::view('/dashboard', 'owner/Report'); //home owner
+
+Route::get('/menuData', 'MenuController@showAll'); 
 Route::post('/menuData', 'MenuController@addData');
+Route::post('/menuData/{id}', 'MenuController@editData');
 
 Route::get('/bahanData', 'StokBahanController@showAll');
-// Route::post('/bahanData', 'StokBahanController@addData'); //handle input to detail
+Route::post('/bahanData', 'StokBahanController@newIngredient'); //new bahan
+Route::post('/bahanEdit', 'StokBahanController@editData'); //edit data belanja
+Route::post('/bahanNew', 'StokBahanController@newShop'); //new belanja 
 
 Route::get('/karyawanData', 'KaryawanController@showAll');
 Route::post('/karyawanData', 'KaryawanController@addData');
+Route::post('/karyawanData/{id}', 'KaryawanController@editData');
 
 Route::get('/operasionalData', 'OperasionalController@showAll');
 Route::post('/operasionalData', 'OperasionalController@addData');
+Route::post('/operasionalData/{id}', 'OperasionalController@editData');
 
 Route::get('/resepData', 'ResepController@showAll');
 // Route::post('/resepData', 'ResepController@addData'); //need to handle >1 material script
 
 Route::get('/stokData', 'StokJadiController@showAll');
+Route::post('/stokData', 'StokJadiController@addData');
+Route::post('/stokData/{id}', 'StokJadiController@editData');
 
 Route::get('/laporanData', 'TranksaksiController@showDataTrx');
 
 Route::get('/topData', 'TranksaksiController@showDataMenu');
 
-Route::view('/laporanAll', 'owner/Report');
+Route::view('/laporanAll', 'owner/Finance');
 
 Route::get('/transaksi', 'TranksaksiController@cashierTrx');

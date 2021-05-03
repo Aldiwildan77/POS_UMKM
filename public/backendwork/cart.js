@@ -153,14 +153,14 @@ function displayCart() {
     var output = "";
     for (var i in cartArray) {
         output += "<tr>" +
-        "<td><img class='img-cart' src=' "+ cartArray[i].photo +"' alt='Generic placeholder image'></td>" +
-            "<td>" + cartArray[i].name + "</td>" +
+        "<td><img class='img-cart' src=' "+ cartArray[i].photo +"' alt='image'></td>" +
+            "<td><div class='text-cart'>"+ cartArray[i].name + "</div></td>" +
             "<td><div class='input-group'><button style='width: 10px;' class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>" +
-            "<input type='text' style='width: 35px;' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
+            "<input type='text' style='width: 45px;' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
             "<button style='width: 10px;' class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>" +
-            "<td><button style='width: 10px;' class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>" +
+            "<td><button style='width: 12px;' class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>" +
             " = " +
-            "<td>Rp." + cartArray[i].total + "</td>" +
+            "<td><div class='price-cart'>Rp." + cartArray[i].total + "</div></td>" +
             "</tr>";
     }
     $('.show-cart').html(output);
@@ -199,3 +199,35 @@ $('.show-cart').on("change", ".item-count", function(event) {
 });
 
 displayCart();
+
+// // ordering modal
+$('#checkoutModal').on('show.bs.modal', function (event) {
+    var cartArray = shoppingCart.listCart();
+    for (var i = 0; i < cartArray.length; i++) {
+        $('#menudetail').append(`<div class="row">
+                                <div class="col-4">
+                                    <label for="menurec">Menu</label>
+                                    <input type="text" class="form-control" value="`+ cartArray[i].name+`" disabled>
+                                </div>
+                                <div class="col-4">
+                                    <label for="qty">Qty</label>
+                                    <input type="text" class="form-control" value="`+ cartArray[i].count +`" disabled>
+                                </div>
+                                <div class="col-4">
+                                    <label for="qty">Sub total</label>
+                                    <input type="text" class="form-control" value="`+ cartArray[i].total +`" disabled>
+                                </div>
+                            </div>`)
+    }
+    $('#payrec').val(shoppingCart.totalCart());
+    });
+
+    $('#checkoutModal').on('hide.bs.modal', function (event) {
+        var e = document.getElementById("menudetail");
+        var child = e.lastElementChild; 
+        while (child) {
+            e.removeChild(child);
+            child = e.lastElementChild;
+        }
+    });
+

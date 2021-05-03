@@ -40,7 +40,7 @@
             <li>
               <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
             </li>
-            <li>
+            <li class="active">
               <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
 	          </li>
             <li>
@@ -74,7 +74,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Profile</a>
@@ -89,51 +89,6 @@
 
         <h2 class="mb-4" style="text-align:center">Laporan Keuangan</h2>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <div class="card">
-                <i class="fas fa-chart-line fa-10x"></i>
-                <div class="card-body justify-content-center">
-                  <h5 class="card-title">Pemasukan</h5>
-                  <p class="card-text">Rp 50.000.000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-3">
-              <div class="card">
-                <i class="fas fa-chart-bar fa-10x"></i>
-                <div class="card-body">
-                  <h5 class="card-title">Pengeluaran</h5>
-                  <p class="card-text">Rp 50.000.000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-3">
-              <div class="card">
-                <i class="fas fa-chart-area fa-10x"></i>
-                <div class="card-body">
-                  <h5 class="card-title">Laba Bersih</h5>
-                  <p class="card-text">Rp 50.000.000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-3">
-              <div class="card">
-                <i class="fas fa-chart-pie fa-10x"></i>
-                <div class="card-body">
-                  <h5 class="card-title">Tanggungan</h5>
-                  <p class="card-text">Rp 50.000.000</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
         <br><br>
         <div class="mb-4">
           <h4 class="text-start">Laba Bersih</h4>
@@ -146,19 +101,40 @@
               <canvas id="myChart" width="500" height="150"></canvas>
           </div>
         </div>
-        
+
+
         <br><br>
+        <div class="mb-4">
+          <h4 class="text-start">Laporan Keuangan</h4>
+          <h5 class="text-muted" style="text-align:right">Januari 2021</h5>
+        </div>
+
+        <br>
         <div class="container">
           <div class="row">
-            <div class="col-6 table-responsive">
-              <h5>Jumlah order</h5>
-              <canvas id="myChart1" width="500" height="150"></canvas>
+            <div class="col-6">
+              <p>Pemasukan</p>
+              <p>Biaya Produksi</p>
+              <p>Operasional</p>
+              <p class="m-2">Gaji Karyawan</p>
+              <p class="m-2">Listrik</p>
+              <p class="m-2">Air</p>
+              <p class="m-2">LPG</p>
+              <h6 class="fw-bold">Laba Total</h6>
             </div>
-            <div class="col-6 table-responsive">
-              <h5>Jumlah produksi</h5>
-              <canvas id="myChart2" width="500" height="150"></canvas>
+            <div class="col-6"> 
+              <p>Rp. 30.000.000</p>
+              <p>Rp. 20.000.000</p>
+              <p>-</p>
+              <p class="m-2">Rp. 550.000</p>
+              <p class="m-2">Rp. 50.000</p>
+              <p class="m-2">Rp. 50.000</p>
+              <p class="m-2">Rp. 50.000</p>
+              <h6 class="fw-bold">Rp. 5.000.000</h6>
             </div>
+          
           </div>
+          
         </div>
 
         <!-- <div class="card-body table-full-width table-responsive">
@@ -193,72 +169,6 @@
             datasets: [{
                 label: 'Rp Pemasukan',
                 data: [110000, 124000, 113000, 129500, 105000, 109200],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-            }
-        }
-    });
-
-    var ctr = document.getElementById('myChart1').getContext('2d');
-    var myChart = new Chart(ctr, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [{
-                label: 'jumlah order',
-                data: [150, 130, 140, 125, 145, 127],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-            }
-        }
-    });
-
-    var ct = document.getElementById('myChart2').getContext('2d');
-    var myChart = new Chart(ct, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [{
-                label: 'jumlah produksi',
-                data: [150, 130, 140, 125, 145, 127],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

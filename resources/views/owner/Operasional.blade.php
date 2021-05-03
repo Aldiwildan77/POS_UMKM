@@ -160,7 +160,8 @@
                         <td>Rp. {{$o->biaya}}</td>
                         <td>{{$o->tanggal}}</td>
                         <td>{{$o->fraktur_id}}</td>
-                        <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#editOperational" data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
+                        <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#editOperational" 
+                        data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
                             edit</button>
                         
                         <!-- Modal -->
@@ -175,7 +176,7 @@
                               </div>
                               <div class="modal-body">
 
-                              <form method="POST" action="">
+                              <form method="POST" id="editForm">
                               @csrf
                                 <div class="form-group">
                                   <label for="desc">Keterangan</label>
@@ -220,12 +221,15 @@
       var button = $(event.relatedTarget) // Button that triggered the modal
       var desc = button.data('desc') 
       var price = button.data('price')
-      var date = button.data('date')// Extract info from data-* attributes
+      var date = button.data('date')
+      var id = button.data('id')// Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       $('#descrec').val(desc)
       $('#pricerec').val(price)
       $('#daterec').val(date)
+
+      document.getElementById("editForm").action = "/operasionalData/"+id 
       });
 
       var date_input=$('input[id="date"]'); //our date input has the id "date"
