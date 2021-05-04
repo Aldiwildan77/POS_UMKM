@@ -124,11 +124,16 @@
                     </div>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label for="porsi">Porsi</label>
+                  <input type="text" class="form-control" name="porsi">
+                  <input type="hidden" class="form-control" name="matkind" id="matkind">
+                </div>
                 <div class="form-group" id="formBahan">
                   <div class="row">
                     <div class="col-6">
                       <label for="ingredient">Select Material</label>
-                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id1">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                           @foreach($bahan as $b)
                           <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
@@ -138,7 +143,7 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty">
+                      <input type="text" class="form-control" id="qty" name="qty1">
                     </div>
                   </div>
                 </div>
@@ -162,6 +167,7 @@
               <thead>
                   <th>Menu</th>
                   <th>Menu</th>
+                  <th>Porsi</th>
                   <th>Nama Bahan</th>
                   <th>Jumlah</th>
                   <th>Action</th>
@@ -171,10 +177,11 @@
                   <tr>
                       <td>{{$r->id}}</td>
                       <td>{{$r->menu}}</td>
+                      <td>{{$r->porsi}}</td>
                       <td>{{$r->bahan}}</td>
                       <td>{{$r->jumlah}}</td>
-                      <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-name="{{$r->menu}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}">
-                          Edit</a>
+                      <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-idmenu="{{$r->id}}" data-idresep="{{$r->idresep}}"
+                      data-name="{{$r->menu}}" data-idmat="{{$r->idbahan}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}" data-porsi="{{$r->porsi}}">Edit</a>
                       
                           <!-- Modal -->
                           <div class="modal fade" id="editRecipe" tabindex="-1" role="dialog" aria-labelledby="editRecipeLabel" aria-hidden="true">
@@ -188,10 +195,16 @@
                                 </div>
                                 <div class="modal-body">
 
-                                <form>
+                                <form method="POST" id="editform" action="">
+                                @csrf
                                   <div class="form-group">
                                     <label for="name">Nama Menu</label>
                                     <input type="text" class="form-control" id="namerec" disabled>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="porsi">Porsi</label>
+                                    <input type="text" class="form-control" id="porsirec" name="porsi">
+                                    <input type="hidden" class="form-control" name="matkind" id="matkind">
                                   </div>
                                   <div class="form-group" id="formBahan2">
 
@@ -200,12 +213,12 @@
                                     <button type="button" id="btnmat2" class="btn btn-primary">Add Material</button>
                                   </div>
                                 </form>
-
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                  <input type="submit" class="btn btn-primary" value="Save changes">
                                 </div>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -224,13 +237,22 @@
       $(document).ready(function(){
         $('#editRecipe').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var name = button.data('name') 
+        var name = button.data('name')
+        var idmenu = button.data('idmenu')  
         var mat = button.data('mat')
-        var qty = button.data('qty')// Extract info from data-* attributes
+        var idmat = button.data('idmat')
+        var idrecipe = button.data('idresep')
+        var qty = button.data('qty')
+        var porsi = button.data('porsi')// Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
+        $('#porsirec').val(porsi)
         var matArr = mat.split(',')
+        var idmatstr = idmat.toString()
+        var idmatArr = idmatstr.split(',')
+        var idrecipestr = idrecipe.toString()
+        var idrecipeArr = idrecipestr.split(',')
         var x = qty.toString()
         var qtyArr = x.split(',')
         for (var i = 0; i < matArr.length; i++) {
@@ -238,27 +260,30 @@
                     <div class="row">
                       <div class="col-6">
                         <label for="ingredient">Select Material</label>
-                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                            <option class="dropdown-item" >`+ matArr[i]+`</option>
+                            <option class="dropdown-item" value="`+idmatArr[i]+`">`+ matArr[i]+`</option>
                           </div>
                         </select>
                       </div>
                       <div class="col-6">
                         <label for="qty">Jumlah</label>
-                        <input type="text" class="form-control" id="qty" name="qty" value="`+ qtyArr[i] +`">
+                        <input type="text" class="form-control" id="qty" name="qty`+i+`" value="`+ qtyArr[i] +`">
+                        <input type="hidden" class="form-control" name="recipeid`+i+`" value="`+ idrecipeArr[i] +`">
                       </div>
                     </div>
                   </div>`)
           }
+          //$("#editForm").action = "/resepData/2"
         });
 
+        var x = 2;
         $("#btnmat").click(function(){
           $("#formBahan").append(`<div class="form-group">
                   <div class="row">
                     <div class="col-6">
                       <label for="ingredient">Select Material</label>
-                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+x+`">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                           @foreach($bahan as $b)
                           <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
@@ -268,18 +293,22 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty">
+                      <input type="text" class="form-control" id="qty" name="qty`+x+`">
                     </div>
                   </div>
                 </div>`);
+        $('#matkind').val(x);            
+          x++;      
         });
 
+
+        var y = 0;
         $("#btnmat2").click(function(){
           $("#formBahan2").append(`<div class="form-group">
                   <div class="row">
                     <div class="col-6">
                       <label for="ingredient">Select Material</label>
-                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id">
+                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+y+`">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                           @foreach($bahan as $b)
                           <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
@@ -289,10 +318,12 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty">
+                      <input type="text" class="form-control" id="qty" name="qty`+y+`">
                     </div>
                   </div>
                 </div>`);
+          $('#matkind').val(y);         
+          y++;      
         });
 
         $('#editRecipe').on('hide.bs.modal', function (event) {
@@ -302,6 +333,11 @@
             e.removeChild(child);
             child = e.lastElementChild;
         }
+        y=0;
+        });
+
+        $('#addRecipe').on('hide.bs.modal', function (event) {
+        x=0;
         });
 
       })

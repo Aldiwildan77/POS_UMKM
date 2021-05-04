@@ -20,14 +20,20 @@ class ResepController extends Controller
         $resep = DB::table('resep AS r')
         ->join('stok_bahan AS b', 'r.stok_bahan_id', '=', 'b.id')
         ->join('menu AS m', 'r.menu_id', '=', 'm.id')
-        ->select('r.id', 'm.nama as menu',DB::raw('group_concat(b.nama) as bahan'),DB::raw('group_concat(r.jumlah) as jumlah'))
+        ->select('m.id','m.porsi','m.nama as menu',DB::raw('group_concat(b.nama) as bahan'), 
+        DB::raw('group_concat(b.id) as idbahan') ,DB::raw('group_concat(r.jumlah) as jumlah'),DB::raw('group_concat(r.id) as idresep'))
         ->groupBy('m.id')
         ->paginate(10);
 
-        $menu = menu::all(); //TODO pilih yang belum ada resep aja  ->whereNotIn('id', [1, 2, 3])
+        $menu = DB::table('menu AS m')
+        ->leftJoin('resep AS r', 'r.menu_id', '=','m.id')
+        ->where('r.stok_bahan_id', '=', null)
+        ->select('m.id','m.nama')
+        ->get();
 
         $bahan = stok_bahan::all();
 
+        //dd($menu);
         return view('owner/Resep', ['resep' => $resep])
         ->with(['menu' => $menu])
         ->with(['bahan' => $bahan]);
@@ -35,14 +41,30 @@ class ResepController extends Controller
 
     public function addData(Request $request)
     {
-        $resep = new resep;
+        //dd($request->all());
+        $menu = menu::find($request->menu_id);
+        $menu->porsi = $request->porsi;
+        $menu->save();
+        $currentid = $menu->id;
+        
+        $qtybahan = $request->matkind;
 
-        $resep->stok_bahan_id = $request->ingredient_id;
-        $resep->jumlah = $request->qty;
-        $resep->menu_id = $request->menu_id;
-        $resep->save();
+        for ($i=1; $i <=$qtybahan; $i++) { 
+            $resep = new resep;
+            $bahan = "ingredient_id".$i;
+            $resep->stok_bahan_id = $request->$bahan;
+            $qty = "qty".$i;
+            $resep->jumlah = $request->$qty;
+            $resep->menu_id = $currentid;
+            $resep->save();
+        }
 
         return "input data success";
+    }
+
+    public function editData(Request $request, $id)
+    {
+        dd($request->all());
     }
 
 }

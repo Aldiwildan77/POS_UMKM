@@ -24,9 +24,9 @@ class MenuController extends Controller
         $menu->harga = $request->price;
         $menu->foto = $request->photo;
         $menu->status = '1';
-        //$menu->save();
+        $menu->save();
 
-        dd($request->name);
+        //dd($request->name);
 
         // TODO redirect add alert
         return "new menu successfully created";
