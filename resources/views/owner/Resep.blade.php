@@ -89,16 +89,23 @@
         <h2 class="mb-4" style="text-align:center" >Data Menu & Resep</h2>
 
         <!-- search bar -->
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+        <div class="row">
+          <div class="col-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">
+              Add Data
+            </button>
+          </div>
+          <div class="col-4">
+          </div>
+          <div class="col-4">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
           </div>
         </div>
-    
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">
-          Add Data
-        </button>
 
         <!-- Modal -->
         <div class="modal fade" id="addRecipe" tabindex="-1" role="dialog" aria-labelledby="addRecipeLabel" aria-hidden="true">

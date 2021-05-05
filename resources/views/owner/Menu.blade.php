@@ -89,18 +89,39 @@
 
         <h2 class="mb-4" style="text-align:center" >Kelola Menu</h2>
 
-        <!-- search bar -->
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+        <!-- search filter sort bar -->
+        <div class="row mb-3">
+          <div class="col-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMenu">
+            Add Data
+            </button>
+          </div>
+          <div class="col-3"> 
+          </div>
+          <div class="col-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="row">
+              <div class="col-4 ml-0">
+                <label for="sort">Sort By</label>
+              </div>
+              <div class="col-8">
+              <select class="form-control dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                  <option class="dropdown-item" value="1">Price</option>
+                  <option class="dropdown-item" value="2">Alphabetically</option>
+                </div>
+              </select>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMenu">
-          Add Data
-        </button>
 
         <!-- Modal -->
         <div class="modal fade" id="addMenu" tabindex="-1" role="dialog" aria-labelledby="addMenuLabel" aria-hidden="true">
