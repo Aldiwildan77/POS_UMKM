@@ -91,7 +91,7 @@
         <!-- search bar -->
          <div class="row">
           <div class="col-4">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStock">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaff">
               Add Data
             </button>
           </div>
@@ -123,19 +123,19 @@
               @csrf
                 <div class="form-group">
                   <label for="name">Nama Karyawan</label>
-                  <input type="text" class="form-control" id="name" name="name">
+                  <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                   <label for="phone">No Hp</label>
-                  <input type="text" class="form-control" id="phone" name="phone">
+                  <input type="text" class="form-control" id="phone" name="phone" required>
                 </div>
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email" name="email">
+                  <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                   <label for="salary">Gaji</label>
-                  <input type="text" class="form-control" id="salary" name="salary">
+                  <input type="text" class="form-control" id="salary" name="salary" required>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -200,19 +200,19 @@
                                   @csrf
                                     <div class="form-group">
                                       <label for="name">Nama Karyawan</label>
-                                      <input type="text" class="form-control" id="namerec" name="name">
+                                      <input type="text" class="form-control" id="namerec" name="name" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="phone">No Hp</label>
-                                      <input type="text" class="form-control" id="phonerec" name="phone">
+                                      <input type="text" class="form-control" id="phonerec" name="phone" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="email">Email</label>
-                                      <input type="email" class="form-control" id="emailrec" name="email">
+                                      <input type="email" class="form-control" id="emailrec" name="email" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="salary">Gaji</label>
-                                      <input type="text" class="form-control" id="salaryrec" name="salary">
+                                      <input type="text" class="form-control" id="salaryrec" name="salary" required>
                                     </div>
                                     <div class="form-check">
                                       <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>

@@ -152,11 +152,11 @@
                 </div>
                 <div class="form-group">
                   <label for="qty">Quantity</label>
-                  <input type="text" class="form-control" id="qty" name="qty">
+                  <input type="text" class="form-control" id="qty" name="qty" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="date">Production Date</label>
-                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text"/>
+                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="statusRadios" id="avail" value="1" checked>
@@ -276,11 +276,11 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="qty">Quantity</label>
-                                      <input type="text" class="form-control" id="qtyrec" name="qty">
+                                      <input type="text" class="form-control" id="qtyrec" name="qty" required>
                                     </div>
                                     <div class="form-group">
                                       <label class="control-label" for="date">Production Date</label>
-                                      <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text"/>
+                                      <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                                     </div>
                                     <div class="form-check">
                                       <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>

@@ -133,7 +133,7 @@
                 </div>
                 <div class="form-group">
                   <label for="porsi">Porsi</label>
-                  <input type="text" class="form-control" name="porsi">
+                  <input type="text" class="form-control" name="porsi" required>
                   <input type="hidden" class="form-control" name="matkind" id="matkind">
                 </div>
                 <div class="form-group" id="formBahan">
@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty1">
+                      <input type="text" class="form-control" id="qty" name="qty1" required>
                     </div>
                   </div>
                 </div>
@@ -210,7 +210,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="porsi">Porsi</label>
-                                    <input type="text" class="form-control" id="porsirec" name="porsi">
+                                    <input type="text" class="form-control" id="porsirec" name="porsi" required>
                                     <input type="hidden" class="form-control" name="matkind" id="matkind">
                                   </div>
                                   <div class="form-group" id="formBahan2">
@@ -275,7 +275,7 @@
                       </div>
                       <div class="col-6">
                         <label for="qty">Jumlah</label>
-                        <input type="text" class="form-control" id="qty" name="qty`+i+`" value="`+ qtyArr[i] +`">
+                        <input type="text" class="form-control" id="qty" name="qty`+i+`" value="`+ qtyArr[i] +`" required>
                         <input type="hidden" class="form-control" name="recipeid`+i+`" value="`+ idrecipeArr[i] +`">
                       </div>
                     </div>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty`+x+`">
+                      <input type="text" class="form-control" id="qty" name="qty`+x+`" required>
                     </div>
                   </div>
                 </div>`);
@@ -325,7 +325,7 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty`+y+`">
+                      <input type="text" class="form-control" id="qty" name="qty`+y+`" required>
                     </div>
                   </div>
                 </div>`);

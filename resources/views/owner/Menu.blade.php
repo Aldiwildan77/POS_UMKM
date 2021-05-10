@@ -139,11 +139,11 @@
               @csrf
                 <div class="form-group">
                   <label for="name">Nama Menu</label>
-                  <input type="text" class="form-control" id="name" name="name">
+                  <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                   <label for="price">Harga</label>
-                  <input type="text" class="form-control" id="price" name="price">
+                  <input type="text" class="form-control" id="price" name="price" required>
                 </div>
                 <div class="form-group">
                   <label for="photo">Foto</label>
@@ -212,11 +212,11 @@
                                   @csrf
                                     <div class="form-group">
                                       <label for="namerec">Nama Menu</label>
-                                      <input type="text" class="form-control" id="namerec" name="name">
+                                      <input type="text" class="form-control" id="namerec" name="name" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="pricerec">Harga</label>
-                                      <input type="text" class="form-control" id="pricerec" name="price">
+                                      <input type="text" class="form-control" id="pricerec" name="price" required>
                                     </div>
                                     <div class="form-group">
                                       <label for="photo">Foto</label>

@@ -179,16 +179,16 @@
                               @csrf
                                 <div class="form-group">
                                   <label for="name">Nama Pemesan</label>
-                                  <input type="text" class="form-control" id="name" name="name">
+                                  <input type="text" class="form-control" id="name" name="name" required>
                                   <!-- <input type="hidden" class="form-control" id="idBahan" name="ingrId"> -->
                                 </div>
                                 <div class="form-group">
                                   <label for="addr">Alamat Pemesan </label>
-                                  <input type="text" class="form-control" name="addr">
+                                  <input type="text" class="form-control" name="addr" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">No hp</label>
-                                    <input type="text" class="form-control" id="phone" name="phone">
+                                    <input type="text" class="form-control" id="phone" name="phone" required>
                                 </div>
                                 <div class="form-group" id="menudetail">
                                     

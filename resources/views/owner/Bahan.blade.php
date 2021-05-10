@@ -86,18 +86,31 @@
           </div>
         </nav>
 
-        <h2 class="mb-4" style="text-align:center" >Data Bahan Baku</h2>
+        <h2 class="mb-4" style="text-align:center" >Laporan Belanja</h2>
 
-        <!-- search bar -->
-        <div class="row">
-          <div class="col-4">
+        <!-- search filter sort bar -->
+        <div class="row mb-3">
+          <div class="col-2">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStock">
               Add Data
             </button>
           </div>
-          <div class="col-4">
+          <div class="col-2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStockrt">
+              Add Stock
+            </button>
           </div>
-          <div class="col-4">
+          <div class="col-2">
+            <div class="row">
+              <!-- <div class="col-6 ml-0">
+                <label for="filter">Filter by Date</label>
+              </div> -->
+              <div class="">
+                <input class="form-control" id="date" name="date" placeholder="Filter by Date" type="text"/>
+              </div>
+            </div> 
+          </div>
+          <div class="col-3">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
               <div class="input-group-append">
@@ -105,9 +118,26 @@
               </div>
             </div>
           </div>
+          <div class="col-3">
+            <div class="row">
+              <div class="col-4 ml-0">
+                <label for="sort">Sort By</label>
+              </div>
+              <div class="col-8">
+              <select class="form-control dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                  <option class="dropdown-item" value="1">Price</option>
+                  <option class="dropdown-item" value="2">Date</option>
+                  <option class="dropdown-item" value="3">Alphabetically</option>
+                </div>
+              </select>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- new bahan Modal -->
+
+        <!-- new ingredients Modal -->
         <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="addStockLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -123,7 +153,7 @@
               @csrf
                 <div class="form-group">
                   <label for="name">Nama</label>
-                  <input type="text" class="form-control" id="name" name="name">
+                  <input type="text" class="form-control" id="name" name="name" required>
                 </div>
               </div>
               <div class="modal-footer">
@@ -134,86 +164,78 @@
             </div>
           </div>
         </div>
-        
-        <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <th>No</th>
-                    <th>Bahan</th>
-                    <th>Jumlah</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    @foreach($stok as $s)
-                    <tr>
-                        <td>{{$s->id}}</td>
-                        <td>{{$s->nama}}</td>
-                        <td>Rp. {{$s->jumlah}}</td>
-                        <td>Safe Available</td>
-                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStockrt"
-                         data-name="{{$s->nama}}" data-id="{{$s->id}}">add Stock</a>
-                        
-                         <!-- Modal Edit-->
-                        <div class="modal fade" id="editStockrt" tabindex="-1" role="dialog" aria-labelledby="editStockrtLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="editStockrtLabel">Add Stock</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
 
-                              <form method="POST" action="/bahanNew">
-                              @csrf
-                                <div class="form-group">
-                                  <label for="namerec">Nama</label>
-                                  <input type="text" class="form-control" id="nameadd" disabled>
-                                  <input type="hidden" class="form-control" id="idBahan" name="ingrId">
-                                </div>
-                                <div class="form-group">
-                                  <label for="qtyrec">Jumlah </label>
-                                  <input type="text" class="form-control" name="qty">
-                                </div>
-                                <div class="form-group">
-                                  <label class="control-label" for="date">Date</label>
-                                  <input class="form-control"  name="date" placeholder="YYYY/MM/DD" type="text"/>
-                                </div>
-                                <div class="form-group">
-                                  <label for="photo">Fraktur</label>
-                                  <input type="file" class="form-control-file" id="photo">
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                <input type="submit" class="btn btn-primary" value="Save Changes">
-                              </div>
-                              </form>
-                            </div>
-                          </div>
+        <!-- modal add stock -->
+        <div class="modal fade" id="editStockrt" tabindex="-1" role="dialog" aria-labelledby="editStockrtLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editStockrtLabel">Add Stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form method="POST" action="/bahanNew">
+              @csrf
+                <div class="form-group">
+                  <label for="mat">Select Ingredient</label>
+                  <select class="form-control dropdown-toggle" id="mat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingrId">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      @foreach($bahan as $b)
+                      <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
+                      @endforeach
+                    </div>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="price">Nominal </label>
+                  <input type="text" class="form-control" name="price" required>
+                </div>
+                <div class="form-group">
+                  <label for="qty">Jumlah </label>
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="text" class="form-control" id="qty" name="qty" required>
+                    </div>
+                    <div class="col-6">
+                      <select class="form-control dropdown-toggle" id="unit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="unit">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                          <option class="dropdown-item" value="1">gram</option>
+                          <option class="dropdown-item" value="2">mililiter</option>
                         </div>
-                      
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-              
-            </table>
-
-            <div class="mx-5">{{ $stok->links('vendor.pagination.bootstrap-4') }}</div> 
-            <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
+                    </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="date">Date</label>
+                  <input class="form-control"  name="date" placeholder="YYYY/MM/DD" type="text" required/>
+                </div>
+                <div class="form-group">
+                  <label for="photo">Fraktur</label>
+                  <input type="file" class="form-control-file" id="photo">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+              </div>
+              </form>
+            </div>
+          </div>
         </div>
 
-        <h4>Laporan Belanja</h4>
         <!-- Laporan belanja -->
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                     <th>No</th>
                     <th>Bahan</th>
+                    <th>Nominal</th>
                     <th>Jumlah</th>
+                    <th>Satuan</th>
                     <th>Tanggal Pembelian</th>
                     <th>Action</th>
                 </thead>
@@ -223,9 +245,15 @@
                         <td>{{$fs->id}}</td>
                         <td>{{$fs->nama}}</td>
                         <td>Rp. {{$fs->jumlah}}</td>
+                        <td>{{$fs->qty}}</td>
+                        @if ($fs->qty_satuan == 1)
+                        <td>gram</td>
+                        @elseif ($fs->qty_satuan == 2)
+                        <td>mililiter</td>
+                        @endif
                         <td>{{$fs->tgl_beli}}</td> 
-                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" 
-                        data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-qty="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">Edit Data</a>
+                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" data-qty="{{$fs->qty_satuan}}"
+                        data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-nominal="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">Edit Data</a>
                         
                          <!-- Modal Edit-->
                         <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
@@ -248,12 +276,28 @@
                                   <input type="hidden" class="form-control" id="idIngr" name="idbahan">
                                 </div>
                                 <div class="form-group">
+                                  <label for="nominalrec">Nominal </label>
+                                  <input type="text" class="form-control" id="nominalrec" name="nominal" required>
+                                </div>
+                                <div class="form-group">
                                   <label for="qtyrec">Jumlah </label>
-                                  <input type="text" class="form-control" id="qtyrec" name="qty">
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <input type="text" class="form-control" id="qtyrec" name="qty" required>
+                                    </div>
+                                    <div class="col-6">
+                                      <select class="form-control dropdown-toggle" id="unit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="unit">
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                          <option class="dropdown-item" value="1">gram</option>
+                                          <option class="dropdown-item" value="2">mililiter</option>
+                                        </div>
+                                    </select>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="control-label" for="date">Date</label>
-                                  <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text"/>
+                                  <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                                 </div>
                                 <div class="form-group">
                                   <label for="photo">Fraktur</label>
@@ -276,8 +320,7 @@
               
             </table>
 
-            <div class="mx-5">{{ $fullstock->links('vendor.pagination.bootstrap-4') }}</div> 
-            <!-- {{-- {{ $stok->links()}} --}} idk how to cutom size -->
+            <div class="mx-5">{{ $fullstock->links('vendor.pagination.bootstrap-4') }}</div> <!-- idk how to cutom size -->
         </div>
       </div>
 		</div>
@@ -287,6 +330,7 @@
         $('#editStock').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
+        var nominal = button.data('nominal')
         var qty = button.data('qty')
         var date = button.data('date')
         var id = button.data('id')
@@ -294,21 +338,12 @@
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
+        $('#nominalrec').val(nominal)
         $('#qtyrec').val(qty)
         $('#daterec').val(date)
         $('#idDetail').val(id)
         $('#idIngr').val(idIngr)
 
-        });
-
-        $('#editStockrt').on('show.bs.modal', function(event){
-          var button = $(event.relatedTarget) // Button that triggered the modal
-          var name = button.data('name')
-          var id = button.data('id') // Extract info from data-* attributes
-          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-          $('#nameadd').val(name)
-          $('#idBahan').val(id)
         });
 
         var date_input=$('input[name="date"]'); //our date input has the id "date"

@@ -11,26 +11,20 @@ class StokBahanController extends Controller
 {
     public function showAll()
     {
-        // SELECT b.id, b.nama, sum(d.jumlah) as jumlah FROM stok_bahan b
-        // INNER JOIN stok_bahan_detail d ON b.id = d.stok_bahan_id
-        // GROUP by b.id
-        $newStock = DB::table('stok_bahan AS b')
-            ->join('stok_bahan_detail AS d', 'b.id', '=', 'd.stok_bahan_id')
-            ->select('b.id', 'b.nama', DB::raw('sum(d.jumlah) as jumlah'))
-            ->groupBy('b.id')
-            ->paginate(10);
+        $ingredients = stok_bahan::all();
 
         // SELECT b.id, b.nama, d.tgl_beli, d.jumlah FROM stok_bahan b
         // INNER JOIN stok_bahan_detail d ON b.id = d.stok_bahan_id
         // order by b.id
         $fullStock = DB::table('stok_bahan AS b')
             ->join('stok_bahan_detail AS d', 'b.id', '=', 'd.stok_bahan_id')
-            ->select('d.id','b.id as idBahan', 'b.nama', 'd.tgl_beli', 'd.jumlah')
+            ->select('d.id','b.id as idBahan', 'b.nama', 'd.tgl_beli', 'd.jumlah','d.qty', 'd.qty_satuan')
             ->orderBy('b.id')
             ->paginate(10);
             //->get();
 
-        return view('owner/Bahan', ['stok' => $newStock])
+        //dd($fullStock);   
+        return view('owner/Bahan', ['bahan' => $ingredients])
         ->with(['fullstock' => $fullStock]);
     }
 
@@ -46,11 +40,14 @@ class StokBahanController extends Controller
 
     public function editData(Request $request)
     {
+        //dd($request->all());
         $id = $request->idDetail;
         $stokDetail = stok_bahan_detail::find($id);
 
         $stokDetail->stok_bahan_id = $request->idbahan;
-        $stokDetail->jumlah = $request->qty;
+        $stokDetail->qty = $request->qty;
+        $stokDetail->qty_satuan = $request->unit;
+        $stokDetail->jumlah = $request->nominal;
         $stokDetail->tgl_beli = $request->date;
         $stokDetail->fraktur_id = 4; //handle later
         $stokDetail->save();
@@ -61,10 +58,13 @@ class StokBahanController extends Controller
     public function newShop(Request $request)
     {
         # code...ingrId
+        //dd($request->all());
         $stokDetail = new stok_bahan_detail;
         
         $stokDetail->stok_bahan_id = $request->ingrId;
-        $stokDetail->jumlah = $request->qty;
+        $stokDetail->qty = $request->qty;
+        $stokDetail->qty_satuan = $request->unit;
+        $stokDetail->jumlah = $request->price;
         $stokDetail->tgl_beli = $request->date;
         $stokDetail->fraktur_id = 4; //handle later
         $stokDetail->save();
