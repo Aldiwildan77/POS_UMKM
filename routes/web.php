@@ -42,7 +42,7 @@ Route::post('/operasionalData/{id}', 'OperasionalController@editData');
 
 Route::get('/resepData', 'ResepController@showAll');
 Route::post('/resepData', 'ResepController@addData'); 
-// Route::post('/resepData/{id}', 'ResepController@editData'); // under construct
+Route::post('/resepData/{id}', 'ResepController@editData'); // issue, edit current recipe nambah data baru not edited
 
 Route::get('/stokData', 'StokJadiController@showAll');
 Route::post('/stokData', 'StokJadiController@addData');

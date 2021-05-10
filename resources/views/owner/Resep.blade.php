@@ -132,7 +132,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="porsi">Porsi</label>
+                  <label for="portion">Porsi</label>
                   <input type="text" class="form-control" name="porsi" required>
                   <input type="hidden" class="form-control" name="matkind" id="matkind">
                 </div>
@@ -202,16 +202,17 @@
                                 </div>
                                 <div class="modal-body">
 
-                                <form method="POST" id="editform" action="">
+                                <form method="POST" id="formedit">
                                 @csrf
                                   <div class="form-group">
                                     <label for="name">Nama Menu</label>
-                                    <input type="text" class="form-control" id="namerec" disabled>
+                                    <input type="text" class="form-control" name="menu" id="namerec" disabled>
+                                    <input type="hidden" class="form-control" name="menuid" id="menuid" >
                                   </div>
                                   <div class="form-group">
-                                    <label for="porsi">Porsi</label>
+                                    <label for="portion">Porsi</label>
                                     <input type="text" class="form-control" id="porsirec" name="porsi" required>
-                                    <input type="hidden" class="form-control" name="matkind" id="matkind">
+                                    <input type="hidden" class="form-control" name="matkind" id="matkind2">
                                   </div>
                                   <div class="form-group" id="formBahan2">
 
@@ -219,13 +220,13 @@
                                   <div class="form-group align-self-end">
                                     <button type="button" id="btnmat2" class="btn btn-primary">Add Material</button>
                                   </div>
-                                </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                  <input type="submit" class="btn btn-primary" value="Save changes">
-                                </div>
-                                </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <input type="submit" class="btn btn-primary" value="Save changes">
+                                  </div>
+
+                                  </form>
                               </div>
                             </div>
                           </div>
@@ -242,10 +243,11 @@
 
     <script>
       $(document).ready(function(){
+        var z = 0;
         $('#editRecipe').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name')
-        var idmenu = button.data('idmenu')  
+        var idmenu = button.data('idmenu')
         var mat = button.data('mat')
         var idmat = button.data('idmat')
         var idrecipe = button.data('idresep')
@@ -255,12 +257,15 @@
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         $('#namerec').val(name)
         $('#porsirec').val(porsi)
+        $('#menuid').val(idmenu)
+        $('#formedit').attr('action','/resepData/'+idmenu);     
         var matArr = mat.split(',')
         var idmatstr = idmat.toString()
         var idmatArr = idmatstr.split(',')
         var idrecipestr = idrecipe.toString()
         var idrecipeArr = idrecipestr.split(',')
         var x = qty.toString()
+        z = matArr.length;
         var qtyArr = x.split(',')
         for (var i = 0; i < matArr.length; i++) {
           $('#formBahan2').append(`<div class="form-group">
@@ -269,7 +274,7 @@
                         <label for="ingredient">Select Material</label>
                         <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                            <option class="dropdown-item" value="`+idmatArr[i]+`">`+ matArr[i]+`</option>
+                            <option class="dropdown-item" name="matid"`+i+` value="`+idmatArr[i]+`">`+ matArr[i]+`</option>
                           </div>
                         </select>
                       </div>
@@ -281,8 +286,8 @@
                     </div>
                   </div>`)
           }
-          //$("#editForm").action = "/resepData/2"
-        });
+          $('#matkind2').val(matArr.length)     
+        }); 
 
         var x = 2;
         $("#btnmat").click(function(){
@@ -308,14 +313,12 @@
           x++;      
         });
 
-
-        var y = 0;
         $("#btnmat2").click(function(){
           $("#formBahan2").append(`<div class="form-group">
                   <div class="row">
                     <div class="col-6">
                       <label for="ingredient">Select Material</label>
-                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+y+`">
+                      <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+z+`">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                           @foreach($bahan as $b)
                           <option class="dropdown-item" value="{{$b->id}}">{{$b->nama}}</option>
@@ -325,12 +328,13 @@
                     </div>
                     <div class="col-6">
                       <label for="qty">Jumlah</label>
-                      <input type="text" class="form-control" id="qty" name="qty`+y+`" required>
+                      <input type="text" class="form-control" id="qty" name="qty`+z+`" required>
+                      <input type="hidden" class="form-control" name="recipeid`+z+`" value="0">
                     </div>
                   </div>
                 </div>`);
-          $('#matkind').val(y);         
-          y++;      
+                z++;   
+          $('#matkind2').val(z);
         });
 
         $('#editRecipe').on('hide.bs.modal', function (event) {

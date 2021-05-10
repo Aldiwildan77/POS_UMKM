@@ -336,7 +336,7 @@
           $('#namerec').val(name)
           $('#qtyrec').val(qty)
           $('#daterec').val(date)
-          document.getElementById("editForm").action = "/stokData/"+id 
+          $('#editForm').attr('action','/stokData/'+id);
         });
 
         $('#detailStock').on('show.bs.modal', function (event) {

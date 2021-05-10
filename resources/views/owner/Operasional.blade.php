@@ -148,15 +148,15 @@
               @csrf
                 <div class="form-group">
                   <label for="desc">Keterangan</label>
-                  <input type="text" class="form-control" id="desc" name="desc">
+                  <input type="text" class="form-control" id="desc" name="desc" required>
                 </div>
                 <div class="form-group">
                   <label for="price">Biaya</label>
-                  <input type="text" class="form-control" id="price" name="price">
+                  <input type="text" class="form-control" id="price" name="price" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="date">Date</label>
-                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text"/>
+                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                 </div>
                 <div class="form-group">
                   <label for="photo">Fraktur</label>
@@ -211,15 +211,15 @@
                               @csrf
                                 <div class="form-group">
                                   <label for="desc">Keterangan</label>
-                                  <input type="text" class="form-control" id="descrec" name="desc">
+                                  <input type="text" class="form-control" id="descrec" name="desc" required>
                                 </div>
                                 <div class="form-group">
                                   <label for="price">Biaya</label>
-                                  <input type="text" class="form-control" id="pricerec" name="price">
+                                  <input type="text" class="form-control" id="pricerec" name="price" required>
                                 </div>
                                 <div class="form-group">
                                   <label class="control-label" for="date">Date</label>
-                                  <input class="form-control" id="date" name="daterec" placeholder="YYYY/MM/DD" type="text"/>
+                                  <input class="form-control" id="daterec" name="date" type="text" required/>
                                 </div>
                                 <div class="form-group">
                                   <label for="photo">Fraktur</label>
@@ -263,7 +263,7 @@
       document.getElementById("editForm").action = "/operasionalData/"+id 
       });
 
-      var date_input=$('input[id="date"]'); //our date input has the id "date"
+      var date_input=$('input[name="date"]'); //our date input has the id "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
       date_input.datepicker({
           format: 'yyyy/mm/dd',
