@@ -200,7 +200,7 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="editOperationalLabel">Edit data operasional</h5>
+                                <h5 class="modal-title" id="editOperationalLabel">Edit data operasional <span id="idoperasional"></span></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -259,8 +259,9 @@
       $('#descrec').val(desc)
       $('#pricerec').val(price)
       $('#daterec').val(date)
-
-      document.getElementById("editForm").action = "/operasionalData/"+id 
+      $('#idoperasional').text(id)
+        console.log(id)
+      $('#editForm').attr('action','/operasionalData/'+id)
       });
 
       var date_input=$('input[name="date"]'); //our date input has the id "date"
