@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\detailTransaksi;
+use App\Models\stok_jadi_realtime;
 use App\Models\menu;
 use App\Models\tranksaksi;
 use Illuminate\Http\Request;
@@ -103,7 +104,8 @@ class TranksaksiController extends Controller
         $allMenu = DB::table('menu AS m')
         ->join('stok_jadi_realtime AS j', 'm.id', '=', 'j.menu_id')
         ->select('m.id','m.nama','m.harga', 'm.foto',DB::raw('sum(j.jumlah) AS qty'))
-        ->where('m.status', '=' ,'1')
+        //->where('m.status', '=' ,'1')
+        ->where('j.jumlah', '>' ,'0')
         ->groupBy('m.id')
         ->get();
 
@@ -123,26 +125,56 @@ class TranksaksiController extends Controller
         $transaksi->status = $request->status;
 
         //dd($request->all());
-        //dd($request->$indexqty);
         $transaksi->save();
         $currentid = $transaksi->id;
         $itemtotal = $request->itemtotal;
 
         for ($i=0; $i < $itemtotal; $i++) { 
             $detailTransaksi = new detailTransaksi();
+            
             $indexqty = "menuqty".$i;
-            $detailTransaksi->qty = $request->$indexqty;
+            $qtyorder = $request->$indexqty;
+            $detailTransaksi->qty = $qtyorder;
             $indextotal = "menutotal".$i;
             $detailTransaksi->sub_total = $request->$indextotal;
             $detailTransaksi->transaksi_id = $currentid;
-            $menuindex = "menuname".$i;
-            $namaMenu = $request->$menuindex;
-            $detailTransaksi->menu_id = menu::where('nama', $namaMenu)->value('id');
-
+            $idmenuindex = "idmenu".$i;
+            $idmenu = $request->$idmenuindex;
+            $detailTransaksi->menu_id = $idmenu;
+            
+            // gotta check fifo
+            $stok_jadi_realtime = DB::table('stok_jadi_realtime')
+            ->select('*')
+            ->where('jumlah', '>','0')
+            ->where('menu_id', '=', $idmenu)
+            ->orderBy('menu_id', 'asc') 
+            ->orderBy('tgl_produksi', 'asc') //use later
+            ->get();
+            $laststok = $stok_jadi_realtime[0]->jumlah;
+            if ($laststok <  $qtyorder) {
+                $left = $qtyorder - $laststok;
+                foreach ($stok_jadi_realtime as $stok){
+                    $stok_changed = stok_jadi_realtime::find($stok->id);
+                    if ($left > 0) {
+                        $currentstock = $stok->jumlah;
+                        $stok_changed->jumlah = $currentstock-$left;
+                        $left = $left - $currentstock;
+                    }
+                    else {
+                        $stok_changed->jumlah = 0;
+                    }
+                    $stok_changed->save();
+                }
+            }
+            else {
+                $stok_changed = stok_jadi_realtime::find($stok_jadi_realtime[0]->id);
+                $stok_changed->jumlah = $laststok-$qtyorder;
+                $stok_changed->save();
+            }
+            //$stok_changed->save();
             $detailTransaksi->save();
         }
 
         return "input data success";
     }
-
 }

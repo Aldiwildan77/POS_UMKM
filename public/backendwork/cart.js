@@ -1,11 +1,12 @@
 var shoppingCart = (function() {
     cart = []; //private
 
-    function Item(name, price, count, photo) {
+    function Item(name, price, count, photo, id) {
         this.name = name;
         this.price = price;
         this.count = count;
         this.photo = photo;
+        this.id = id;
     }
 
     // Save cart
@@ -25,7 +26,7 @@ var shoppingCart = (function() {
     var obj = {}; //public
 
     // Add to cart
-    obj.addItemToCart = function(name, price, count, photo) {
+    obj.addItemToCart = function(name, price, count, photo,id) {
         for (var item in cart) {
             if (cart[item].name === name) {
                 cart[item].count++;
@@ -33,7 +34,7 @@ var shoppingCart = (function() {
                 return;
             }
         }
-        var item = new Item(name, price, count, photo);
+        var item = new Item(name, price, count, photo, id);
         cart.push(item);
         saveCart();
     }
@@ -137,7 +138,8 @@ $('.add-to-cart').click(function(event) {
     var name = $(this).data('name');
     var photo = $(this).data('photo');
     var price = Number($(this).data('price'));
-    shoppingCart.addItemToCart(name, price, 1, photo);
+    var id = Number($(this).data('id'));
+    shoppingCart.addItemToCart(name, price, 1, photo,id);
     displayCart();
 });
 
@@ -153,7 +155,7 @@ function displayCart() {
     var output = "";
     for (var i in cartArray) {
         output += "<tr>" +
-        "<td><img class='img-cart' src=' "+ cartArray[i].photo +"' alt='image'></td>" +
+        "<td><img class='img-cart' src=' "+ cartArray[i].photo +"' alt='img'></td>" +
             "<td><div class='text-cart'>"+ cartArray[i].name + "</div></td>" +
             "<td><div class='input-group'><button style='width: 10px;' class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>" +
             "<input type='text' style='width: 45px;' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
@@ -230,6 +232,7 @@ $('#checkoutModal').on('show.bs.modal', function (event) {
                                 </div>
                                 <div class="col-4">
                                     <input type="hidden" class="form-control" value="`+ cartArray[i].total +`" name="menutotal`+i+`">
+                                    <input type="hidden" class="form-control" value="`+ cartArray[i].id +`" name="idmenu`+i+`">
                                 </div>
                             </div>
                             `)

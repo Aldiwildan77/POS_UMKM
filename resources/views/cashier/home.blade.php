@@ -97,7 +97,7 @@
                     <!-- loop menu start here -->
                     @foreach($menu as $m)
                     <div class="col-4 my-3">
-                        <a href="" data-name="{{$m->nama}}" data-price="{{$m->harga}}" data-photo="{{$m->foto}}" class="add-to-cart">
+                        <a href="" data-name="{{$m->nama}}" data-price="{{$m->harga}}" data-photo="{{$m->foto}}" data-id="{{$m->id}}" class="add-to-cart">
                             <div class="card">
                                 <div class="media">
                                     <div class="media-body p-1">
