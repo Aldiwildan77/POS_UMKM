@@ -177,6 +177,7 @@
                   <th>Porsi</th>
                   <th>Nama Bahan</th>
                   <th>Jumlah</th>
+                  <th>HPP</th>
                   <th>Action</th>
               </thead>
               <tbody>
@@ -187,6 +188,7 @@
                       <td>{{$r->porsi}}</td>
                       <td>{{$r->bahan}}</td>
                       <td>{{$r->jumlah}}</td>
+                      <td>{{$r->hpp}}</td>
                       <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-idmenu="{{$r->id}}" data-idresep="{{$r->idresep}}"
                       data-name="{{$r->menu}}" data-idmat="{{$r->idbahan}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}" data-porsi="{{$r->porsi}}">Edit</a>
                       

@@ -101,14 +101,46 @@
               <canvas id="myChart" width="500" height="150"></canvas>
           </div>
         </div>
-
+        <br><br>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <label for="monthfilter">select month</label>
+              <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                  <option class="dropdown-item" >January</option>
+                  <option class="dropdown-item" >February</option>
+                  <option class="dropdown-item" >March</option>
+                  <option class="dropdown-item" >April</option>
+                  <option class="dropdown-item" >May</option>
+                  <option class="dropdown-item" >June</option>
+                  <option class="dropdown-item" >July</option>
+                  <option class="dropdown-item" >August</option>
+                  <option class="dropdown-item" >September</option>
+                  <option class="dropdown-item" >October</option>
+                  <option class="dropdown-item" >November</option>
+                  <option class="dropdown-item" >December</option>
+                </div>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="yearfilter">insert year</label>
+              <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year">
+              <br>
+              <button type="button" class="btn btn-primary d-flex justify-content-end" id="filter">
+                Apply Filter
+              </button>
+            </div>
+          </div>
+        </div>
 
         <br><br>
         <div class="mb-4">
           <h4 class="text-start">Laporan Keuangan</h4>
-          <h5 class="text-muted" style="text-align:right">Januari 2021</h5>
+          <h5 class="text-muted" style="text-align:right"><span id="myselected"></span></h5>
         </div>
-
+        
         <br>
         <div class="container">
           <div class="row">
@@ -123,14 +155,14 @@
               <h6 class="fw-bold">Laba Total</h6>
             </div>
             <div class="col-6"> 
-              <p>Rp. 30.000.000</p>
-              <p>Rp. 20.000.000</p>
-              <p>-</p>
-              <p class="m-2">Rp. 550.000</p>
-              <p class="m-2">Rp. 50.000</p>
-              <p class="m-2">Rp. 50.000</p>
-              <p class="m-2">Rp. 50.000</p>
-              <h6 class="fw-bold">Rp. 5.000.000</h6>
+              <p>Rp. {{$income}}</p>
+              <p>Rp. {{$production}}</p>
+              <p>Rp. {{$operational}}</p>
+              <p class="m-2">Rp. -</p>
+              <p class="m-2">Rp. -</p>
+              <p class="m-2">Rp. -</p>
+              <p class="m-2">Rp. -</p>
+              <h6 class="fw-bold">Rp. {{$laba}}</h6>
             </div>
           
           </div>
@@ -159,6 +191,16 @@
         </div> -->
       </div>
 		</div>
+
+    <script>
+      $(document).ready(function(){
+        $('#filter').on('click', function(event){
+          var year = $('#yearfilter').val()
+          var month = $('#monthfilter').val()
+          $('#myselected').text(month+'  '+year);
+        });
+      });
+    </script>
 
     <script>
     var ctx = document.getElementById('myChart').getContext('2d');

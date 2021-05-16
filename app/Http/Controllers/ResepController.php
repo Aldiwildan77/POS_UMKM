@@ -20,7 +20,7 @@ class ResepController extends Controller
         $resep = DB::table('resep AS r')
         ->join('stok_bahan AS b', 'r.stok_bahan_id', '=', 'b.id')
         ->join('menu AS m', 'r.menu_id', '=', 'm.id')
-        ->select('m.id','m.porsi','m.nama as menu',DB::raw('group_concat(b.nama) as bahan'), 
+        ->select('m.id','m.porsi','m.nama as menu',DB::raw('group_concat(b.nama) as bahan'), DB::raw('(sum(r.jumlah)/m.porsi) as hpp'),
         DB::raw('group_concat(b.id) as idbahan') ,DB::raw('group_concat(r.jumlah) as jumlah'),DB::raw('group_concat(r.id) as idresep'))
         ->groupBy('m.id')
         ->paginate(10);
