@@ -55,5 +55,3 @@ Route::get('/topData', 'TranksaksiController@showDataMenu');
 Route::get('/transaksi', 'TranksaksiController@cashierTrx');
 
 Route::get('/laporanAll', 'LaporanController@financeCount');
-
-Route::view('test', 'cashier/search');
