@@ -99,7 +99,7 @@
           </div>
           <div class="col-4">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+              <input type="text" class="form-control" placeholder="Search" id="searchInput" aria-label="Search" aria-describedby="button-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
               </div>
@@ -160,7 +160,7 @@
         </div>
         
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped" id="mainTable">
                 <thead>
                     <th>Id</th>
                     <th>Nama</th>
@@ -270,5 +270,6 @@
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
   </body>
 </html>
