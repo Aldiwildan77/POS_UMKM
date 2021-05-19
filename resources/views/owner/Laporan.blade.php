@@ -91,22 +91,30 @@
         <div class="search-container">
 
         <!-- Bootstrap Charts - START -->
-            
+        
         <div class="row table-responsive">
             <canvas id="myChart" width="500" height="200"></canvas>
         </div>
 
+        <br><br>
+        <div class="input-group mb-3 mx-4">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="card-body table-full-width table-responsive">
-                <table class="table table-hover table-striped"> 
+                <table class="table table-hover table-striped" id="mainTable"> 
                     <thead>
-                        <th>Id</th>
-                        <th>Nama</th>
+                        <th style="cursor:pointer">Id<span><i class="fas fa-sort"></i></span></th>
+                        <th style="cursor:pointer">Nama<span><i class="fas fa-sort"></i></span></th>
                         <th>No HP</th>
                         <th>Pembayaran</th>
-                        <th>Menu</th>
-                        <th>QTY</th>
-                        <th>Total</th>
+                        <th style="cursor:pointer">Menu<span><i class="fas fa-sort"></i></span></th>
+                        <th style="cursor:pointer">QTY<span><i class="fas fa-sort"></i></span></th>
+                        <th style="cursor:pointer">Total<span><i class="fas fa-sort"></i></span></th>
                         <th>Status</th>
                     </thead>
                     <tbody>
@@ -290,5 +298,14 @@
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
 
     <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+    });
+    </script>
   </body>
 </html>

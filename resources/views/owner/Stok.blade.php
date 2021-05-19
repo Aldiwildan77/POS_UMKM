@@ -99,27 +99,11 @@
           </div>
           <div class="col-3"> 
           </div>
-          <div class="col-3">
+          <div class="col-6">
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-4 ml-0">
-                <label for="sort">Sort By</label>
-              </div>
-              <div class="col-8">
-              <select class="form-control dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <option class="dropdown-item" value="1">Quantity</option>
-                  <option class="dropdown-item" value="2">Production Date</option>
-                  <option class="dropdown-item" value="3">Alphabetically</option>
-                </div>
-              </select>
               </div>
             </div>
           </div>
@@ -184,9 +168,9 @@
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped" id="mainTable">
                 <thead>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Jumlah</th>
+                    <th style="cursor:pointer">ID<span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Nama<span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Jumlah<span><i class="fas fa-sort"></i></span></th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -316,6 +300,10 @@
       </div>
 		</div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script>
       $(document).ready(function(){
         $('#menu').on('change', function() {
@@ -392,6 +380,7 @@
             child = e.lastElementChild;
         }
         });
+        
 
         var date_input=$('input[name="date"]'); //our date input has the id "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -403,10 +392,18 @@
         });
       })
     </script>
-    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+    });
+    </script>
+   
   </body>
 </html>

@@ -54,16 +54,16 @@
 
     <div class="row">
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped" id="mainTable">
+            <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
-                    <th>Id</th>
-                    <th>Nama</th>
-                    <th>No HP</th>
-                    <th>Pembayaran</th>
-                    <th>Menu</th>
-                    <th>QTY</th>
-                    <th>Total</th>
-                    <th>Status</th>
+                    <th style="cursor:pointer">Id <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Nama <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">No HP <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Pembayaran <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">QTY <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Total <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Status <span><i class="fas fa-sort"></i></span></th>
                 </thead>
                 <tbody>
                     @foreach($transaksi as $t)
@@ -208,7 +208,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
     
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+    });
+    </script>
+
 </body>
 
 </html>

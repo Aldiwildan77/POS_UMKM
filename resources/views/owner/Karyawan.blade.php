@@ -160,13 +160,13 @@
         </div>
         
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped" id="mainTable">
+            <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
                     <th>Id</th>
-                    <th>Nama</th>
+                    <th style="cursor:pointer">Nama <span><i class="fas fa-sort"></i></span></th>
                     <th>No HP</th>
                     <th>Email</th>
-                    <th>Gaji</th>
+                    <th style="cursor:pointer">Gaji <span><i class="fas fa-sort"></i></span></th>
                     <th>Status</th>
                     <th>Action</th>
                 </thead>
@@ -271,5 +271,14 @@
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+        });
+    </script>
   </body>
 </html>

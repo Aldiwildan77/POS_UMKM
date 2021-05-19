@@ -110,27 +110,11 @@
               </div>
             </div> 
           </div>
-          <div class="col-3">
+          <div class="col-6">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Search" id="searchInput" aria-label="Search" aria-describedby="button-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-4 ml-0">
-                <label for="sort">Sort By</label>
-              </div>
-              <div class="col-8">
-              <select class="form-control dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <option class="dropdown-item" value="1">Price</option>
-                  <option class="dropdown-item" value="2">Date</option>
-                  <option class="dropdown-item" value="3">Alphabetically</option>
-                </div>
-              </select>
               </div>
             </div>
           </div>
@@ -229,14 +213,14 @@
 
         <!-- Laporan belanja -->
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped" id="mainTable">
+            <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
                     <th>No</th>
-                    <th>Bahan</th>
-                    <th>Nominal</th>
-                    <th>Jumlah</th>
+                    <th style="cursor:pointer">Bahan<span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Nominal<span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Jumlah<span><i class="fas fa-sort"></i></span></th>
                     <th>Satuan</th>
-                    <th>Tanggal Pembelian</th>
+                    <th style="cursor:pointer">Tanggal Pembelian<span><i class="fas fa-sort"></i></span></th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -325,8 +309,18 @@
       </div>
 		</div>
 
+    <script src="{{URL::asset('assets1/js/popper.js')}} "></script>
+    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}} "></script>
+    <script src="{{URL::asset('assets1/js/main.js')}} "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
     <script>
       $(document).ready(function(){
+        //$("#mainTable").tablesorter();
         $('#editStock').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
@@ -355,14 +349,9 @@
             autoclose: true,
         });
 
-        
+        $("#mainTable").tablesorter();
     })
     </script>
-
-    <script src="{{URL::asset('assets1/js/popper.js')}} "></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}} "></script>
-    <script src="{{URL::asset('assets1/js/main.js')}} "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
-    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    
   </body>
 </html>

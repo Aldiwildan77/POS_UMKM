@@ -98,26 +98,11 @@
           </div>
           <div class="col-3"> 
           </div>
-          <div class="col-3">
+          <div class="col-6">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+              <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-4 ml-0">
-                <label for="sort">Sort By</label>
-              </div>
-              <div class="col-8">
-              <select class="form-control dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <option class="dropdown-item" value="1">Price</option>
-                  <option class="dropdown-item" value="2">Alphabetically</option>
-                </div>
-              </select>
               </div>
             </div>
           </div>
@@ -174,11 +159,11 @@
         </div>
 
         <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
                     <th>No</th>
-                    <th>Menu</th>
-                    <th>Harga</th>
+                    <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Harga <span><i class="fas fa-sort"></i></span></th>
                     <th>Foto</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -278,5 +263,15 @@
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+        });
+    </script>
   </body>
 </html>

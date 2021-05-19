@@ -170,14 +170,14 @@
         </div>    
 
         <div class="card-body table-full-width table-responsive">
-          <table class="table table-hover table-striped" id="mainTable">
+          <table class="table table-hover table-striped tablesorter" id="mainTable">
               <thead>
-                  <th>Menu</th>
-                  <th>Menu</th>
-                  <th>Porsi</th>
-                  <th>Nama Bahan</th>
-                  <th>Jumlah</th>
-                  <th>HPP</th>
+                  <th style="cursor:pointer">Id <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Porsi <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Nama Bahan <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Jumlah <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">HPP <span><i class="fas fa-sort"></i></span></th>
                   <th>Action</th>
               </thead>
               <tbody>
@@ -242,6 +242,14 @@
         </div>
       </div>
 		</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
 
     <script>
       $(document).ready(function(){
@@ -353,11 +361,9 @@
         x=0;
         });
 
-      })
+        $("#mainTable").tablesorter();
+      });
     </script>
-    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
-    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+
   </body>
 </html>
