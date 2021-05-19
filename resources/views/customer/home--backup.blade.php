@@ -25,6 +25,12 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Rochester" rel="stylesheet">
 
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <!-- Navigation
@@ -39,8 +45,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#restaurant-menu" class="page-scroll">Menu</a></li>
+        <li><a href="#features" class="page-scroll">Specials</a></li>
         <li><a href="#about" class="page-scroll">About</a></li>
+        <li><a href="#restaurant-menu" class="page-scroll">Menu</a></li>
         <li><a href="#team" class="page-scroll">Chef</a></li>
         <li><a href="#contact" class="page-scroll">Contact</a></li>
       </ul>
@@ -65,62 +72,37 @@
 </header>
 <!-- Features Section -->
 <div id="features" class="text-center">
-
   <div class="container">
     <div class="section-title">
-        <h2>Our Menu</h2>
-    </div>
-    <div class="row" id="restaurant-menu">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            @foreach($menu[0] as $m)
-              <div class="col-xs-12 col-sm-4">
-                <div class="features-item">
-                  <h3>{{$m->nama}}</h3>
-                  <img src="{{$m->foto}}" class="img-responsive" alt="">
-                  <p>Rp. {{$m->harga}}</p>
-                </div>
-              </div>
-            @endforeach
-            </div>
-          @for ($i = 1; $i < sizeof($menu); $i++)
-            <div class="item">
-            @foreach($menu[$i] as $m)
-              <div class="col-xs-12 col-sm-4">
-                <div class="features-item">
-                  <h3>{{$m->nama}}</h3>
-                  <img src="{{$m->foto}} " class="img-responsive" alt="">
-                  <p>Rp. {{$m->harga}}</p>
-                </div>
-              </div>
-            @endforeach
-            </div>
-          @endfor
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-     
     
-
-    <button type="submit" class="btn btn-custom btn-lg"><a href="https://api.whatsapp.com/send?phone=628125224232&text=Halo%20Admin,%20saya%20mau%20order">Order Here!</button>
-  </div>
-
+      <h2>Our Menu</h2>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="features-item">
+          <h3>Tahu Walik</h3>
+          <img src="{{URL::asset('assets/img/specials/4.jpg')}}" class="img-responsive" alt="">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo.</p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="features-item">
+          <h3>Goplum Cokelat</h3>
+          <img src="{{URL::asset('assets/img/specials/5.jpg')}}" class="img-responsive" alt="">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo.</p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="features-item">
+          <h3>Tahu Walik</h3>
+          <img src="{{URL::asset('assets/img/specials/4.jpg')}} " class="img-responsive" alt="">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo.</p>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-custom btn-lg"><a href="https://api.whatsapp.com/send?phone=628125224232&text=Halo%20Admin,%20saya%20mau%20order">Order Here!</button>
+    </div>
   </div>
 </div>
-
 <!-- About Section -->
 <div id="about">
   <div class="container-fluid">
@@ -183,6 +165,57 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="{{URL::asset('assets/js/main.js')}} "></script>
+  <!-- <div class="container">
+    <div class="section-title text-center">
+      <h3>Send us a message</h3>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+      <form name="sentMessage" id="contactForm" novalidate>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+          <p class="help-block text-danger"></p>
+        </div>
+        <div id="success"></div>
+        <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  <div class="container text-center">
+    <div class="col-md-6">
+      <p>&copy; 2017 Gusto. All rights reserved. Design by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a></p>
+    </div>
+    <div class="col-md-6">
+      <div class="social">
+        <ul>
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <script type="text/javascript" src="{{URL::asset('assets/js/jquery.1.11.1.js')}}"></script> 
+<script type="text/javascript" src="{{URL::asset('assets/js/bootstrap.js')}}"></script> 
+<script type="text/javascript" src="{{URL::asset('assets/js/SmoothScroll.js')}}"></script> 
+<script type="text/javascript" src="{{URL::asset('assets/js/jqBootstrapValidation.js')}}"></script>  -->
+<!-- <script type="text/javascript" src="{{URL::asset('assets/js/contact_me.js')}} "></script>  -->
+<script type="text/javascript" src="{{URL::asset('assets/js/main.js')}} "></script>
 </body>
 </html>

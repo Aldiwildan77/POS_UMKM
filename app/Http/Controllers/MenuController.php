@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
@@ -42,6 +43,20 @@ class MenuController extends Controller
         $menu->save();
 
         return "new menu successfully edited";
+    }
+
+    public function readyForTrx()
+    {
+       $menu = DB::table('menu as m')
+       ->join('stok_jadi_realtime as j', 'm.id', '=', 'j.menu_id')
+       ->where('j.jumlah', '>' ,'0')
+       ->groupBy('m.id')
+       ->get();
+
+       $groups = $menu->splitIn(3);
+
+       //dd($groups, sizeof($groups));
+       return view('customer/Index' , ['menu' => $groups]);
     }
 
 }

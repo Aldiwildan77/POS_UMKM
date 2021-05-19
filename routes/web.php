@@ -19,7 +19,8 @@ Route::get('/', function () {
 Route::get('/index', 'TranksaksiController@showMenuCashier');//home kasir
 Route::post('/index', 'TranksaksiController@addData');//post new transaction
 
-Route::view('/home', 'customer/Index'); //home customer
+//Route::view('/home', 'customer/Index');//home customer
+Route::get('/home', 'MenuController@readyForTrx');
 
 Route::view('/dashboard', 'owner/Report'); //home owner
 
