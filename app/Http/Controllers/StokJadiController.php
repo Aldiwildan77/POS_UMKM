@@ -48,7 +48,7 @@ class StokJadiController extends Controller
         $stok->tgl_produksi = $request->date;
         $stok->save();
 
-        return "new data input success";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData(Request $request, $id)
@@ -64,6 +64,6 @@ class StokJadiController extends Controller
         $stok->tgl_produksi = $request->date;
         $stok->save();
 
-        return "new data edited success";
+        return back()->with('status', 'new data successfully edited!');
     }
 }

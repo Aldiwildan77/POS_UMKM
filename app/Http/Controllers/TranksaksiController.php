@@ -175,6 +175,6 @@ class TranksaksiController extends Controller
             $detailTransaksi->save();
         }
 
-        return "input data success";
+        return back()->with('status', 'new data successfully created!');
     }
 }

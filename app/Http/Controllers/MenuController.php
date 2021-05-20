@@ -29,8 +29,7 @@ class MenuController extends Controller
 
         //dd($request->name);
 
-        // TODO redirect add alert
-        return "new menu successfully created";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData($id, Request $request)
@@ -42,7 +41,8 @@ class MenuController extends Controller
         $menu->status = '1';
         $menu->save();
 
-        return "new menu successfully edited";
+        //return "new menu successfully edited";
+        return back()->with('status', 'new menu successfully edited!');
     }
 
     public function readyForTrx()

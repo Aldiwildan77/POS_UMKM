@@ -88,6 +88,13 @@
 
         <h2 class="mb-4" style="text-align:center" >Data Menu & Resep</h2>
 
+        @if (session('status'))
+          <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> {{ session('status') }}
+        </div>
+        @endif
+
         <!-- search bar -->
         <div class="row">
           <div class="col-4">

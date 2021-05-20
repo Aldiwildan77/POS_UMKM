@@ -43,6 +43,13 @@
         </div>
     </nav>
 
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> {{ session('status') }}
+        </div>
+    @endif
+
     <div class="wrapper my-4 mx-2">
         <div class="row">
             <div class="col-9">

@@ -27,7 +27,7 @@ class KaryawanController extends Controller
         $karyawan->status = '1';
         $karyawan->save();
 
-        return "input data success";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData(Request $request, $id)
@@ -40,6 +40,6 @@ class KaryawanController extends Controller
         $karyawan->status = '1';
         $karyawan->save();
 
-        return "edit data success";
+        return back()->with('status', 'new data successfully edited!');
     }
 }

@@ -20,7 +20,7 @@ class StokBahanController extends Controller
             ->join('stok_bahan_detail AS d', 'b.id', '=', 'd.stok_bahan_id')
             ->select('d.id','b.id as idBahan', 'b.nama', 'd.tgl_beli', 'd.jumlah','d.qty', 'd.qty_satuan')
             ->orderBy('b.id')
-            ->paginate(10);
+            ->paginate(100);
             //->get();
 
         //dd($fullStock);   
@@ -35,7 +35,7 @@ class StokBahanController extends Controller
         $stok->nama = $request->name;
         $stok->save();
 
-        return "new menu saved";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData(Request $request)
@@ -52,12 +52,11 @@ class StokBahanController extends Controller
         $stokDetail->fraktur_id = 4; //handle later
         $stokDetail->save();
         
-        return "edit shop data success";
+        return back()->with('status', 'new data successfully edited!');
     }
 
     public function newShop(Request $request)
     {
-        # code...ingrId
         //dd($request->all());
         $stokDetail = new stok_bahan_detail;
         
@@ -69,6 +68,6 @@ class StokBahanController extends Controller
         $stokDetail->fraktur_id = 4; //handle later
         $stokDetail->save();
         
-        return "new shop data input success";
+        return back()->with('status', 'new data successfully created!');
     }
 }

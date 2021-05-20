@@ -59,7 +59,7 @@ class ResepController extends Controller
             $resep->save();
         }
 
-        return "input data success";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData(Request $request, $id)
@@ -88,7 +88,7 @@ class ResepController extends Controller
             $resep->save();
         }
 
-        return "edit data success";
+        return back()->with('status', 'new data successfully edited!');
     }
 
 }

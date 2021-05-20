@@ -89,6 +89,13 @@
 
         <h2 class="mb-4" style="text-align:center" >Kelola Menu</h2>
 
+        @if (session('status'))
+          <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> {{ session('status') }}
+        </div>
+        @endif
+
         <!-- search filter sort bar -->
         <div class="row mb-3">
           <div class="col-3">

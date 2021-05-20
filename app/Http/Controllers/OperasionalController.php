@@ -23,7 +23,7 @@ class OperasionalController extends Controller
         $operasional->fraktur_id = '4'; //think later
         $operasional->save();
 
-        return "data saved";
+        return back()->with('status', 'new data successfully created!');
     }
 
     public function editData(Request $request, $id)
@@ -35,6 +35,6 @@ class OperasionalController extends Controller
         $operasional->fraktur_id = '4'; //think later
         $operasional->save();
 
-        return "data edited";
+        return back()->with('status', 'new data successfully edited!');
     }
 }
