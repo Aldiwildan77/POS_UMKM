@@ -28,7 +28,7 @@ var shoppingCart = (function() {
     // Add to cart
     obj.addItemToCart = function(name, price, count, photo,id) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].id === id) {
                 cart[item].count++;
                 saveCart();
                 return;
@@ -39,18 +39,18 @@ var shoppingCart = (function() {
         saveCart();
     }
     // Set count from item
-    obj.setCountForItem = function(name, count) {
+    obj.setCountForItem = function(id, count) {
         for (var i in cart) {
-            if (cart[i].name === name) {
+            if (cart[i].id === id) {
                 cart[i].count = count;
                 break;
             }
         }
     };
     // Remove item from cart
-    obj.removeItemFromCart = function(name) {
+    obj.removeItemFromCart = function(id) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].id === id) {
                 cart[item].count--;
                 if (cart[item].count === 0) {
                     cart.splice(item, 1);
@@ -62,9 +62,9 @@ var shoppingCart = (function() {
     }
 
     // Remove all items from cart
-    obj.removeItemFromCartAll = function(name) {
+    obj.removeItemFromCartAll = function(id) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].id === id) {
                 cart.splice(item, 1);
                 break;
             }
