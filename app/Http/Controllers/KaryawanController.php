@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\karyawan;
 use App\Models\userlog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class KaryawanController extends Controller
 {
+    public function logfirst()
+    {
+        return view('owner/Login');    
+    }
+
     public function login(Request $request)
     {
         //dd($request->all());
@@ -19,15 +23,16 @@ class KaryawanController extends Controller
             return back()->with('status', 'login failed, user info not matched!');
         }
         else{
-            //dd($userInfo->password);
+            //dd($userInfo);
             if ($userInfo->password == $request->pass){
                 if ($userInfo->level == 1) {
-                    return redirect('/dashboard'); //->with('status', 'Hi owner!');
+                    $request->session()->put('LoggedUser', $userInfo->id);
+                    return redirect('dashboard');
                 }
                 if ($userInfo->level == 0) {
-                    return redirect('/index')->with('status', 'Hi cashier!');
+                    $request->session()->put('LoggedUser', $userInfo->id);
+                    return redirect('index')->with('status', 'Hi cashier!');
                 }
-                return 'login success';
             }
             else{
                 return back()->with('status', 'password not match!');
@@ -37,8 +42,10 @@ class KaryawanController extends Controller
 
     public function logout()
     {
-        Auth::logout(); // log the user out of our application
-        return redirect()->route('login');
+        if(session()->has('LoggedUser')){
+            session()->pull('LoggedUser');
+            return redirect('login');
+        }
     }
 
     public function showAll()

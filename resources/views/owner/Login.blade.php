@@ -39,14 +39,14 @@
 				@if (session('status'))
           <div class="alert alert-danger alert-dismissible">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Success!</strong> {{ session('status') }}
+          <strong> {{ session('status') }} </strong>
         </div>
         @endif
 
-				<form class="login100-form validate-form p-b-33 p-t-5" action="/login" method="post">
+				<form class="login100-form validate-form p-b-33 p-t-5" action="/login" method="POST">
         @csrf
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="User name" required>
+						<input class="input100" type="text" name="username" placeholder="User name" value="{{Request::old('body')}}" required >
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
