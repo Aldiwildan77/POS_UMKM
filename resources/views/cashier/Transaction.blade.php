@@ -52,6 +52,8 @@
         </div>
     </div>
 
+    <button class="btn btn-primary" id="pdfexport">To PDF</button>
+
     <div class="row">
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped tablesorter" id="mainTable">
@@ -212,11 +214,29 @@
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     
     <script>
     $(function() {
         $("#mainTable").tablesorter();
     });
+
+    $("body").on("click", "#pdfexport", function () {
+            html2canvas($('#mainTable')[0], {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("transaction-details.pdf");
+                }
+            });
+        });
     </script>
 
 </body>

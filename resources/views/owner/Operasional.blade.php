@@ -104,14 +104,15 @@
             </button>
           </div>
           <div class="col-4">
-            <div class="row">
+            <button class="btn btn-primary" id="pdfexport">To PDF</button>
+            <!-- <div class="row">
               <div class="col-6 ml-0">
                 <label for="filter">Filter by Date</label>
               </div>
               <div class="col-6">
                 <input class="form-control" id="date" name="date" placeholder="all" type="text"/>
               </div>
-            </div> 
+            </div>  -->
           </div>
           <div class="col-6">
             <div class="input-group mb-3">
@@ -274,10 +275,28 @@
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     
     <script>
     $(function() {
         $("#mainTable").tablesorter();
+      });
+
+      $("body").on("click", "#pdfexport", function () {
+            html2canvas($('#mainTable')[0], {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("operational-details.pdf");
+                }
+            });
         });
     </script>
   </body>
