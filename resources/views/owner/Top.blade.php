@@ -119,7 +119,7 @@
                                 <h3>Polar Series</h3>
                             </div> -->
                             <div class="card-body table-full-width table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="mainTable">
                                     <thead>
                                         <th>ID Menu</th>
                                         <th>Menu</th>
@@ -142,20 +142,38 @@
                     </div>
                 </div>
             </div>
-           
-            
-           
+
             </div>
 
             <script>
+              // var convertedIntoArray = [];
+              //   $('#mainTable tr').each(function(row, tr){
+              //     convertedIntoArray[row]={
+              //         "id" : $(tr).find('td:eq(0)').text()
+              //         , "menu" :$(tr).find('td:eq(1)').text()
+              //         , "harga" : $(tr).find('td:eq(2)').text()
+              //         , "qty" : $(tr).find('td:eq(3)').text()
+              //     }
+              //   });
+
+            var menu = [];
+            var qty = [];
+            $('#mainTable tr').each(function(row, tr){
+              menu.push($(tr).find('td:eq(1)').text());
+              qty.push($(tr).find('td:eq(3)').text());
+            });
+            menu.shift();// first row will be empty - so remove 
+            qty.shift();
+            //console.log(menu, qty);
+
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: menu,
                     datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
+                        label: '# of order',
+                        data: qty,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

@@ -88,6 +88,7 @@ class TranksaksiController extends Controller
         ->select('m.id','m.nama AS menu', 'm.harga', DB::raw('SUM(d.qty) AS qty'))
         ->groupBy('d.menu_id')
         ->orderBy('qty', 'desc')
+        ->take(5)
         ->get();
 
         //dd($bestSellMenu);
