@@ -420,7 +420,7 @@ mark,
   
 .text-cart{
   white-space: nowrap; 
-  width: 65px; 
+  width: 60px; 
   overflow: hidden;
   text-overflow: ellipsis; 
 }

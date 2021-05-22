@@ -129,7 +129,17 @@
                             <td>{{$t->menu}}</td>
                             <td>{{$t->qty}}</td>
                             <td>{{$t->nominal}}</td>
-                            <td><div style="background-color: green;width: max-content;"><span class="mx-1">Delivered</span></div>
+                            <td>
+                            @if($t->status == 1)
+                            <div style="background-color: blue;width: max-content;"><span class="mx-1">Processed</span></div>
+                            @endif
+                            @if($t->status == 2)
+                            <div style="background-color: yellow;width: max-content;"><span class="mx-1">On the way</span></div>
+                            @endif
+                            @if($t->status == 3)
+                            <div style="background-color: green;width: max-content;"><span class="mx-1">Arrived</span></div>
+                            @endif
+                            </div>
                             </td>
                             <td class="dropdown show">
                                 <a class="fas fa-ellipsis-v" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

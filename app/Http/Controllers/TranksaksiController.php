@@ -17,7 +17,7 @@ class TranksaksiController extends Controller
         $transaction = DB::table('transaksi AS t')
         ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
         ->join('menu AS m', 'd.menu_id', '=', 'm.id')
-        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), 'm.harga', DB::raw('SUM(d.qty) AS qty'), 't.nominal')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), 'm.harga', DB::raw('SUM(d.qty) AS qty'), 't.nominal', 't.status')
         ->groupBy('t.id')
         //->orderBy('t.id', 'desc') //use later
         ->paginate(100);
@@ -43,7 +43,7 @@ class TranksaksiController extends Controller
         $transaction = DB::table('transaksi AS t')
         ->join('detail_transaksi AS d', 'd.transaksi_id', '=', 't.id')
         ->join('menu AS m', 'd.menu_id', '=', 'm.id')
-        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), DB::raw('SUM(d.qty) AS qty'), 't.nominal')
+        ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), DB::raw('SUM(d.qty) AS qty'), 't.nominal', 't.status')
         ->groupBy('t.id')
         //->orderBy('t.id', 'desc') //use later
         ->paginate(100);

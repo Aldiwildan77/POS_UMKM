@@ -78,7 +78,15 @@
                         <td>{{$t->qty}}</td>
                         <td>{{$t->nominal}}</td>
                         <td>
-                            <div style="background-color: green;width: max-content;"><span class="mx-1">Delivered</span></div>
+                            @if($t->status == 1)
+                            <div style="background-color: blue;width: max-content;"><span class="mx-1">Processed</span></div>
+                            @endif
+                            @if($t->status == 2)
+                            <div style="background-color: yellow;width: max-content;"><span class="mx-1">On the way</span></div>
+                            @endif
+                            @if($t->status == 3)
+                            <div style="background-color: green;width: max-content;"><span class="mx-1">Arrived</span></div>
+                            @endif
                         </td>
                         <td class="dropdown show">
                             <a class="fas fa-ellipsis-v" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,11 +94,11 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" data-toggle="modal" data-target="#viewModal" href="#viewModal"
                                     data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}">
+                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" data-status="{{$t->status}}">
                                     View Detail</a>
                                 <a class="dropdown-item" data-toggle="modal" data-target="#editModal" href="#editModal"
                                     data-id="{{$t->id}}" data-name="{{$t->nama}}" data-phone="{{$t->no_hp}}" data-pm="{{$t->metode}}"
-                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" >
+                                    data-menu="{{$t->menu}}" data-qty="{{$t->qeach}}" data-total="{{$t->nominal}}" data-status="{{$t->status}}" >
                                     Edit Status</a>
                             </div>
                         </td>
@@ -126,8 +134,8 @@
                                                 <input type="text" class="form-control" id="payrec" value="{{$t->nominal}}" disabled>
                                             </div>
                                             <div class="form-group">
-                                                <label for="statusrrec">Status</label>
-                                                <input type="text" class="form-control" id="statusrrec" value="Delivered" disabled>
+                                                <label for="statusrec">Status</label>
+                                                <input type="text" class="form-control" id="statusrrec"  disabled>
                                             </div>
                                         </form>
                                     </div>
@@ -167,7 +175,7 @@
                                                 <input type="text" class="form-control" id="payrec" disabled>
                                             </div>
                                             <div class="form-group">
-                                                <label for="statusrrec">Status</label>
+                                                <label for="statusrecx">Status</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                                                     <label class="form-check-label" for="exampleRadios1">
