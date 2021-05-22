@@ -128,6 +128,15 @@ class NewDB extends Migration
             $table->timestamps();
         });
 
+        Schema::create('stok_jadi_realtime', function (Blueprint $table) {
+            $table->id();
+            $table->string('jumlah', 45);
+            $table->date('tgl_produksi');
+            $table->unsignedBigInteger('menu_id');
+            $table->foreign('menu_id')->references('id')->on('menu');
+            $table->timestamps();
+        });
+
         Schema::create('limiter', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('menu_id');
