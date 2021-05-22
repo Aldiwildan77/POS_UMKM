@@ -20,7 +20,7 @@ class TranksaksiController extends Controller
         ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), 'm.harga', DB::raw('SUM(d.qty) AS qty'), 't.nominal')
         ->groupBy('t.id')
         //->orderBy('t.id', 'desc') //use later
-        ->paginate(10);
+        ->paginate(100);
 
         //qty of each menu ordered
         $detailTransaction = DB::table('transaksi AS t')
@@ -46,7 +46,7 @@ class TranksaksiController extends Controller
         ->select('t.id', 't.metode', 't.nama', 't.no_hp', DB::raw('GROUP_CONCAT(m.nama) AS menu'), DB::raw('GROUP_CONCAT(d.qty) AS qeach'), DB::raw('SUM(d.qty) AS qty'), 't.nominal')
         ->groupBy('t.id')
         //->orderBy('t.id', 'desc') //use later
-        ->paginate(10);
+        ->paginate(100);
 
         //qty of each menu ordered
         $detailTransaction = DB::table('transaksi AS t')

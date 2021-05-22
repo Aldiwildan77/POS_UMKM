@@ -23,7 +23,7 @@ class ResepController extends Controller
         ->select('m.id','m.porsi','m.nama as menu',DB::raw('group_concat(b.nama) as bahan'), DB::raw('(sum(r.jumlah)/m.porsi) as hpp'),
         DB::raw('group_concat(b.id) as idbahan') ,DB::raw('group_concat(r.jumlah) as jumlah'),DB::raw('group_concat(r.id) as idresep'))
         ->groupBy('m.id')
-        ->paginate(10);
+        ->paginate(100);
 
         $menu = DB::table('menu AS m')
         ->leftJoin('resep AS r', 'r.menu_id', '=','m.id')

@@ -10,7 +10,7 @@ class LaporanController extends Controller
 {
     public function showAll()
     {
-        $laporan = laporan::paginate(10); 
+        $laporan = laporan::paginate(100); 
 
         return view('owner/Menu' , ['laporan' => $laporan]);
     }

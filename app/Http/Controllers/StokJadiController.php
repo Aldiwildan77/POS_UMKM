@@ -19,13 +19,13 @@ class StokJadiController extends Controller
         ->groupBy('m.id')
         ->distinct()
         //->get();
-        ->paginate(10);
+        ->paginate(100);
 
         $stokProd = DB::table('stok_jadi AS j')
         ->join('menu AS m','m.id', '=', 'j.menu_id')
         ->select('j.id AS id', 'm.id AS idm', 'm.nama', 'j.jumlah','j.tgl_produksi') 
         ->orderBy('j.tgl_produksi')
-        ->paginate(10);
+        ->paginate(100);
 
         $menu = menu::all();
 

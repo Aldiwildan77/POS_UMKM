@@ -10,9 +10,9 @@ class MenuController extends Controller
 {
     public function showAll()
     {
-        $MenuActive = menu::where('status', '=', '1')->paginate(10); //paginate later
+        $MenuActive = menu::where('status', '=', '1')->paginate(100); //paginate later
 
-        $MenuNonActive = menu::where('status', '=', '0')->paginate(10);
+        $MenuNonActive = menu::where('status', '=', '0')->paginate(100);
 
         return view('owner/Menu' , ['active' => $MenuActive])
         ->with(['nonActive' => $MenuNonActive ]);

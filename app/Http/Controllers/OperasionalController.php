@@ -9,7 +9,7 @@ class OperasionalController extends Controller
 {
     public function showAll()
     {
-        $operasional = operasional::paginate(10);
+        $operasional = operasional::paginate(100);
 
         return view('owner/Operasional', ['operasional' => $operasional]);
     }
