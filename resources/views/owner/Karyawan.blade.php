@@ -129,7 +129,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/karyawanData">
+              <form method="POST" action="/karyawanData" id="addKaryawan">
               @csrf
                 <div class="form-group">
                   <label for="name">Nama Karyawan</label>
@@ -161,7 +161,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary btnreset" >Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
               </form>
@@ -239,7 +239,7 @@
                                     </div>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <button type="button" class="btn btn-secondary btnreset">Reset</button>
                                     <input type="submit" class="btn btn-primary" value="Save changes">
                                   </div>
                                   </form>
@@ -275,6 +275,12 @@
         $('#salaryrec').val(salary)
 
         document.getElementById("editForm").action = "/karyawanData/"+id; 
+
+        $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
+        });
+        
         });
     })
     </script>

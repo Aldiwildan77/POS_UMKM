@@ -139,7 +139,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/operasionalData">
+              <form method="POST" action="/operasionalData" id="addData">
               @csrf
                 <div class="form-group">
                   <label for="desc">Keterangan</label>
@@ -159,7 +159,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
 
@@ -223,7 +223,7 @@
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
                                 <input type="submit" class="btn btn-primary" value="Save changes">
                               </div>
 
@@ -256,9 +256,13 @@
       $('#pricerec').val(price)
       $('#daterec').val(date)
       $('#idoperasional').text(id)
-        console.log(id)
       $('#editForm').attr('action','/operasionalData/'+id)
       });
+
+      $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
+        });
 
       var date_input=$('input[name="date"]'); //our date input has the id "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";

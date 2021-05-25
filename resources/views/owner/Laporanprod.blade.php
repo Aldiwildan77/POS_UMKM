@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                        <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
                                         <input type="submit" class="btn btn-primary" value="Save changes">
                                     </div>
 
@@ -220,6 +220,11 @@
           $('#qtyrec').val(qty)
           $('#daterec').val(date)
           $('#editForm').attr('action','/stokData/'+id)
+        });
+
+        $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
         });
 
         var date_input=$('input[name="date"]'); //our date input has the id "date"

@@ -182,7 +182,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form method="POST" action="/index">
+                            <form method="POST" action="/index" id="addtrx">
                               @csrf
                                 <div class="form-group">
                                   <label for="name">Nama Pemesan</label>
@@ -228,7 +228,7 @@
                                 </div>
                             </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
                                 <input type="submit" class="btn btn-primary clear-cart" value="Save Changes">
                               </div>
                               </form>
@@ -247,5 +247,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <script src="{{URL::asset('backendwork/cart.js')}}"></script>
+
+    <script>
+    $(".resetbtn").click(function(e) {
+      var formid = $(this.form).attr('id');
+      document.getElementById(formid).reset();
+    });
+    </script>
     </body>
 </html>

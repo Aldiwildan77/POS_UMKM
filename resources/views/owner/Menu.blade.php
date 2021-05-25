@@ -74,7 +74,7 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
@@ -130,7 +130,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/menuData">
+              <form method="POST" action="/menuData" id="addForm">
               @csrf
                 <div class="form-group">
                   <label for="name">Nama Menu</label>
@@ -159,7 +159,7 @@
               
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary resetbtn" data-form="addForm">Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
 
@@ -233,7 +233,7 @@
                                   
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
                                     <input type="submit" class="btn btn-primary" value="Save changes">
                                   </div>
 
@@ -267,7 +267,13 @@
         $('#pricerec').val(price)
 
         document.getElementById("editForm").action = "/menuData/"+id 
+      });
+
+        $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
         });
+        
       })
     </script>
     

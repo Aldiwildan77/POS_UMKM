@@ -130,7 +130,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/stokData">
+              <form method="POST" action="/stokData" id="addstok">
               @csrf 
                 <div class="form-group">
                   <label for="menu">Select Menu</label>
@@ -153,7 +153,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
 
@@ -313,6 +313,10 @@
         }
         });
         
+        $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
+        });
 
         var date_input=$('input[name="date"]'); //our date input has the id "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";

@@ -129,7 +129,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/resepData">
+              <form method="POST" action="/resepData" id="addData">
               @csrf 
                 <div class="form-group">
                   <label for="menu">Select Menu</label>
@@ -170,7 +170,7 @@
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save changes">
               </div>
 
@@ -234,7 +234,7 @@
                                   </div>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                    <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
                                     <input type="submit" class="btn btn-primary" value="Save changes">
                                   </div>
 
@@ -368,7 +368,10 @@
         x=0;
         });
 
-        
+        $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
+        });
       });
     </script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>

@@ -169,7 +169,7 @@
               </div>
               <div class="modal-body">
 
-              <form method="POST" action="/bahanNew">
+              <form method="POST" action="/bahanNew" id="addbahan">
               @csrf
                 <div class="form-group">
                   <label for="mat">Select Ingredient</label>
@@ -211,7 +211,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
                 <input type="submit" class="btn btn-primary" value="Save Changes">
               </div>
               </form>
@@ -298,7 +298,7 @@
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+                                <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
                                 <input type="submit" class="btn btn-primary" value="Save changes">
                               </div>
                               </form>
@@ -362,6 +362,11 @@
         });
 
         $("#mainTable").tablesorter();
+    });
+
+    $(".resetbtn").click(function(e) {
+      var formid = $(this.form).attr('id');
+      document.getElementById(formid).reset();
     });
 
     $("body").on("click", "#pdfexport", function () {
