@@ -96,7 +96,6 @@
         </div>
         @endif
 
-         <!-- search filter sort bar -->
          <div class="row mb-3">
           <div class="col-3">
             <!-- Button trigger modal -->
@@ -149,18 +148,6 @@
                   <label class="control-label" for="date">Production Date</label>
                   <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="statusRadios" id="avail" value="1" checked>
-                  <label class="form-check-label" for="avail">
-                    Active
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="statusRadios" id="nonavail" value="0">
-                  <label class="form-check-label" for="nonavail">
-                    Not Active
-                  </label>
-                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
@@ -188,7 +175,7 @@
                         <td>{{$s->jumlah}}</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailStock" 
                         data-name="{{$s->nama}}" data-qtyd="{{$s->qtyd}}" data-dated="{{$s->dated}}" data-type="{{$s->type}}">
-                        detail</button>
+                        detail</button> </td>
 
                             <!-- detail Modal -->
                             <div class="modal fade" id="detailStock" tabindex="-1" role="dialog" aria-labelledby="detailStockLabel" aria-hidden="true">
@@ -217,7 +204,7 @@
                               </div>
                             </div>
 
-                        </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -310,6 +297,15 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    
+    <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+    });
+    </script>
 
     <script>
       $(document).ready(function(){
@@ -319,27 +315,31 @@
         });
 
         $('#editStock').on('show.bs.modal', function (event) {
+          console.log('edit show')
           var button = $(event.relatedTarget) // Button that triggered the modal
           var name = button.data('name') 
           var qty = button.data('qty')
           var date = button.data('date')
           var id = button.data('id')
           var idmenu = button.data('idmenu')// Extract info from data-* attributes
+          console.log(id)
           // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
           // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
           $('#idmedit').val(idmenu)
           $('#namerec').val(name)
           $('#qtyrec').val(qty)
           $('#daterec').val(date)
-          $('#editForm').attr('action','/stokData/'+id);
+          $('#editForm').attr('action','/stokData/'+id)
         });
 
         $('#detailStock').on('show.bs.modal', function (event) {
+          console.log('detail show')
           var button = $(event.relatedTarget) // Button that triggered the modal
           var name = button.data('name') 
           var qtyd = button.data('qtyd')
           var dated = button.data('dated')
           var type = button.data('type')// Extract info from data-* attributes
+          console.log(name)
           // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
           // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
           $('#named').val(name)
@@ -402,15 +402,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
-    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-    
-    <script>
-    $(function() {
-        $("#mainTable").tablesorter();
-    });
-    </script>
    
   </body>
 </html>

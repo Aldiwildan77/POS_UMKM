@@ -187,7 +187,8 @@
                         data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}" data-id="{{$a->id}}">
                             edit
                             </button>
-
+                        <td>
+                        
                             <!-- modal edit data -->
                             <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenuLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">

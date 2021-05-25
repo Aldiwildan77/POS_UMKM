@@ -190,6 +190,7 @@
                         data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
                               edit
                             </button>
+                        </td>    
 
                             <!-- Modal -->
                             <div class="modal fade" id="editStaff" tabindex="-1" role="dialog" aria-labelledby="editStafffLabel" aria-hidden="true">
@@ -243,7 +244,7 @@
                               </div>
                             </div>
 
-                        </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>

@@ -186,6 +186,7 @@
                         <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#editOperational" 
                         data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
                             edit</button>
+                        </td>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="editOperational" tabindex="-1" role="dialog" aria-labelledby="editOperationalLabel" aria-hidden="true">
@@ -228,7 +229,7 @@
                           </div>
                         </div>
 
-                        </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>

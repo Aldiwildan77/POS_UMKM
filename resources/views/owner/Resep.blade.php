@@ -198,7 +198,7 @@
                       <td>{{$r->hpp}}</td>
                       <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-idmenu="{{$r->id}}" data-idresep="{{$r->idresep}}"
                       data-name="{{$r->menu}}" data-idmat="{{$r->idbahan}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}" data-porsi="{{$r->porsi}}">Edit</a>
-                      
+                      </td>
                           <!-- Modal -->
                           <div class="modal fade" id="editRecipe" tabindex="-1" role="dialog" aria-labelledby="editRecipeLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -240,7 +240,7 @@
                             </div>
                           </div>
                       
-                      </td>
+                      
                   </tr>
                   @endforeach
               </tbody>
@@ -253,57 +253,54 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="{{URL::asset('backendwork/search.js')}}"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
-    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-
+   
     <script>
       $(document).ready(function(){
         var z = 0;
         $('#editRecipe').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var name = button.data('name')
-        var idmenu = button.data('idmenu')
-        var mat = button.data('mat')
-        var idmat = button.data('idmat')
-        var idrecipe = button.data('idresep')
-        var qty = button.data('qty')
-        var porsi = button.data('porsi')// Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        $('#namerec').val(name)
-        $('#porsirec').val(porsi)
-        $('#menuid').val(idmenu)
-        $('#formedit').attr('action','/resepData/'+idmenu);     
-        var matArr = mat.split(',')
-        var idmatstr = idmat.toString()
-        var idmatArr = idmatstr.split(',')
-        var idrecipestr = idrecipe.toString()
-        var idrecipeArr = idrecipestr.split(',')
-        var x = qty.toString()
-        z = matArr.length;
-        var qtyArr = x.split(',')
-        for (var i = 0; i < matArr.length; i++) {
-          $('#formBahan2').append(`<div class="form-group">
-                    <div class="row">
-                      <div class="col-6">
-                        <label for="ingredient">Select Material</label>
-                        <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                            <option class="dropdown-item" name="matid"`+i+` value="`+idmatArr[i]+`">`+ matArr[i]+`</option>
-                          </div>
-                        </select>
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var name = button.data('name')
+          var idmenu = button.data('idmenu')
+          var mat = button.data('mat')
+          var idmat = button.data('idmat')
+          var idrecipe = button.data('idresep')
+          var qty = button.data('qty')
+          var porsi = button.data('porsi')// Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          $('#namerec').val(name)
+          $('#porsirec').val(porsi)
+          $('#menuid').val(idmenu)
+          $('#formedit').attr('action','/resepData/'+idmenu);     
+          var matArr = mat.split(',')
+          var idmatstr = idmat.toString()
+          var idmatArr = idmatstr.split(',')
+          var idrecipestr = idrecipe.toString()
+          var idrecipeArr = idrecipestr.split(',')
+          var x = qty.toString()
+          z = matArr.length;
+          var qtyArr = x.split(',')
+          for (var i = 0; i < matArr.length; i++) {
+            $('#formBahan2').append(`<div class="form-group">
+                      <div class="row">
+                        <div class="col-6">
+                          <label for="ingredient">Select Material</label>
+                          <select class="form-control dropdown-toggle" id="ingredient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="ingredient_id`+i+`">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                              <option class="dropdown-item" name="matid"`+i+` value="`+idmatArr[i]+`">`+ matArr[i]+`</option>
+                            </div>
+                          </select>
+                        </div>
+                        <div class="col-6">
+                          <label for="qty">Jumlah</label>
+                          <input type="text" class="form-control" id="qty" name="qty`+i+`" value="`+ qtyArr[i] +`" required>
+                          <input type="hidden" class="form-control" name="recipeid`+i+`" value="`+ idrecipeArr[i] +`">
+                        </div>
                       </div>
-                      <div class="col-6">
-                        <label for="qty">Jumlah</label>
-                        <input type="text" class="form-control" id="qty" name="qty`+i+`" value="`+ qtyArr[i] +`" required>
-                        <input type="hidden" class="form-control" name="recipeid`+i+`" value="`+ idrecipeArr[i] +`">
-                      </div>
-                    </div>
-                  </div>`)
+                    </div>`)
           }
-          $('#matkind2').val(matArr.length)     
+          $('#matkind2').val(matArr.length)  
+          //$("#editform").reset(); // trigger with btn
         }); 
 
         var x = 2;
@@ -368,9 +365,20 @@
         x=0;
         });
 
+        
+      });
+    </script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+    <script>
+      $(function() {
         $("#mainTable").tablesorter();
       });
     </script>
+    <script src="{{URL::asset('backendwork/resep.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+  
 
   </body>
 </html>

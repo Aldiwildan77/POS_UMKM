@@ -55,7 +55,7 @@ class MenuController extends Controller
 
        $groups = $menu->splitIn(3);
 
-       //dd($groups, sizeof($groups));
+       dd($groups, sizeof($groups));
        return view('customer/Index' , ['menu' => $groups]);
     }
 

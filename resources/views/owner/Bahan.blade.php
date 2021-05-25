@@ -243,6 +243,7 @@
                         <td>{{$fs->tgl_beli}}</td> 
                         <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" data-qty="{{$fs->qty_satuan}}"
                         data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-nominal="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">Edit Data</a>
+                        </td> 
                         
                          <!-- Modal Edit-->
                         <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
@@ -302,7 +303,7 @@
                           </div>
                         </div>
                       
-                        </td>                   
+                                          
                     </tr>
                     @endforeach
                 </tbody>
