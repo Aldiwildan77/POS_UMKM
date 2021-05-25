@@ -44,6 +44,9 @@
               <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
 	          </li>
             <li>
+                <a href="{{url('/laporanAll')}}">Laporan Produksi</a>
+            </li>
+            <li>
               <a href="{{url('/topData')}}">Top Menu</a>
 	          </li>
 	        </ul>
@@ -73,14 +76,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Profile</a>
+                    <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Logout</a>
+                    <a class="nav-link" href="{{url('/logout')}}">Logout</a>
                 </li>
               </ul>
             </div>
@@ -187,7 +190,7 @@
                         data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
                             edit</button>
                         </td>
-                        
+
                         <!-- Modal -->
                         <div class="modal fade" id="editOperational" tabindex="-1" role="dialog" aria-labelledby="editOperationalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">

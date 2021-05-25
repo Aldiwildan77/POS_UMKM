@@ -49,9 +49,12 @@
               <li>
                 <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
               </li>
-              <li >
+              <li>
                 <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
-	          </li>
+	            </li>
+              <li>
+                  <a href="{{url('/laporanAll')}}">Laporan Produksi</a>
+              </li>
               <li class="active">
                 <a href="{{url('/topData')}}">Top Menu</a>
 	          </li>
@@ -82,14 +85,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="{{url('/logout')}}">Logout</a>
                 </li>
               </ul>
             </div>

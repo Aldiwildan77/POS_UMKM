@@ -57,6 +57,8 @@ Route::post('/stokData/{id}', 'StokJadiController@editData');
 
 Route::get('/laporanData', 'TranksaksiController@showDataTrx')->middleware('AuthCheck');
 
+Route::get('/laporanProduksi', 'StokJadiController@showProdReport')->middleware('AuthCheck');
+
 Route::get('/topData', 'TranksaksiController@showDataMenu')->middleware('AuthCheck');
 
 Route::get('/transaksi', 'TranksaksiController@cashierTrx')->middleware('AuthCheck');

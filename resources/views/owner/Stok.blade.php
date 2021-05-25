@@ -44,6 +44,9 @@
               <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
 	          </li>
             <li>
+                <a href="{{url('/laporanAll')}}">Laporan Produksi</a>
+            </li>
+            <li>
               <a href="{{url('/topData')}}">Top Menu</a>
 	          </li>
 	        </ul>
@@ -73,14 +76,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Profile</a>
+                    <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Logout</a>
+                    <a class="nav-link" href="{{url('/logout')}}">Logout</a>
                 </li>
               </ul>
             </div>
@@ -212,84 +215,6 @@
             <div class="mx-5">{{ $stok->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
 
-        <h5>Laporan Produksi</h5>
-        <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Jumlah</th>
-                    <th>Tanggal Produksi</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    @foreach($stokprod as $sp)
-                    <tr>
-                        <td>{{$sp->id}}</td>
-                        <td>{{$sp->nama}}</td>
-                        <td>{{$sp->jumlah}}</td>
-                        <td>{{$sp->tgl_produksi}}</td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStock" 
-                        data-id="{{$sp->id}}" data-idmenu="{{$sp->idm}}" data-name="{{$sp->nama}}" data-qty="{{$sp->jumlah}}" data-date="{{$sp->tgl_produksi}}">
-                        edit</button>
-
-                            <!-- edit Modal -->
-                            <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="editStockLabel">Edit Data Stock</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-
-                                  <form method="POST" action="" id="editForm">
-                                  @csrf 
-                                    <div class="form-group">
-                                      <label for="qty">Nama Menu</label>
-                                      <input type="text" class="form-control" id="namerec" name="name" disabled>
-                                      <input name="menu_id" type="hidden" id="idmedit">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="qty">Quantity</label>
-                                      <input type="text" class="form-control" id="qtyrec" name="qty" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label class="control-label" for="date">Production Date</label>
-                                      <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
-                                      <label class="form-check-label" for="availrec">
-                                        Active
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
-                                      <label class="form-check-label" for="nonavailrec">
-                                        Not Active
-                                      </label>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-                                    <input type="submit" class="btn btn-primary" value="Save changes">
-                                  </div>
-
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mx-5">{{ $stok->links('vendor.pagination.bootstrap-4') }}</div>
-        </div>
 
       </div>
 		</div>

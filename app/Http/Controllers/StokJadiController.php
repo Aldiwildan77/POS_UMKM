@@ -21,6 +21,15 @@ class StokJadiController extends Controller
         //->get();
         ->paginate(100);
 
+        $menu = menu::all();
+        
+        //dd($stok);
+        return view('owner/Stok', ['stok' => $stok])
+        ->with(['menu' => $menu]);
+    }
+
+    public function showProdReport()
+    {
         $stokProd = DB::table('stok_jadi AS j')
         ->join('menu AS m','m.id', '=', 'j.menu_id')
         ->select('j.id AS id', 'm.id AS idm', 'm.nama', 'j.jumlah','j.tgl_produksi') 
@@ -29,10 +38,9 @@ class StokJadiController extends Controller
 
         $menu = menu::all();
 
-        //dd($stok);
-        return view('owner/Stok', ['stok' => $stok])
-        ->with(['menu' => $menu])
+        return view('owner/Laporanprod', ['menu' => $menu])
         ->with(['stokprod' => $stokProd]);
+
     }
 
     public function addData(Request $request)
