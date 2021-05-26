@@ -76,11 +76,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Profile</a>
+                    <a class="nav-link" href="{{url('/profile')}}">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/logout')}}">Logout</a>

@@ -30,6 +30,8 @@ Route::get('/home', 'MenuController@readyForTrx');//home customer
 
 Route::view('/dashboard', 'owner/Report')->middleware('AuthCheck'); //home owner
 
+Route::get('/profile', 'KaryawanController@showAllUser')->middleware('AuthCheck');
+
 Route::get('/menuData', 'MenuController@showAll')->middleware('AuthCheck');
 Route::post('/menuData', 'MenuController@addData');
 Route::post('/menuData/{id}', 'MenuController@editData');

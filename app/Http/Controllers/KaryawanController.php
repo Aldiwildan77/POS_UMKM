@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\karyawan;
 use App\Models\userlog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KaryawanController extends Controller
 {
@@ -46,6 +47,42 @@ class KaryawanController extends Controller
             session()->pull('LoggedUser');
             return redirect('login');
         }
+    }
+
+    public function showAllUser()
+    {
+        $owner = DB::table('user AS u')
+        ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
+        ->where('u.level', '=', '1')
+        ->select('u.id', 'u.username', 'u.password', 'k.nama', 'k.email')
+        ->first();
+
+        $allusers = DB::table('user AS u')
+        ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
+        ->where('u.level', '=', '0')
+        ->select('u.id', 'u.username', 'u.password', 'k.nama', 'k.email')
+        ->get();
+
+        $allstaff = karyawan::where('status', '=', '1')->get();
+        
+        return view('owner/Profile', ['o' => $owner])
+        ->with(['all' => $allusers])
+        ->with(['staff' => $allstaff]);
+    }
+
+    public function editOwner(Request $request)
+    {
+        # code...
+    }
+
+    public function addUser(Request $request)
+    {
+        # code...
+    }
+
+    public function editUser(Request $request)
+    {
+        # code...
     }
 
     public function showAll()
