@@ -29,16 +29,6 @@ class NewDB extends Migration
             $table->timestamps();
         });
 
-        Schema::create('laporan', function (Blueprint $table) {
-            $table->id();
-            $table->string('jenis', 45);
-            $table->string('periode', 45);
-            $table->string('pemasukan', 45);
-            $table->unsignedBigInteger('operasional_id');
-            $table->foreign('operasional_id')->references('id')->on('operasional');
-            $table->timestamps();
-        });
-
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->string('metode', 45);
@@ -134,15 +124,6 @@ class NewDB extends Migration
             $table->date('tgl_produksi');
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menu');
-            $table->timestamps();
-        });
-
-        Schema::create('limiter', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('menu_id');
-            $table->foreign('menu_id')->references('id')->on('menu');
-            $table->string('jumlah', 45);
-            $table->enum('status', ['1', '0']); // 1 active, 0 warn non active
             $table->timestamps();
         });
     }

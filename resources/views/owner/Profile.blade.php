@@ -97,7 +97,7 @@
           <img src="assets1/images/logo.jpg" alt="Avatar" class="rounded-circle img-profile">
           <form>
             <div class="form-group">
-              <label for="fname">FName</label>
+              <label for="fname">Name</label>
               <input type="text" class="form-control" id="fname" placeholder="Enter first name" value="{{$o->nama}}">
             </div>
             <div class="form-group">
@@ -177,7 +177,7 @@
                   @foreach($all as $all)
                     <tr>
                       <td>{{$all->id}}</td>
-                      <td>{{$all->nama}}</td>
+                      <td>{{$all->nama}}<span class="badge badge-success">Active</span></td>
                       <td>{{$all->username}}</td>
                       <td><button type="button" class="btn btn-danger">
                       Non Active</button></td>

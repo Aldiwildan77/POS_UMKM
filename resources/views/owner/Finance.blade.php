@@ -107,36 +107,62 @@
         </div>
         <br><br>
         
+        <div class="card-body table-full-width table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th>No</th>
+                    <th>Bulan</th>
+                    <th>Pemasukan</th>
+                    <th>Produksi</th>
+                    <th>Operasional</th>
+                    <th>Gaji Karyawan</th>
+                    <th>Laba</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Januari</td>
+                        <td>Rp. 500000</td>
+                        <td>Rp. 100000</td>
+                        <td>Rp. 25000</td>
+                        <td>Rp. 75000</td>
+                        <td>Rp. 300000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        
         <div class="container">
-          <div class="row">
-            <div class="col-6">
-              <label for="monthfilter">select month</label>
-              <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <option class="dropdown-item" >January</option>
-                  <option class="dropdown-item" >February</option>
-                  <option class="dropdown-item" >March</option>
-                  <option class="dropdown-item" >April</option>
-                  <option class="dropdown-item" >May</option>
-                  <option class="dropdown-item" >June</option>
-                  <option class="dropdown-item" >July</option>
-                  <option class="dropdown-item" >August</option>
-                  <option class="dropdown-item" >September</option>
-                  <option class="dropdown-item" >October</option>
-                  <option class="dropdown-item" >November</option>
-                  <option class="dropdown-item" >December</option>
-                </div>
-              </select>
+          <form>
+            <div class="row">
+              <div class="col-6 form-group">
+                <label for="monthfilter">select month</label>
+                <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="">
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <option class="dropdown-item" >January</option>
+                    <option class="dropdown-item" >February</option>
+                    <option class="dropdown-item" >March</option>
+                    <option class="dropdown-item" >April</option>
+                    <option class="dropdown-item" >May</option>
+                    <option class="dropdown-item" >June</option>
+                    <option class="dropdown-item" >July</option>
+                    <option class="dropdown-item" >August</option>
+                    <option class="dropdown-item" >September</option>
+                    <option class="dropdown-item" >October</option>
+                    <option class="dropdown-item" >November</option>
+                    <option class="dropdown-item" >December</option>
+                  </div>
+                </select>
+              </div>
+              <div class="col-6 form-group">
+                <label for="yearfilter">insert year</label>
+                <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year" required>
+                <br>
+                <input type="submit" class="btn btn-primary d-flex justify-content-end" id="filter" value="Apply Filter">
+              </div>
             </div>
-            <div class="col-6">
-              <label for="yearfilter">insert year</label>
-              <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year">
-              <br>
-              <button type="button" class="btn btn-primary d-flex justify-content-end" id="filter">
-                Apply Filter
-              </button>
-            </div>
-          </div>
+          </form>
         </div>
 
         <br><br>
@@ -152,47 +178,38 @@
               <p>Pemasukan</p>
               <p>Biaya Produksi</p>
               <p>Operasional</p>
-              <p class="m-2">Gaji Karyawan</p>
-              <p class="m-2">Listrik</p>
-              <p class="m-2">Air</p>
-              <p class="m-2">LPG</p>
+              @forelse($oprdetails as $opr)
+              <p class="m-3">{{$opr->keterangan}}</p>
+              @empty
+              <p class="m-3">-</p>
+              @endforelse
+              <p>Gaji Karyawan</p>
+              @forelse($saldetails as $sal)
+              <p class="m-3">Produksi {{$sal->tgl_produksi}}</p>
+              @empty
+              <p class="m-3">-</p>
+              @endforelse
               <h6 class="fw-bold">Laba Total</h6>
             </div>
             <div class="col-6"> 
               <p>Rp. {{$income}}</p>
               <p>Rp. {{$production}}</p>
               <p>Rp. {{$operational}}</p>
-              <p class="m-2">Rp. -</p>
-              <p class="m-2">Rp. -</p>
-              <p class="m-2">Rp. -</p>
-              <p class="m-2">Rp. -</p>
-              <h6 class="fw-bold">Rp. {{$laba}}</h6>
+              @forelse($oprdetails as $opr)
+              <p class="m-3">Rp. {{$opr->biaya}}</p>
+              @empty
+              <p class="m-3">Rp. 0</p>
+              @endforelse
+              <p>Rp. {{$salary}}</p>
+              @forelse($saldetails as $s)
+              <p class="m-3">Rp. {{$s->gaji}}</p>
+              @empty
+              <p class="m-3">Rp.0</p>
+              @endforelse
+              <h6 class="fw-bold">Rp. {{$profit}}</h6>
             </div>
-          
           </div>
-          
         </div>
-
-        <!-- <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <th>No</th>
-                    <th>Menu</th>
-                    <th>Harga</th>
-                    <th>Foto</th>
-                    <th>Status</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>asdasd</td>
-                        <td>asd</td>
-                        <td>sddsf</td>
-                         <td><img class="img-thumbnail" src="" alt="photo"></td>
-                        <td>Available</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
       </div>
 		</div>
 
