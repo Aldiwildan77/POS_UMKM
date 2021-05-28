@@ -26,6 +26,8 @@
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets2/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('assets2/css/main.css')}}">
 <!--===============================================================================================-->
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
 	
@@ -37,10 +39,9 @@
 				</span>
 
 				@if (session('status'))
-          <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong> {{ session('status') }} </strong>
-        </div>
+				<div class="alert alert-danger" role="alert">
+					{{ session('status') }}
+				</div>
         @endif
 
 				<form class="login100-form validate-form p-b-33 p-t-5" action="/login" method="POST">
@@ -64,25 +65,7 @@
 		</div>
 	</div>
 	
-
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/animsition/js/animsition.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{URL::asset('assets2/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/select2/select2.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/daterangepicker/moment.min.js')}}"></script>
-	<script src="{{URL::asset('assets2/vendor/daterangepicker/daterangepicker.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/vendor/countdowntime/countdowntime.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="{{URL::asset('assets2/js/main.js')}}"></script>
-
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>
