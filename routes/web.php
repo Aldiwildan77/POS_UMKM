@@ -49,7 +49,7 @@ Route::get('/karyawanData', 'KaryawanController@showAll')->middleware('AuthCheck
 Route::post('/karyawanData', 'KaryawanController@addData');
 Route::post('/karyawanData/{id}', 'KaryawanController@editData');
 
-Route::get('/operasionalDlaporanAllata', 'OperasionalController@showAll')->middleware('AuthCheck');
+Route::get('/operasionalData', 'OperasionalController@showAll')->middleware('AuthCheck');
 Route::post('/operasionalData', 'OperasionalController@addData');
 Route::post('/operasionalData/{id}', 'OperasionalController@editData');
 
