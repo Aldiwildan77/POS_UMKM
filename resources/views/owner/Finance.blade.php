@@ -134,30 +134,31 @@
         <br><br>
         
         <div class="container">
-          <form>
+          <form method="post" action="/laporanAll">
+          @csrf
             <div class="row">
               <div class="col-6 form-group">
                 <label for="monthfilter">select month</label>
-                <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="">
+                <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="month">
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <option class="dropdown-item" >January</option>
-                    <option class="dropdown-item" >February</option>
-                    <option class="dropdown-item" >March</option>
-                    <option class="dropdown-item" >April</option>
-                    <option class="dropdown-item" >May</option>
-                    <option class="dropdown-item" >June</option>
-                    <option class="dropdown-item" >July</option>
-                    <option class="dropdown-item" >August</option>
-                    <option class="dropdown-item" >September</option>
-                    <option class="dropdown-item" >October</option>
-                    <option class="dropdown-item" >November</option>
-                    <option class="dropdown-item" >December</option>
+                    <option class="dropdown-item" value="01">January</option>
+                    <option class="dropdown-item" value="02">February</option>
+                    <option class="dropdown-item" value="03">March</option>
+                    <option class="dropdown-item" value="04">April</option>
+                    <option class="dropdown-item" value="05">May</option>
+                    <option class="dropdown-item" value="06">June</option>
+                    <option class="dropdown-item" value="07">July</option>
+                    <option class="dropdown-item" value="08">August</option>
+                    <option class="dropdown-item" value="09">September</option>
+                    <option class="dropdown-item" value="10">October</option>
+                    <option class="dropdown-item" value="11">November</option>
+                    <option class="dropdown-item" value="12">December</option>
                   </div>
                 </select>
               </div>
               <div class="col-6 form-group">
                 <label for="yearfilter">insert year</label>
-                <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year" required>
+                <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year" name="year" required>
                 <br>
                 <input type="submit" class="btn btn-primary d-flex justify-content-end" id="filter" value="Apply Filter">
               </div>
@@ -168,7 +169,13 @@
         <br><br>
         <div class="mb-4">
           <h4 class="text-start">Laporan Keuangan</h4>
-          <h5 class="text-muted" style="text-align:right"><span id="myselected"></span></h5>
+          @isset($month)
+          <h5 class="text-muted" style="text-align:right"><span id="myselected">{{$month}}   {{$year}}</span></h5>
+          @endisset
+          @empty($month)
+          <h5 class="text-muted" style="text-align:right"><span id="myselected">{{date("Y")}}   {{date("m")}}</span></h5>
+          @endempty
+          
         </div>
         
         <br>
@@ -210,6 +217,7 @@
             </div>
           </div>
         </div>
+
       </div>
 		</div>
 

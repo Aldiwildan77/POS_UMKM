@@ -67,3 +67,4 @@ Route::get('/topData', 'TranksaksiController@showDataMenu')->middleware('AuthChe
 Route::get('/transaksi', 'TranksaksiController@cashierTrx')->middleware('AuthCheck');
 
 Route::get('/laporanAll', 'LaporanController@financeCount')->middleware('AuthCheck');
+Route::post('/laporanAll', 'LaporanController@financeCountbyR')->middleware('AuthCheck');
