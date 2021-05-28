@@ -94,22 +94,37 @@
 
         <div class="container">
 
+        @if (session('status'))
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> {{ session('status') }}
+        </div>
+        @endif
+
           <img src="assets1/images/logo.jpg" alt="Avatar" class="rounded-circle img-profile">
-          <form>
+          <form method="POST" action="/profile">
+          @csrf  
             <div class="form-group">
               <label for="fname">Name</label>
-              <input type="text" class="form-control" id="fname" placeholder="Enter first name" value="{{$o->nama}}">
+              <input type="hidden" name="iduser" value="{{$o->id}}">
+              <input type="hidden" name="idstaff" value="{{$o->idkar}}">
+              <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="name" value="{{$o->nama}}">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{$o->email}}">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{$o->email}}">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="text" class="form-control" id="phone" placeholder="Enter phone number" name="phonenum" value="{{$o->nohp}}">
+            </div>
             <div class="form-group">
               <label for="uname">User Name</label>
-              <input type="text" class="form-control" id="uname" placeholder="Enter user name" value="{{$o->username}}">
+              <input type="text" class="form-control" id="uname" placeholder="Enter user name" name="username" value="{{$o->username}}">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{$o->password}}">
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value="{{$o->password}}">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -133,26 +148,25 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                <form method="POST" action="" id="adduser"> 
+                <form method="POST" action="/staff" id="adduser"> 
                 @csrf  
                   <div class="form-group">
                     <label for="uname">User Name</label>
-                    <input type="text" class="form-control" id="uname" placeholder="Enter user name">
+                    <input type="text" class="form-control" id="uname" name="username" placeholder="Enter user name">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" id="exampleInputPassword1"  name="password" placeholder="EnterPassword">
                   </div>
                   <div class="form-group">
                     <label for="staff">Assign Staff</label>
-                    <select class="form-control dropdown-toggle" id="staff" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <select class="form-control dropdown-toggle" id="staff" name="staffid" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                         @foreach($staff as $s)
                         <option class="dropdown-item" value="{{$s->id}}">{{$s->nama}}</option>
                         @endforeach
                       </div>
                     </select>
-                    <!-- <input name="menu_id" type="hidden" id="menuselected"> -->
                   </div>
                 </div>
                   <div class="modal-footer">
@@ -169,6 +183,7 @@
                 <thead>
                   <th>ID</th>
                   <th>Staff Name</th>
+                  <th>Staff Number</th>
                   <th>User Name</th>
                   <th>Action</th>
                 </thead>
@@ -178,6 +193,7 @@
                     <tr>
                       <td>{{$all->id}}</td>
                       <td>{{$all->nama}}<span class="badge badge-success">Active</span></td>
+                      <td>{{$all->nohp}}</td>
                       <td>{{$all->username}}</td>
                       <td><button type="button" class="btn btn-danger">
                       Non Active</button></td>

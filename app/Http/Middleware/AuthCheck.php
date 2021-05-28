@@ -21,7 +21,7 @@ class AuthCheck
         }
 
         if (!session()->has('LoggedUser') && ($request->path() == '/login')) {
-            return back();
+            return redirect($request->path());
         }
         return $next($request);
     }

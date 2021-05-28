@@ -25,13 +25,16 @@ Route::get('/logout', 'KaryawanController@logout');
 
 Route::get('/index', 'TranksaksiController@showMenuCashier')->middleware('AuthCheck');//home kasir
 Route::post('/index', 'TranksaksiController@addData');//post new transaction
-Route::view('/cashier', 'cashier/profile')->middleware('AuthCheck'); // profile cashier
+Route::get('/cashier', 'KaryawanController@showCashier')->middleware('AuthCheck'); // profile cashier
+Route::post('/cashier', 'KaryawanController@editUser');
 
 Route::get('/home', 'MenuController@readyForTrx');//home customer
 
 Route::view('/dashboard', 'owner/Report')->middleware('AuthCheck'); //home owner
 
 Route::get('/profile', 'KaryawanController@showAllUser')->middleware('AuthCheck'); // profile owner
+Route::post('/profile', 'KaryawanController@editOwner');
+Route::post('/staff', 'KaryawanController@addUser');
 
 Route::get('/menuData', 'MenuController@showAll')->middleware('AuthCheck');
 Route::post('/menuData', 'MenuController@addData');

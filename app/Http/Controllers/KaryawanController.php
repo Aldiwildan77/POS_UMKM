@@ -28,10 +28,12 @@ class KaryawanController extends Controller
             if ($userInfo->password == $request->pass){
                 if ($userInfo->level == 1) {
                     $request->session()->put('LoggedUser', $userInfo->id);
+                    //session(['user' => $userInfo]);
                     return redirect('dashboard');
                 }
                 if ($userInfo->level == 0) {
                     $request->session()->put('LoggedUser', $userInfo->id);
+                    //session(['user' => $userInfo]);
                     return redirect('index')->with('status', 'Hi cashier!');
                 }
             }
@@ -54,13 +56,13 @@ class KaryawanController extends Controller
         $owner = DB::table('user AS u')
         ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
         ->where('u.level', '=', '1')
-        ->select('u.id', 'u.username', 'u.password', 'k.nama', 'k.email')
+        ->select('u.id', 'u.username', 'u.password', 'k.id as idkar','k.nama', 'k.nohp','k.email')
         ->first();
 
         $allusers = DB::table('user AS u')
         ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
         ->where('u.level', '=', '0')
-        ->select('u.id', 'u.username', 'u.password', 'k.nama', 'k.email')
+        ->select('u.id', 'u.username', 'u.password','k.id as idkar', 'k.nama','k.nohp', 'k.email')
         ->get();
 
         $allstaff = karyawan::where('status', '=', '1')->get();
@@ -70,19 +72,66 @@ class KaryawanController extends Controller
         ->with(['staff' => $allstaff]);
     }
 
+    public function showCashier()
+    {
+        $idUser = session('LoggedUser');
+        $userInfo = DB::table('user AS u')
+        ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
+        ->where('u.id', '=', $idUser)
+        ->select('u.id', 'u.username', 'u.password', 'k.id as idkar', 'k.nama','k.nohp', 'k.email')
+        ->first();
+
+        return view('cashier/profile')->with(['user'=>$userInfo]);
+    }
+
     public function editOwner(Request $request)
     {
-        # code...
+        //dd($request->all());
+        $idUser = $request->iduser;
+        $idStaff = $request->idstaff;
+        $staff = karyawan::find($idStaff);
+        $staff->nama = $request->nam;
+        $staff->nohp = $request->phonenum;
+        $staff->email = $request->email;
+        $staff->save();
+        $user = userlog::find($idUser);
+        $user->username = $request->username;
+        $user->password = $request->password;
+        $user->karyawan_id = $idStaff;
+        $user->save();
+
+        return back()->with('status', 'profile successfully edited!');
+
     }
 
     public function addUser(Request $request)
     {
-        # code...
+        $user = new userlog();
+        $user->username = $request->username;
+        $user->password = $request->password;
+        $user->karyawan_id = $request->staffid;
+        $user->save();
+
+        return back()->with('status', 'user successfully added!');
     }
 
     public function editUser(Request $request)
     {
-        # code...
+        //dd($request->all());
+        $idUser = $request->id;
+        $idStaff = $request->idstaff;
+        $staff = karyawan::find($idStaff);
+        $staff->nama = $request->nama;
+        $staff->nohp = $request->nohp;
+        $staff->email = $request->email;
+        $staff->save();
+        $user = userlog::find($idUser);
+        $user->username = $request->username;
+        $user->password = $request->password;
+        $user->karyawan_id = $idStaff;
+        $user->save();
+
+        return back()->with('status', 'profile successfully edited!');
     }
 
     public function showAll()

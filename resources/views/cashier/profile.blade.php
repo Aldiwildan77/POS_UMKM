@@ -48,21 +48,29 @@
 
     <div class="continer">
         <img src="assets1/images/logo.jpg" alt="Avatar" class="rounded-circle img-profile">
-            <form>
+            <form method="POST" action="/cashier">
+            @csrf
             <div class="form-group">
                 <label for="fname">Name</label>
-                <input type="text" class="form-control" id="fname" placeholder="Enter first name" value="">
+                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="nama" value="{{$user->nama}}">
+                <input type="hidden" name="id" value="{{$user->id}}">
+                <input type="hidden" name="idstaff" value="{{$user->idkar}}">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Enter email" value="{{$user->email}}">
+            </div>    
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" id="phone" name="nohp" placeholder="Enter phone number" value="{{$user->nohp}}">
+            </div>    
             <div class="form-group">
                 <label for="uname">User Name</label>
-                <input type="text" class="form-control" id="uname" placeholder="Enter user name" value="">
+                <input type="text" class="form-control" id="uname" placeholder="Enter user name"  name="username" value="{{$user->username}}">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value="{{$user->password}}">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
