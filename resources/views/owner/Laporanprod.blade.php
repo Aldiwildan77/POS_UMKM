@@ -44,7 +44,7 @@
                         <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
                     </li>
                     <li class="active">
-                        <a href="{{url('/laporanAll')}}">Laporan Produksi</a>
+                        <a href="{{url('/laporanProduksi')}}">Laporan Produksi</a>
                     </li>
                     <li>
                         <a href="{{url('/topData')}}">Top Menu</a>
