@@ -137,73 +137,76 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modal edit-->
-                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Transaction id xxx</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="namerecx">Nama Pemesan</label>
-                                                <input type="text" class="form-control" id="namerecx" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phonerecx">No hp</label>
-                                                <input type="text" class="form-control" id="phonerecx" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="addrrecx">Alamat</label>
-                                                <input type="text" class="form-control" id="addrrecx" disabled>
-                                            </div>
-                                            <div class="form-group" id="menudetailx">
-                                                
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="payrec">Total</label>
-                                                <input type="text" class="form-control" id="payrec" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="statusrecx">Status</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                                    <label class="form-check-label" for="exampleRadios1">
-                                                        Proccessed
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                                    <label class="form-check-label" for="exampleRadios1">
-                                                        On the way
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                                    <label class="form-check-label" for="exampleRadios2">
-                                                        Delivered
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            <!-- Modal edit-->
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Transaction id <span id="editModalLabel"></span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="/transaksi">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="namerecx">Nama Pemesan</label>
+                                    <input type="text" class="form-control" id="namerecx" name="name" disabled>
+                                    <input type="hidden" class="form-control" id="idrecx" name="idtrx" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="phonerecx">No hp</label>
+                                    <input type="text" class="form-control" id="phonerecx" name="phonenum" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addrrecx">Alamat</label>
+                                    <input type="text" class="form-control" id="addrrecx" name="address" disabled>
+                                </div>
+                                <div class="form-group" id="menudetailx">
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="payrec">Total</label>
+                                    <input type="text" class="form-control" id="payrec" name="total" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="statusrecx">Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Proccessed
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2" >
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            On the way
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="exampleRadios3" value="3">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Delivered
+                                        </label>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes">
+                        </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <div class="mx-5">{{ $transaksi->links('vendor.pagination.bootstrap-4') }}</div>
         </div>

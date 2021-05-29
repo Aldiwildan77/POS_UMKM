@@ -172,10 +172,17 @@ class TranksaksiController extends Controller
                 $stok_changed->jumlah = $laststok-$qtyorder;
                 $stok_changed->save();
             }
-            //$stok_changed->save();
             $detailTransaksi->save();
         }
 
         return back()->with('status', 'new data successfully created!');
+    }
+
+    public function editStatus(Request $request)
+    {
+        //dd($request->all());
+        $transaksi = tranksaksi::find($request->idtrx);
+        $transaksi->status = $request->status;
+        $transaksi->save();
     }
 }

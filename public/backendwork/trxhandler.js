@@ -8,15 +8,16 @@ $(document).ready(function(){
     var menu = button.data('menu')  
     var qty = button.data('qty')
     var total = button.data('total')
+    var stat
     var status = button.data('status')
     if (status == 1) {
-        status = 'Processed'
+        stat = 'Processed'
     }
     if (status == 2) {
-        status = 'On the way'
+        stat = 'On the way'
     }
     if (status == 3) {
-        status = 'Delivered'
+        stat = 'Delivered'
     }
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -24,7 +25,7 @@ $(document).ready(function(){
     $('#namerec').val(name)
     $('#phonerec').val(phone)
     $('#payrec').val(total)
-    $('#statusrec').val("status")
+    $('#statusrrec').val(stat)
     var menuArr = menu.split(',')
     var x = qty.toString()
     var qtyArr = x.split(',')
@@ -57,15 +58,13 @@ $(document).ready(function(){
     var id = button.data('id')// Extract info from data-* attributes 
     var name = button.data('name') 
     var phone = button.data('phone')
-    var pm = button.data('pm')
     var menu = button.data('menu')
     var qty = button.data('qty') // TODO use detail later
     var total = button.data('total')
-    var status = button.data('status')
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    $('#editModalLabel').val('Transaction id' + id)
     $('#namerecx').val(name)
+    $('#idrecx').val(id)
     $('#phonerecx').val(phone)
     $('#payrecx').val(total)
     var menuArr = menu.split(',')

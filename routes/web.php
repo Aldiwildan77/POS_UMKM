@@ -68,6 +68,7 @@ Route::get('/laporanProduksi', 'StokJadiController@showProdReport')->middleware(
 Route::get('/topData', 'TranksaksiController@showDataMenu')->middleware('AuthCheck');
 
 Route::get('/transaksi', 'TranksaksiController@cashierTrx')->middleware('AuthCheck');
+Route::post('/transaksi', 'TranksaksiController@editStatus');
 
 Route::get('/laporanAll', 'LaporanController@financeCount')->middleware('AuthCheck');
 Route::post('/laporanAll', 'LaporanController@financeCountbyR')->middleware('AuthCheck');
