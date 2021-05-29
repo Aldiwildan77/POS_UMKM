@@ -51,7 +51,7 @@ class ResepController extends Controller
 
         for ($i=1; $i <=$qtybahan; $i++) { 
             $resep = new resep;
-            $bahan = "ingredient_id".$i;
+            $bahan = "ingredientid".$i;
             $resep->stok_bahan_id = $request->$bahan;
             $qty = "qty".$i;
             $resep->jumlah = $request->$qty;
@@ -64,29 +64,38 @@ class ResepController extends Controller
 
     public function editData(Request $request, $id)
     {
-        //dd($request->all());
+        dd($request->all());
 
         $menu = menu::find($id);
         $menu->porsi = $request->porsi;
         $menu->save();
         $currentid = $menu->id;
-        $qtybahan = $request->matkind;
+        $qtybahan = $request->curmenu;
 
         for ($i=0; $i < $qtybahan; $i++) {
             $idrsp = "recipeid".$i;
-            if ($request->$idrsp == 0) {
-                $resep = new resep;
-            }
-            else {
-                $resep = resep::find($id);
-            }
-            $bahan = "ingredient_id".$i;
+            $resep = resep::find($idrsp);
+            $bahan = "ingredientid".$i;
             $resep->stok_bahan_id = $request->$bahan;
             $qty = "qty".$i;
             $resep->jumlah = $request->$qty;
             $resep->menu_id = $currentid;
             $resep->save();
         }
+        
+        $totalmat = $request->addmenu;
+        $leftrecipe = $totalmat - $qtybahan;
+        for ($i=$leftrecipe; $i < $totalmat; $i++) { 
+            $resep = new resep();
+            $bahan = "ingredientid".$i;
+            $resep->stok_bahan_id = $request->$bahan;
+            $qty = "qty".$i;
+            $resep->jumlah = $request->$qty;
+            $resep->menu_id = $currentid;
+            $resep->save();
+        }
+
+        dd($totalmat,$qtybahan,$leftrecipe);
 
         return back()->with('status', 'new data successfully edited!');
     }
