@@ -64,7 +64,7 @@ class ResepController extends Controller
 
     public function editData(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $menu = menu::find($id);
         $menu->porsi = $request->porsi;
@@ -74,7 +74,8 @@ class ResepController extends Controller
 
         for ($i=0; $i < $qtybahan; $i++) {
             $idrsp = "recipeid".$i;
-            $resep = resep::find($idrsp);
+            $idrecipe = $request->$idrsp;
+            $resep = resep::find($idrecipe);
             $bahan = "ingredientid".$i;
             $resep->stok_bahan_id = $request->$bahan;
             $qty = "qty".$i;
@@ -95,7 +96,7 @@ class ResepController extends Controller
             $resep->save();
         }
 
-        dd($totalmat,$qtybahan,$leftrecipe);
+        //dd($totalmat,$qtybahan,$leftrecipe);
 
         return back()->with('status', 'new data successfully edited!');
     }
