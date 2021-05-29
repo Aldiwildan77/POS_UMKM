@@ -53,10 +53,10 @@ class MenuController extends Controller
        ->groupBy('m.id')
        ->get();
 
-       $groups = $menu->splitIn(3);
+       $groups = $menu->chunk(3);;
 
-       dd($groups, sizeof($groups));
-       return view('customer/Index' , ['menu' => $groups]);
+       //dd($groups, sizeof($groups));
+       return view('customer/index' , ['menu' => $groups]);
     }
 
 }
