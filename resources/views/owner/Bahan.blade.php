@@ -203,7 +203,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="date">Date</label>
-                  <input class="form-control"  name="date" placeholder="YYYY/MM/DD" type="text" required/>
+                  <input class="form-control" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                 </div>
                 <div class="form-group">
                   <label for="photo">Fraktur</label>
@@ -321,7 +321,7 @@
     <script src="{{URL::asset('assets1/js/popper.js')}} "></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}} "></script>
     <script src="{{URL::asset('assets1/js/main.js')}} "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+    
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
@@ -384,6 +384,8 @@
             });
         });
     </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     
   </body>
 </html>
