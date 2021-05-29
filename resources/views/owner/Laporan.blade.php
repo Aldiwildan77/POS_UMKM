@@ -313,6 +313,7 @@
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
 
     <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>

@@ -84,25 +84,13 @@
           </div>
         </nav>
 
-        
-        <div class="row mb-3">
-          <div class="col-3">
-          </div>
-          <div class="col-3"> 
-          </div>
-          <div class="col-6">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <h2 class="mb-4" style="text-align:center" >Laporan Produksi</h2>
-        <div class="search-container">
-        
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+          </div>
         </div>
 
         <div class="card-body table-full-width table-responsive">
