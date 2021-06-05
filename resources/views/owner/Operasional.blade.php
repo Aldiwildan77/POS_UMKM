@@ -155,7 +155,7 @@
                 </div>
                 <div class="form-group">
                   <label for="photo">Fraktur</label>
-                  <input type="file" class="form-control-file" id="photo">
+                  <input type="file" class="form-control-file" id="photo" name="fraktur">
                 </div>
               </div>
               <div class="modal-footer">
@@ -171,7 +171,7 @@
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
-                    <th>id</th>
+                    <th style="cursor:pointer">No<i class="fas fa-sort"></th>
                     <th style="cursor:pointer">Keterangan<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Biaya<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Tanggal<span><i class="fas fa-sort"></i></span></th>
@@ -181,62 +181,63 @@
                 <tbody>
                     @foreach($operasional as $o)
                     <tr>
-                        <td>{{$o->id}}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$o->keterangan}}</td>
                         <td>Rp. {{$o->biaya}}</td>
                         <td>{{$o->tanggal}}</td>
-                        <td>{{$o->fraktur_id}}</td>
+                        <td><img class="img-thumbnail" src="{{$o->foto}}" alt="unavailable"></td>
                         <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#editOperational" 
-                        data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}">
-                            edit</button>
+                        data-id="{{$o->id}}" data-desc="{{$o->keterangan}}" data-price="{{$o->biaya}}" data-date="{{$o->tanggal}}" data-fraktur="{{$o->foto}}">
+                            Edit</button>
                         </td>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="editOperational" tabindex="-1" role="dialog" aria-labelledby="editOperationalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="editOperationalLabel">Edit data operasional <span id="idoperasional"></span></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
+                      <!-- Modal -->
+            <div class="modal fade" id="editOperational" tabindex="-1" role="dialog" aria-labelledby="editOperationalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editOperationalLabel">Edit data operasional <span id="idoperasional"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
 
-                              <form method="POST" id="editForm">
-                              @csrf
-                                <div class="form-group">
-                                  <label for="desc">Keterangan</label>
-                                  <input type="text" class="form-control" id="descrec" name="desc" required>
-                                </div>
-                                <div class="form-group">
-                                  <label for="price">Biaya</label>
-                                  <input type="text" class="form-control" id="pricerec" name="price" required>
-                                </div>
-                                <div class="form-group">
-                                  <label class="control-label" for="date">Date</label>
-                                  <input class="form-control" id="daterec" name="date" type="text" required/>
-                                </div>
-                                <div class="form-group">
-                                  <label for="photo">Fraktur</label>
-                                  <input type="file" class="form-control-file" id="photorec">
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary resetbtn">Reset</button>
-                                <input type="submit" class="btn btn-primary" value="Save changes">
-                              </div>
+                  <form method="POST" id="editForm">
+                  @csrf
+                    <div class="form-group">
+                      <label for="desc">Keterangan</label>
+                      <input type="text" class="form-control" id="descrec" name="desc" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="price">Biaya</label>
+                      <input type="text" class="form-control" id="pricerec" name="price" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="date">Date</label>
+                      <input class="form-control" id="daterec" name="date" type="text" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="photo">Fraktur</label><br>
+                      <img class="img-thumbnail" id="fraktur" alt="unavailable">
+                      <input type="file" class="form-control-file" id="photorec" name="fraktur">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary resetbtn">Reset</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes">
+                  </div>
 
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-
+                  </form>
+                </div>
+              </div>
+            </div>
                         
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+
             <div class="mx-5">{{ $operasional->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
       </div>
@@ -249,20 +250,15 @@
       var desc = button.data('desc') 
       var price = button.data('price')
       var date = button.data('date')
-      var id = button.data('id')// Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var id = button.data('id')
+      var fraktur = button.data('fraktur')// Extract info from data-* attributes
+      $("#fraktur").attr("src",fraktur)
       $('#descrec').val(desc)
       $('#pricerec').val(price)
       $('#daterec').val(date)
       $('#idoperasional').text(id)
       $('#editForm').attr('action','/operasionalData/'+id)
       });
-
-      $(".resetbtn").click(function(e) {
-          var formid = $(this.form).attr('id');
-          document.getElementById(formid).reset();
-        });
 
       var date_input=$('input[name="date"]'); //our date input has the id "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -273,24 +269,28 @@
           autoclose: true,
       });
     })
+
+    $(".resetbtn").click(function(e) {
+          var formid = $(this.form).attr('id');
+          document.getElementById(formid).reset();
+      });
     </script>
 
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets1/js/main.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+
     
     <script>
     $(function() {
         $("#mainTable").tablesorter();
-      });
+    });
 
       $("body").on("click", "#pdfexport", function () {
             html2canvas($('#mainTable')[0], {

@@ -401,8 +401,11 @@ mark,
   background-color: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
+  width: 100px;
+  height: 100px;
   max-width: 100%;
-  height: auto; }
+  /* height: auto;  */
+}
 
 .img-menu {
   padding: 0.25rem;

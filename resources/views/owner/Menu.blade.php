@@ -145,15 +145,15 @@
                   <input type="file" class="form-control-file" id="photo" name="photo">
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="radioStatus" id="avail" value="option1" checked>
+                  <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
                   <label class="form-check-label" for="avail">
-                    Available
+                    Active
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="radioStatus" id="nonavail" value="option2">
+                  <input class="form-check-input" type="radio" name="status" id="nonavail" value="2">
                   <label class="form-check-label" for="nonavail">
-                    Not Available
+                    Not Active
                   </label>
                 </div>
               
@@ -175,78 +175,74 @@
                     <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Harga <span><i class="fas fa-sort"></i></span></th>
                     <th>Foto</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   @foreach($active as $a) <!--change to for later to get id -->
+                   @foreach($active as $a)
                     <tr>
-                        <td>{{$a->id}}</td>
-                        <td>{{$a->nama}}</td>
-                        <td>Rp {{$a->harga}}</td>
-                         <td><img class="img-thumbnail" src="{{('$a->foto')}}"></td> <!-- TODO replace size later -->
-                        <td>Available</td>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$a->nama}}@if ($a->status==1) <span class="badge badge-success">Available</span> @else <span class="badge badge-secondary">NonAvailable</span> @endif</td>
+                        <td>Rp. {{$a->harga}}</td>
+                        <td><img class="img-thumbnail" src="{{$a->foto}}" alt="unavailable"></td>
                         <td><button id="menutype" type="button" class="btn btn-primary" data-toggle="modal" 
-                        data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}" data-id="{{$a->id}}">
-                            edit
+                            data-target="#editMenu" data-name="{{$a->nama}}" data-price="{{$a->harga}}" data-id="{{$a->id}}" data-photo="{{$a->foto}}">
+                            Edit
                             </button>
-                        <td>
-                        
-                            <!-- modal edit data -->
-                            <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenuLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="editMenuLabel">Edit Menu</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-
-                                  <form method="POST" id="editForm">
-                                  @csrf
-                                    <div class="form-group">
-                                      <label for="namerec">Nama Menu</label>
-                                      <input type="text" class="form-control" id="namerec" name="name" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="pricerec">Harga</label>
-                                      <input type="text" class="form-control" id="pricerec" name="price" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="photo">Foto</label>
-                                      <input type="file" class="form-control-file" id="photo" name="photo">
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusrec" id="recavail" value="1" checked>
-                                      <label class="form-check-label" for="avail">
-                                        Available
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusrec" id="recnonavail" value="0">
-                                      <label class="form-check-label" for="nonavail">
-                                        Not Available
-                                      </label>
-                                    </div>
-                                  
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
-                                    <input type="submit" class="btn btn-primary" value="Save changes">
-                                  </div>
-
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-
-                        </td>
                     </tr>
                   @endforeach
                 </tbody>
             </table>
+            
+             <!-- modal edit data -->
+            <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenuLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editMenuLabel">Edit Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                  <form method="POST" id="editForm">
+                  @csrf
+                    <div class="form-group">
+                      <label for="namerec">Nama Menu</label>
+                      <input type="text" class="form-control" id="namerec" name="name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="pricerec">Harga</label>
+                      <input type="text" class="form-control" id="pricerec" name="price" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="photo">Foto</label><br>
+                      <img class="img-thumbnail" id="img" alt="unavailable">
+                      <input type="file" class="form-control-file" id="photo" name="photo">
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
+                      <label class="form-check-label" for="avail">
+                        Active
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="status" id="nonavail" value="2">
+                      <label class="form-check-label" for="nonavail">
+                        Not Active
+                      </label>
+                    </div>
+                  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes">
+                  </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
 
             <div class="mx-5">{{ $active->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
@@ -254,15 +250,16 @@
 		</div>
 
     <script>
-
       $(document).ready(function(){
         $('#editMenu').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
         var price = button.data('price')
-        var id = button.data('id')// Extract info from data-* attributes
+        var id = button.data('id')
+        var photo = button.data('photo')// Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $("#img").attr("src",photo)
         $('#namerec').val(name)
         $('#pricerec').val(price)
 

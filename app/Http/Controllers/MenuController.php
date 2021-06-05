@@ -10,12 +10,9 @@ class MenuController extends Controller
 {
     public function showAll()
     {
-        $MenuActive = menu::where('status', '=', '1')->paginate(100); //paginate later
+        $MenuActive = menu::paginate(100); //paginate later
 
-        $MenuNonActive = menu::where('status', '=', '0')->paginate(100);
-
-        return view('owner/Menu' , ['active' => $MenuActive])
-        ->with(['nonActive' => $MenuNonActive ]);
+        return view('owner/Menu' , ['active' => $MenuActive]);
     }
 
     public function addData(Request $request)
@@ -24,7 +21,7 @@ class MenuController extends Controller
         $menu->nama = $request->name;
         $menu->harga = $request->price;
         $menu->foto = $request->photo;
-        $menu->status = '1';
+        $menu->status = $request->status;
         $menu->save();
 
         //dd($request->name);
@@ -38,7 +35,7 @@ class MenuController extends Controller
         $menu->nama = $request->name;
         $menu->harga = $request->price;
         $menu->foto = $request->photo;
-        $menu->status = '1';
+        $menu->$request->status;
         $menu->save();
 
         //return "new menu successfully edited";
@@ -53,7 +50,7 @@ class MenuController extends Controller
        ->groupBy('m.id')
        ->get();
 
-       $groups = $menu->chunk(3);;
+       $groups = $menu->chunk(3);
 
        //dd($groups, sizeof($groups));
        return view('customer/index' , ['menu' => $groups]);

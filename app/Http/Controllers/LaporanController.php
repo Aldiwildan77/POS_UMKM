@@ -18,10 +18,10 @@ class LaporanController extends Controller
 
     public function financeCount()
     {
-        // $month = date("m");
-        // $year = date("Y");
-        $month = '04';
-        $year = '2021';
+        $month = date("m");
+        $year = date("Y");
+        // $month = '04';
+        // $year = '2021';
 
         $income = DB::table('transaksi')->where('created_at', 'like', $year.'-'.$month.'-%')
         ->value(DB::raw('sum(nominal) as total'));

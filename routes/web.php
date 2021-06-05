@@ -30,7 +30,8 @@ Route::post('/cashier', 'KaryawanController@editUser');
 
 Route::get('/home', 'MenuController@readyForTrx');//home customer
 
-Route::view('/dashboard', 'owner/Report')->middleware('AuthCheck'); //home owner
+//Route::view('/dashboard', 'owner/Report')->middleware('AuthCheck');
+Route::view('/dashboard', 'owner/Home')->middleware('AuthCheck'); //home owner
 
 Route::get('/profile', 'KaryawanController@showAllUser')->middleware('AuthCheck'); // profile owner
 Route::post('/profile', 'KaryawanController@editOwner');
@@ -46,7 +47,8 @@ Route::post('/bahanEdit', 'StokBahanController@editData'); //edit data belanja
 Route::post('/bahanNew', 'StokBahanController@newShop'); //new belanja
 
 Route::get('/karyawanData', 'KaryawanController@showAll')->middleware('AuthCheck');
-Route::post('/karyawanData', 'KaryawanController@addData');
+Route::post('/karyawanData', 'KaryawanController@addData'); 
+Route::post('/karyawanProduksi', 'KaryawanController@addProductionData');
 Route::post('/karyawanData/{id}', 'KaryawanController@editData');
 
 Route::get('/operasionalData', 'OperasionalController@showAll')->middleware('AuthCheck');

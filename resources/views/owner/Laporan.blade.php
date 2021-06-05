@@ -8,8 +8,6 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
 
-        <script type="text/javascript" src="{{URL::asset('assets3/js/jquery-1.10.2.min.js')}}"></script>
-        <script type="text/javascript" src="{{URL::asset('assets3/bootstrap/js/bootstrap.min.js')}}"></script>
         <!-- end -->
 
         <!-- chart req -->
@@ -95,9 +93,16 @@
 
         <!-- Bootstrap Charts - START -->
         
-        <div class="row table-responsive">
+        <!-- <div class="row table-responsive">
             <canvas id="myChart" width="500" height="200"></canvas>
+        </div> -->
+
+        @if (session('status'))
+          <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> {{ session('status') }}
         </div>
+        @endif
 
         <br><br>
         <div class="input-group mb-3 mx-4">
@@ -113,13 +118,14 @@
             <div class="card-body table-full-width table-responsive">
                 <table class="table table-hover table-striped" id="mainTable"> 
                     <thead>
-                        <th style="cursor:pointer">Id<span><i class="fas fa-sort"></i></span></th>
+                        <th style="cursor:pointer">ID<span><i class="fas fa-sort"></i></span></th>
                         <th style="cursor:pointer">Nama<span><i class="fas fa-sort"></i></span></th>
                         <th>No HP</th>
                         <th>Pembayaran</th>
                         <th style="cursor:pointer">Menu<span><i class="fas fa-sort"></i></span></th>
                         <th style="cursor:pointer">QTY<span><i class="fas fa-sort"></i></span></th>
                         <th style="cursor:pointer">Total<span><i class="fas fa-sort"></i></span></th>
+                        <th style="cursor:pointer">Waktu<span><i class="fas fa-sort"></i></span></th>
                         <th>Status</th>
                     </thead>
                     <tbody>
@@ -132,6 +138,7 @@
                             <td>{{$t->menu}}</td>
                             <td>{{$t->qty}}</td>
                             <td>{{$t->nominal}}</td>
+                            <td>{{$t->tanggal}}</td>
                             <td>
                             @if($t->status == 1)
                             <div style="background-color: blue;width: max-content;"><span class="mx-1">Processed</span></div>
@@ -274,13 +281,45 @@
         </div>
 
     <script>
+    //todo separate by date, sum qty in same date
+
+    // var tanggal = [];
+    // var qty = [];
+    // var tgl;
+    // var sum = 0;
+    // $('#mainTable tr').each(function(row, tr){
+    //     if (!$(tr).find('td:eq(7)').text()) {
+    //         console.log('walk');
+    //         tgl = $(tr).find('td:eq(7)').text().split(" ")[0];
+    //         tanggal.push(tgl);
+    //     // console.log(tanggal.pop());
+    //     // console.log(qty.pop());
+    //     }
+    //     else{
+    //         var tglx = $(tr).find('td:eq(7)').text().split(" ")[0];
+    //         if (tanggal.pop() != tglx) {
+    //             tanggal.push($(tr).find('td:eq(7)').text().split(" ")[0]);
+    //             qty.push(sum);
+    //             sum = 0;
+    //             }
+    //         else if (tanggal.pop() == tglx) {
+    //             if (Number.isInteger(parseInt($(tr).find('td:eq(5)').text()))) {
+    //                 sum += parseInt($(tr).find('td:eq(5)').text());
+    //             }
+    //         } 
+    //     }
+        
+    // });
+    //tanggal.shift();// first row will be empty - so remove
+    //console.log(tanggal, qty);
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of Votes',
+                label: '# of Item Sold',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -310,17 +349,14 @@
     <!-- Bootstrap Charts - END -->
             </div>
 
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{{URL::asset('backendwork/trxhandler.js')}}"></script>
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     

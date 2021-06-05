@@ -18,7 +18,8 @@ class StokBahanController extends Controller
         // order by b.id
         $fullStock = DB::table('stok_bahan AS b')
             ->join('stok_bahan_detail AS d', 'b.id', '=', 'd.stok_bahan_id')
-            ->select('d.id','b.id as idBahan', 'b.nama', 'd.tgl_beli', 'd.jumlah','d.qty', 'd.qty_satuan')
+            ->join('fraktur AS f', 'f.id', '=', 'd.fraktur_id')
+            ->select('d.id','b.id as idBahan', 'b.nama', 'd.tgl_beli', 'd.jumlah','d.qty', 'd.qty_satuan', 'f.id as idF', 'f.foto')
             ->orderBy('b.id')
             ->paginate(100);
             //->get();

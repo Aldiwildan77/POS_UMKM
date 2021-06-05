@@ -227,25 +227,22 @@
                     <th style="cursor:pointer">Bahan<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Nominal<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Jumlah<span><i class="fas fa-sort"></i></span></th>
-                    <th>Satuan</th>
                     <th style="cursor:pointer">Tanggal Pembelian<span><i class="fas fa-sort"></i></span></th>
+                    <th>Fraktur</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach($fullstock as $fs)
                     <tr>
-                        <td>{{$fs->id}}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$fs->nama}}</td>
                         <td>Rp. {{$fs->jumlah}}</td>
-                        <td>{{$fs->qty}}</td>
-                        @if ($fs->qty_satuan == 1)
-                        <td>gram</td>
-                        @elseif ($fs->qty_satuan == 2)
-                        <td>mililiter</td>
-                        @endif
+                        <td>{{$fs->qty}} @if($fs->qty_satuan == 1) gram @elseif($fs->qty_satuan == 2) mililiter @endif</td>
                         <td>{{$fs->tgl_beli}}</td> 
-                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" data-qty="{{$fs->qty_satuan}}"
-                        data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-nominal="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">Edit Data</a>
+                        <td><img class="img-thumbnail" src="{{$fs->foto}}" alt="unavailable"></td> 
+                        <td><a class="btn btn-primary" role="button" data-toggle="modal" data-target="#editStock" data-qty="{{$fs->qty}}" data-qtySatuan="{{$fs->qty_satuan}}" data-fraktur="{{$fs->foto}}"
+                        data-id="{{$fs->id}}" data-idx="{{$fs->idBahan}}" data-name="{{$fs->nama}}" data-nominal="{{$fs->jumlah}}" data-date="{{$fs->tgl_beli}}">
+                        Edit Data</a>
                         </td> 
 
                          <!-- Modal Edit-->
@@ -293,7 +290,8 @@
                                   <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
                                 </div>
                                 <div class="form-group">
-                                  <label for="photo">Fraktur</label>
+                                  <label for="photo">Fraktur</label><br>
+                                  <img class="img-thumbnail" id="fraktur" alt="unavailable">
                                   <input type="file" class="form-control-file" id="photo">
                                 </div>
                               </div>
@@ -318,18 +316,6 @@
       </div>
 		</div>
 
-    <script src="{{URL::asset('assets1/js/popper.js')}} "></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}} "></script>
-    <script src="{{URL::asset('assets1/js/main.js')}} "></script>
-    
-    <script src="{{URL::asset('backendwork/search.js')}}"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
-    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
-    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    
     <script>
       $(document).ready(function(){
         //$("#mainTable").tablesorter();
@@ -340,16 +326,15 @@
         var qty = button.data('qty')
         var date = button.data('date')
         var id = button.data('id')
-        var idIngr = button.data('idx')// Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var idIngr = button.data('idx')
+        var fraktur = button.data('fraktur')// Extract info from data-* attributes
+        $("#fraktur").attr("src",fraktur)
         $('#namerec').val(name)
         $('#nominalrec').val(nominal)
         $('#qtyrec').val(qty)
         $('#daterec').val(date)
         $('#idDetail').val(id)
         $('#idIngr').val(idIngr)
-
         });
 
         var date_input=$('input[name="date"]'); //our date input has the id "date"
@@ -361,7 +346,6 @@
             autoclose: true,
         });
 
-        $("#mainTable").tablesorter();
     });
 
     $(".resetbtn").click(function(e) {
@@ -369,7 +353,25 @@
       document.getElementById(formid).reset();
     });
 
-    $("body").on("click", "#pdfexport", function () {
+  
+    </script>
+
+    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
+    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+    <script src="{{URL::asset('backendwork/search.js')}}"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+    <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+
+  <script>
+    $(function() {
+        $("#mainTable").tablesorter();
+    });
+
+      $("body").on("click", "#pdfexport", function () {
             html2canvas($('#mainTable')[0], {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
@@ -379,13 +381,10 @@
                             width: 500
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("shop-details.pdf");
+                    pdfMake.createPdf(docDefinition).download("operational-details.pdf");
                 }
             });
         });
     </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
-    
   </body>
 </html>

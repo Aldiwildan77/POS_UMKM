@@ -51,53 +51,6 @@
             <div class="col-9">
                 <div class="row my-4">
                     <!-- loop menu start here -->
-                    <div class="col-4">
-                        <a href="" data-name="porkchooooooooop" data-price="10000" data-photo="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
-                            <div class="card">
-                                <div class="media">
-                                    <div class="media-body p-1">
-                                        <h5 class="card-title">Pork Chop Dinner</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                        <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
-                                    </div>
-                                    <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- loop menu end here -->
-                    <div class="col-4">
-                        <a href="" data-name="Pastakind" data-price="1300" data-photo="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
-                            <div class="card">
-                                <div class="media">
-                                    <div class="media-body p-1">
-                                        <h5 class="card-title ">PastaKind</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                        <h6 class="card-subtitle mb-2 font-weight-bold text-price">Rp 25.000</h6>
-                                    </div>
-                                    <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="" data-name="tend" data-price="2050" data-photo="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" class="add-to-cart">
-                            <div class="card">
-                                <div class="media">
-                                    <div class="media-body p-1">
-                                        <h5 class="card-title">Tenderloin</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                        <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
-                                    </div>
-                                    <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <!-- loop menu start here -->
                     @foreach($menu as $m)
                     <div class="col-4 my-3">
                         <a href="" data-name="{{$m->nama}}" data-price="{{$m->harga}}" data-photo="{{$m->foto}}" data-id="{{$m->id}}" class="add-to-cart">
@@ -115,30 +68,6 @@
                     </div>
                     @endforeach
                     <!-- loop menu end here -->
-                    <!-- <div class="col-4">
-                        <div class="card">
-                            <div class="media">
-                                <div class="media-body p-1">
-                                    <h5 class="card-title">Pork Chop Dinner</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                    <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
-                                </div>
-                                <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="media">
-                                <div class="media-body p-1">
-                                    <h5 class="text-cart">Pork Chop Dinner</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">50 pcs</h6>
-                                    <h6 class="card-subtitle mb-2 font-weight-bold text-price" >Rp 25.000</h6>
-                                </div>
-                                <img class="img-menu align-self-end ml-3" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzh8fHxlbnwwfHx8&auto=format&fit=crop&w=700&q=60" alt="Generic placeholder image" >
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
 

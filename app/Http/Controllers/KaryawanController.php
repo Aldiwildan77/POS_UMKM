@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\karyawan;
+use App\Models\produksi;
 use App\Models\userlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,10 +63,10 @@ class KaryawanController extends Controller
         $allusers = DB::table('user AS u')
         ->join('karyawan AS k' , 'k.id', '=', 'u.karyawan_id')
         ->where('u.level', '=', '0')
-        ->select('u.id', 'u.username', 'u.password','k.id as idkar', 'k.nama','k.nohp', 'k.email')
+        ->select('u.id','u.status', 'u.username', 'u.password','k.id as idkar', 'k.nama','k.nohp', 'k.email')
         ->get();
 
-        $allstaff = karyawan::where('status', '=', '1')->get();
+        $allstaff = karyawan::all();
         
         return view('owner/Profile', ['o' => $owner])
         ->with(['all' => $allusers])
@@ -90,7 +91,7 @@ class KaryawanController extends Controller
         $idUser = $request->iduser;
         $idStaff = $request->idstaff;
         $staff = karyawan::find($idStaff);
-        $staff->nama = $request->nam;
+        $staff->nama = $request->name;
         $staff->nohp = $request->phonenum;
         $staff->email = $request->email;
         $staff->save();
@@ -136,12 +137,19 @@ class KaryawanController extends Controller
 
     public function showAll()
     {
-        $active = karyawan::where('status', '=', '1')->paginate(100);
+        $active = karyawan::paginate(100);
 
-        $NonActive = karyawan::where('status', '=', '0')->paginate(100);
+        $gajiStaff = DB::table('produksi AS p')
+        ->join('karyawan AS k','k.id', '=', 'p.karyawan_id')
+        ->select('p.id AS idP', 'k.id AS idK', 'k.nama', 'k.gaji','p.tgl_produksi') 
+        ->orderBy('p.tgl_produksi')
+        ->get();
+
+        $all = karyawan::all();
 
         return view('owner/Karyawan', ['active' => $active])
-        ->with(['nonActive' => $NonActive]);
+        ->with(['all' => $all])
+        ->with(['salary' => $gajiStaff]);
     }
 
     public function addData(Request $request)
@@ -151,7 +159,7 @@ class KaryawanController extends Controller
         $karyawan->nohp = $request->phone;
         $karyawan->email = $request->email;
         $karyawan->gaji = $request->salary;
-        $karyawan->status = '1';
+        $karyawan->status = $request->status;
         $karyawan->save();
 
         return back()->with('status', 'new data successfully created!');
@@ -164,9 +172,19 @@ class KaryawanController extends Controller
         $karyawan->nohp = $request->phone;
         $karyawan->email = $request->email;
         $karyawan->gaji = $request->salary;
-        $karyawan->status = '1';
+        $karyawan->status = $request->status;
         $karyawan->save();
 
         return back()->with('status', 'new data successfully edited!');
+    }
+
+    public function addProductionData(Request $request)
+    {
+        $gajiProduksi = new produksi;
+        $gajiProduksi->tgl_produksi = $request->date;
+        $gajiProduksi->karyawan_id = $request->staff_id;
+        $gajiProduksi->save();
+
+        return back()->with('status', 'new production salary successfully added!');
     }
 }

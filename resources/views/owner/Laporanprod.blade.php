@@ -94,81 +94,81 @@
         </div>
 
         <div class="card-body table-full-width table-responsive">
-                <table class="table table-hover table-striped tablesorter" id="mainTable">
-                    <thead>
-                        <th style="cursor:pointer">ID<i class="fas fa-sort"></i></span></th>
-                        <th style="cursor:pointer">Nama<i class="fas fa-sort"></i></span></th>
-                        <th style="cursor:pointer">Jumlah<i class="fas fa-sort"></i></span></th>
-                        <th style="cursor:pointer">Tanggal Produksi<i class="fas fa-sort"></i></span></th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-                        @foreach($stokprod as $sp)
-                        <tr>
-                            <td>{{$sp->id}}</td>
-                            <td>{{$sp->nama}}</td>
-                            <td>{{$sp->jumlah}}</td>
-                            <td>{{$sp->tgl_produksi}}</td>
-                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStock" 
-                            data-id="{{$sp->id}}" data-idmenu="{{$sp->idm}}" data-name="{{$sp->nama}}" data-qty="{{$sp->jumlah}}" data-date="{{$sp->tgl_produksi}}">
-                            edit</button>
-                            </td>
-                                <!-- edit Modal -->
-                                <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editStockLabel">Edit Data Stock</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+          <table class="table table-hover table-striped tablesorter" id="mainTable">
+              <thead>
+                  <th style="cursor:pointer">No<i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Nama<i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Jumlah<i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">Tanggal Produksi<i class="fas fa-sort"></i></span></th>
+                  <th>Action</th>
+              </thead>
+              <tbody>
+                  @foreach($stokprod as $sp)
+                  <tr>
+                      <td>{{$loop->iteration}}</td>
+                      <td>{{$sp->nama}}</td>
+                      <td>{{$sp->jumlah}}</td>
+                      <td>{{$sp->tgl_produksi}}</td>
+                      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStock" 
+                      data-id="{{$sp->id}}" data-idmenu="{{$sp->idm}}" data-name="{{$sp->nama}}" data-qty="{{$sp->jumlah}}" data-date="{{$sp->tgl_produksi}}">
+                      edit</button>
+                      </td>
+                          <!-- edit Modal -->
+                          <div class="modal fade" id="editStock" tabindex="-1" role="dialog" aria-labelledby="editStockLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="editStockLabel">Edit Data Stock</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
 
-                                    <form method="POST" action="" id="editForm">
-                                    @csrf 
-                                        <div class="form-group">
-                                        <label for="qty">Nama Menu</label>
-                                        <input type="text" class="form-control" id="namerec" name="name" disabled>
-                                        <input name="menu_id" type="hidden" id="idmedit">
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="qty">Quantity</label>
-                                        <input type="text" class="form-control" id="qtyrec" name="qty" required>
-                                        </div>
-                                        <div class="form-group">
-                                        <label class="control-label" for="date">Production Date</label>
-                                        <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
-                                        <label class="form-check-label" for="availrec">
-                                            Active
-                                        </label>
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
-                                        <label class="form-check-label" for="nonavailrec">
-                                            Not Active
-                                        </label>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
-                                        <input type="submit" class="btn btn-primary" value="Save changes">
-                                    </div>
+                              <form method="POST" action="" id="editForm">
+                              @csrf 
+                                  <div class="form-group">
+                                  <label for="qty">Nama Menu</label>
+                                  <input type="text" class="form-control" id="namerec" name="name" disabled>
+                                  <input name="menu_id" type="hidden" id="idmedit">
+                                  </div>
+                                  <div class="form-group">
+                                  <label for="qty">Quantity</label>
+                                  <input type="text" class="form-control" id="qtyrec" name="qty" required>
+                                  </div>
+                                  <div class="form-group">
+                                  <label class="control-label" for="date">Production Date</label>
+                                  <input class="form-control" id="daterec" name="date" placeholder="YYYY/MM/DD" type="text" required/>
+                                  </div>
+                                  <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
+                                  <label class="form-check-label" for="availrec">
+                                      Active
+                                  </label>
+                                  </div>
+                                  <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
+                                  <label class="form-check-label" for="nonavailrec">
+                                      Not Active
+                                  </label>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary resetbtn" >Reset</button>
+                                  <input type="submit" class="btn btn-primary" value="Save changes">
+                              </div>
 
-                                    </form>
-                                    </div>
-                                </div>
-                                </div>
+                              </form>
+                              </div>
+                          </div>
+                          </div>
 
-                            
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="mx-5">{{ $stokprod->links('vendor.pagination.bootstrap-4') }}</div>
+                      
+                  </tr>
+                  @endforeach
+              </tbody>
+          </table>
+          <div class="mx-5">{{ $stokprod->links('vendor.pagination.bootstrap-4') }}</div>
         </div>
 
 

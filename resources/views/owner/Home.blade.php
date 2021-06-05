@@ -40,7 +40,7 @@
             <li>
               <a href="{{url('/laporanData')}}">Laporan Transaksi</a>
             </li>
-            <li class="active">
+            <li>
               <a href="{{url('/laporanAll')}}">Laporan Keuangan</a>
 	          </li>
             <li>
@@ -76,7 +76,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item">
@@ -87,13 +87,57 @@
                 </li>
               </ul>
             </div>
-
           </div>
         </nav>
 
-        <h2 class="mb-4" style="text-align:center">Laporan Keuangan</h2>
+        <h2 class="mb-4" style="text-align:center">Welcome, Owner</h2>
 
-        <!-- <br><br>
+        <!-- <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <div class="card">
+                <i class="fas fa-chart-line fa-10x"></i>
+                <div class="card-body justify-content-center">
+                  <h5 class="card-title">Pemasukan</h5>
+                  <p class="card-text">Rp 50.000.000</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="card">
+                <i class="fas fa-chart-bar fa-10x"></i>
+                <div class="card-body">
+                  <h5 class="card-title">Pengeluaran</h5>
+                  <p class="card-text">Rp 50.000.000</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="card">
+                <i class="fas fa-chart-area fa-10x"></i>
+                <div class="card-body">
+                  <h5 class="card-title">Laba Bersih</h5>
+                  <p class="card-text">Rp 50.000.000</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="card">
+                <i class="fas fa-chart-pie fa-10x"></i>
+                <div class="card-body">
+                  <h5 class="card-title">Tanggungan</h5>
+                  <p class="card-text">Rp 50.000.000</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <br><br>
         <div class="mb-4">
           <h4 class="text-start">Laba Bersih</h4>
           <h5 class="text-muted" style="text-align:right">6 bulan terakhir</h5>
@@ -105,133 +149,25 @@
               <canvas id="myChart" width="500" height="150"></canvas>
           </div>
         </div>
+        
         <br><br>
-        
-        <div class="card-body table-full-width table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <th>No</th>
-                    <th>Bulan</th>
-                    <th>Pemasukan</th>
-                    <th>Produksi</th>
-                    <th>Operasional</th>
-                    <th>Gaji Karyawan</th>
-                    <th>Laba</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Januari</td>
-                        <td>Rp. 500000</td>
-                        <td>Rp. 100000</td>
-                        <td>Rp. 25000</td>
-                        <td>Rp. 75000</td>
-                        <td>Rp. 300000</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <br><br> -->
-        
-        <div class="container">
-          <form method="post" action="/laporanAll">
-          @csrf
-            <div class="row">
-              <div class="col-6 form-group">
-                <label for="monthfilter">select month</label>
-                <select class="form-control dropdown-toggle" id="monthfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="month">
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    <option class="dropdown-item" value="01">January</option>
-                    <option class="dropdown-item" value="02">February</option>
-                    <option class="dropdown-item" value="03">March</option>
-                    <option class="dropdown-item" value="04">April</option>
-                    <option class="dropdown-item" value="05">May</option>
-                    <option class="dropdown-item" value="06">June</option>
-                    <option class="dropdown-item" value="07">July</option>
-                    <option class="dropdown-item" value="08">August</option>
-                    <option class="dropdown-item" value="09">September</option>
-                    <option class="dropdown-item" value="10">October</option>
-                    <option class="dropdown-item" value="11">November</option>
-                    <option class="dropdown-item" value="12">December</option>
-                  </div>
-                </select>
-              </div>
-              <div class="col-6 form-group">
-                <label for="yearfilter">insert year</label>
-                <input type="text" id="yearfilter" class="form-control" placeholder="year" aria-label="year" name="year" required>
-                <br>
-                <input type="submit" class="btn btn-primary d-flex justify-content-end" id="filter" value="Apply Filter">
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <br><br>
-        <div class="mb-4">
-          <h4 class="text-start">Laporan Keuangan</h4>
-          @isset($month)
-          <h5 class="text-muted" style="text-align:right"><span id="myselected">{{$month}}   {{$year}}</span></h5>
-          @endisset
-          @empty($month)
-          <h5 class="text-muted" style="text-align:right"><span id="myselected">{{date("Y")}}   {{date("m")}}</span></h5>
-          @endempty
-          
-        </div>
-        
-        <br>
         <div class="container">
           <div class="row">
-            <div class="col-6">
-              <p>Pemasukan</p>
-              <p>Biaya Produksi</p>
-              <p>Operasional</p>
-              @forelse($oprdetails as $opr)
-              <p class="m-3">{{$opr->keterangan}}</p>
-              @empty
-              <p class="m-3">-</p>
-              @endforelse
-              <p>Gaji Karyawan</p>
-              @forelse($saldetails as $sal)
-              <p class="m-3">Produksi {{$sal->tgl_produksi}}</p>
-              @empty
-              <p class="m-3">-</p>
-              @endforelse
-              <h6 class="fw-bold">Laba Total</h6>
+            <div class="col-6 table-responsive">
+              <h5>Jumlah order</h5>
+              <canvas id="myChart1" width="500" height="150"></canvas>
             </div>
-            <div class="col-6"> 
-              <p>Rp. {{$income}}</p>
-              <p>Rp. {{$production}}</p>
-              <p>Rp. {{$operational}}</p>
-              @forelse($oprdetails as $opr)
-              <p class="m-3">Rp. {{$opr->biaya}}</p>
-              @empty
-              <p class="m-3">Rp. 0</p>
-              @endforelse
-              <p>Rp. {{$salary}}</p>
-              @forelse($saldetails as $s)
-              <p class="m-3">Rp. {{$s->gaji}}</p>
-              @empty
-              <p class="m-3">Rp.0</p>
-              @endforelse
-              <h6 class="fw-bold">Rp. {{$profit}}</h6>
+            <div class="col-6 table-responsive">
+              <h5>Jumlah produksi</h5>
+              <canvas id="myChart2" width="500" height="150"></canvas>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 		</div>
 
-    <script>
-      $(document).ready(function(){
-        $('#filter').on('click', function(event){
-          var year = $('#yearfilter').val()
-          var month = $('#monthfilter').val()
-          $('#myselected').text(month+'  '+year);
-        });
-      });
-    </script>
-
-    <script>
+    <!-- <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -265,7 +201,73 @@
         }
     });
 
-    </script>
+    var ctr = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctr, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'jumlah order',
+                data: [150, 130, 140, 125, 145, 127],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+            }
+        }
+    });
+
+    var ct = document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ct, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'jumlah produksi',
+                data: [150, 130, 140, 125, 145, 127],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+            }
+        }
+    });
+
+    </script> -->
     
     <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
     <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>

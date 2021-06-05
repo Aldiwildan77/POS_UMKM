@@ -39,6 +39,13 @@
         </div>
     </nav>
 
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> {{ session('status') }}
+    </div>
+    @endif
+
     <!-- search bar -->
     <div class="input-group mb-3 mx-4">
         <input type="text" class="form-control" id="searchInput" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
@@ -60,6 +67,7 @@
                     <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">QTY <span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Total <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Waktu<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Status <span><i class="fas fa-sort"></i></span></th>
                 </thead>
                 <tbody>
@@ -72,6 +80,7 @@
                         <td>{{$t->menu}}</td>
                         <td>{{$t->qty}}</td>
                         <td>{{$t->nominal}}</td>
+                        <td>{{$t->tanggal}}</td>
                         <td>
                             @if($t->status == 1)
                             <div style="background-color: blue;width: max-content;"><span class="mx-1">Processed</span></div>

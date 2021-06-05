@@ -36,6 +36,7 @@ class StokJadiController extends Controller
         ->orderBy('j.tgl_produksi')
         ->paginate(100);
 
+
         $menu = menu::all();
 
         return view('owner/Laporanprod', ['menu' => $menu])
@@ -44,7 +45,7 @@ class StokJadiController extends Controller
     }
 
     public function addData(Request $request)
-    {
+    {   
         $stokupdate = new stok_jadi_realtime;
         $stokupdate->menu_id = $request->menu_id;
         $stokupdate->jumlah = $request->qty;

@@ -106,6 +106,9 @@
             </button>
           </div>
           <div class="col-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaffProd">
+              Add Production Salary
+            </button>
           </div>
           <div class="col-4">
             <div class="input-group mb-3">
@@ -148,14 +151,14 @@
                   <input type="text" class="form-control" id="salary" name="salary" required>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label" for="exampleRadios1">
+                  <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
+                  <label class="form-check-label" for="avail">
                     Active
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
+                  <input class="form-check-input" type="radio" name="status" id="nonavail" value="2">
+                  <label class="form-check-label" for="nonavail">
                     Not Active
                   </label>
                 </div>
@@ -169,84 +172,120 @@
           </div>
         </div>
         
+        <!-- Modal Production Salary-->
+        <div class="modal fade" id="addStaffProd" tabindex="-1" role="dialog" aria-labelledby="addStaffProdLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addStaffProdLabel">Add New Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              <form method="POST" action="/karyawanProduksi" id="addStaffProd">
+              @csrf
+                <div class="form-group">
+                  <label for="namekar">Staff Name</label>
+                  <select class="form-control dropdown-toggle" id="namekar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="staff_id">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      @foreach($all as $a)
+                      <option class="dropdown-item" value="{{$a->id}}">{{$a->nama}}</option>
+                      @endforeach
+                    </div>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="date">Production Date</label>
+                  <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text" required/>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnreset" >Reset</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped tablesorter" id="mainTable">
                 <thead>
-                    <th>Id</th>
+                    <th>No</th>
                     <th style="cursor:pointer">Nama <span><i class="fas fa-sort"></i></span></th>
                     <th>No HP</th>
                     <th>Email</th>
                     <th style="cursor:pointer">Gaji <span><i class="fas fa-sort"></i></span></th>
-                    <th>Status</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach($active as $a)
                     <tr>
-                        <td>{{$a->id}}</td>
-                        <td>{{$a->nama}}</td>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$a->nama}} @if ($a->status==1) <span class="badge badge-success">Active</span> @else <span class="badge badge-secondary">Nonactive</span> @endif</td>
                         <td>{{$a->nohp}}</td>
                         <td>{{$a->email}}</td>
                         <td>Rp {{$a->gaji}}</td>
-                        <td>Active</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStaff" 
                         data-id="{{$a->id}}" data-name="{{$a->nama}}" data-phone="{{$a->nohp}}" data-email="{{$a->email}}" data-salary="{{$a->gaji}}">
                               edit
                             </button>
                         </td>    
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="editStaff" tabindex="-1" role="dialog" aria-labelledby="editStafffLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="editStaffLabel">Edit Staff data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
+                        <!-- Modal -->
+                        <div class="modal fade" id="editStaff" tabindex="-1" role="dialog" aria-labelledby="editStafffLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="editStaffLabel">Edit Staff data</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
 
-                                  <form method="POST" id="editForm">
-                                  @csrf
-                                    <div class="form-group">
-                                      <label for="name">Nama Karyawan</label>
-                                      <input type="text" class="form-control" id="namerec" name="name" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="phone">No Hp</label>
-                                      <input type="text" class="form-control" id="phonerec" name="phone" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="email">Email</label>
-                                      <input type="email" class="form-control" id="emailrec" name="email" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="salary">Gaji</label>
-                                      <input type="text" class="form-control" id="salaryrec" name="salary" required>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusRadios" id="availrec" value="1" checked>
-                                      <label class="form-check-label" for="availrec">
-                                        Active
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="statusRadios" id="nonavailrec" value="0">
-                                      <label class="form-check-label" for="nonavailrec">
-                                        Not Active
-                                      </label>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btnreset">Reset</button>
-                                    <input type="submit" class="btn btn-primary" value="Save changes">
-                                  </div>
-                                  </form>
+                              <form method="POST" id="editForm">
+                              @csrf
+                                <div class="form-group">
+                                  <label for="name">Nama Karyawan</label>
+                                  <input type="text" class="form-control" id="namerec" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="phone">No Hp</label>
+                                  <input type="text" class="form-control" id="phonerec" name="phone" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" class="form-control" id="emailrec" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="salary">Gaji</label>
+                                  <input type="text" class="form-control" id="salaryrec" name="salary" required>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
+                                  <label class="form-check-label" for="avail">
+                                    Active
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="status" id="nonavail" value="2">
+                                  <label class="form-check-label" for="nonavail">
+                                    Not Active
+                                  </label>
                                 </div>
                               </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btnreset">Reset</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                              </div>
+                              </form>
                             </div>
-
+                          </div>
+                        </div>
                         
                     </tr>
                     @endforeach
@@ -255,8 +294,34 @@
 
             <div class="mx-5">{{ $active->links('vendor.pagination.bootstrap-4') }}</div> 
         </div>
+
+        <div class="card-body table-full-width table-responsive">
+            <table class="table table-hover table-striped tablesorter" id="mainTable2">
+                <thead>
+                    <th>No</th>
+                    <th style="cursor:pointer">Nama <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Gaji <span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">Tanggal Produksi <span><i class="fas fa-sort"></i></span></th>
+                </thead>
+                <tbody>
+                    @foreach($salary as $s)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$s->nama}}</td>
+                        <td>Rp. {{$s->gaji}}</td>
+                        <td>{{$s->tgl_produksi}}</td>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
       </div>
 		</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
       $(document).ready(function(){
@@ -274,19 +339,24 @@
         $('#emailrec').val(email)
         $('#salaryrec').val(salary)
 
-        document.getElementById("editForm").action = "/karyawanData/"+id; 
+        $("#editForm").action = "/karyawanData/"+id
+        });
 
         $(".resetbtn").click(function(e) {
           var formid = $(this.form).attr('id');
           document.getElementById(formid).reset();
         });
-        
+
+        $('input[name="date"]').datepicker({
+        format: 'yyyy/mm/dd',
+        container: $('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body",
+        todayHighlight: true,
+        autoclose: true,
         });
     })
     </script>
-    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+    
     <script src="{{URL::asset('backendwork/search.js')}}"></script>
     <script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>
     <script src="https://mottie.github.io/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
@@ -295,7 +365,8 @@
     <script>
     $(function() {
         $("#mainTable").tablesorter();
-        });
+        $("#mainTable2").tablesorter();
+    });
     </script>
   </body>
 </html>

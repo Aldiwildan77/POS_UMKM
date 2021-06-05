@@ -10,16 +10,13 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}} ">
 
-        <!-- grafik -->
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('assets3/bootstrap/css/bootstrap.min.css')}}" />
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('assets3/font-awesome/css/font-awesome.min.css')}}" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
-        <script type="text/javascript" src="{{URL::asset('assets3/js/jquery-1.10.2.min.js')}}"></script>
-        <script type="text/javascript" src="{{URL::asset('assets3/bootstrap/js/bootstrap.min.js')}}"></script>
-        <!-- end -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js" integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{URL::asset('assets1/css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-        <!-- chart req -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js" integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
     </head>
   <body>
 		
@@ -203,9 +200,8 @@
             });
             </script>
             
-    <script src="{{URL::asset('assets1/js/jquery.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('assets1/js/main.js')}}"></script>
+            <script src="{{URL::asset('assets1/js/popper.js')}}"></script>
+            <script src="{{URL::asset('assets1/js/bootstrap.min.js')}}"></script>
+            <script src="{{URL::asset('assets1/js/main.js')}}"></script>
   </body>
 </html>

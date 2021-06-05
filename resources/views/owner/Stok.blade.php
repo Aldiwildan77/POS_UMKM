@@ -134,14 +134,13 @@
               @csrf 
                 <div class="form-group">
                   <label for="menu">Select Menu</label>
-                  <select class="form-control dropdown-toggle" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <select class="form-control dropdown-toggle" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="menu_id">
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                       @foreach($menu as $m)
                       <option class="dropdown-item" value="{{$m->id}}">{{$m->nama}}</option>
                       @endforeach
                     </div>
                   </select>
-                  <input name="menu_id" type="hidden" id="menuselected">
                 </div>
                 <div class="form-group">
                   <label for="qty">Quantity</label>
@@ -165,15 +164,15 @@
         <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped" id="mainTable">
                 <thead>
-                    <th style="cursor:pointer">ID<span><i class="fas fa-sort"></i></span></th>
+                    <th style="cursor:pointer">No<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Nama<span><i class="fas fa-sort"></i></span></th>
                     <th style="cursor:pointer">Jumlah<span><i class="fas fa-sort"></i></span></th>
                     <th>Action</th>
                 </thead>
                 <tbody>
-                    @foreach($stok as $s)
+                    @foreach($stok as $s) 
                     <tr>
-                        <td>{{$s->id}}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$s->nama}}</td>
                         <td>{{$s->jumlah}}</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailStock" 
@@ -234,11 +233,6 @@
 
     <script>
       $(document).ready(function(){
-        $('#menu').on('change', function() {
-          var menu = $('#menu').val()
-          $('#menuselected').val(menu)
-        });
-
         $('#editStock').on('show.bs.modal', function (event) {
           console.log('edit show')
           var button = $(event.relatedTarget) // Button that triggered the modal
@@ -318,11 +312,9 @@
           document.getElementById(formid).reset();
         });
 
-        var date_input=$('input[name="date"]'); //our date input has the id "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
+        $('input[name="date"]').datepicker({
         format: 'yyyy/mm/dd',
-        container: container,
+        container: $('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body",
         todayHighlight: true,
         autoclose: true,
         });

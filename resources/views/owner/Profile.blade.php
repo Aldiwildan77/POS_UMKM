@@ -181,7 +181,7 @@
           <div class="card-body table-full-width table-responsive">
             <table class="table table-hover table-striped" id="mainTable">
                 <thead>
-                  <th>ID</th>
+                  <th>No</th>
                   <th>Staff Name</th>
                   <th>Staff Number</th>
                   <th>User Name</th>
@@ -191,11 +191,11 @@
                   
                   @foreach($all as $all)
                     <tr>
-                      <td>{{$all->id}}</td>
-                      <td>{{$all->nama}}<span class="badge badge-success">Active</span></td>
+                      <td>{{$loop->iteration}}</td>
+                      <td>{{$all->nama}}@if ($all->status==1) <span class="badge badge-success">Active</span> @else <span class="badge badge-secondary">Nonactive</span> @endif</td>
                       <td>{{$all->nohp}}</td>
                       <td>{{$all->username}}</td>
-                      <td><button type="button" class="btn btn-danger">
+                      <td><button type="button" class="btn btn-secondary">
                       Non Active</button></td>
                     </tr>  
                   @endforeach

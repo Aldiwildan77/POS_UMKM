@@ -182,7 +182,7 @@
         <div class="card-body table-full-width table-responsive">
           <table class="table table-hover table-striped tablesorter" id="mainTable">
               <thead>
-                  <th style="cursor:pointer">Id <span><i class="fas fa-sort"></i></span></th>
+                  <th style="cursor:pointer">No <span><i class="fas fa-sort"></i></span></th>
                   <th style="cursor:pointer">Menu <span><i class="fas fa-sort"></i></span></th>
                   <th style="cursor:pointer">Porsi <span><i class="fas fa-sort"></i></span></th>
                   <th style="cursor:pointer">Nama Bahan <span><i class="fas fa-sort"></i></span></th>
@@ -193,12 +193,12 @@
               <tbody>
                   @foreach($resep as $r)
                   <tr>
-                      <td>{{$r->id}}</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$r->menu}}</td>
                       <td>{{$r->porsi}}</td>
                       <td>{{$r->bahan}}</td>
                       <td>{{$r->jumlah}}</td>
-                      <td>{{$r->hpp}}</td>
+                      <td>Rp. {{$r->hpp}}</td>
                       <td><a class="btn btn-primary" data-toggle="modal" data-target="#editRecipe" data-idmenu="{{$r->id}}" data-idresep="{{$r->idresep}}"
                       data-name="{{$r->menu}}" data-idmat="{{$r->idbahan}}" data-mat="{{$r->bahan}}" data-qty="{{$r->jumlah}}" data-porsi="{{$r->porsi}}">Edit</a>
                       </td>
