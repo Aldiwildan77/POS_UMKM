@@ -154,7 +154,13 @@ class KaryawanController extends Controller
 
     public function addData(Request $request)
     {
-        $karyawan = new karyawan;
+        if ($request->id) {
+            $id = $request->id;
+            $karyawan = karyawan::find($id);
+        }
+        else {
+            $karyawan = new karyawan;
+        }
         $karyawan->nama = $request->name;
         $karyawan->nohp = $request->phone;
         $karyawan->email = $request->email;
@@ -162,12 +168,19 @@ class KaryawanController extends Controller
         $karyawan->status = $request->status;
         $karyawan->save();
 
-        return back()->with('status', 'new data successfully created!');
+        if ($request->id) {
+            return back()->with('status', 'new data successfully edited!');
+        }
+        else{
+            return back()->with('status', 'new data successfully created!');
+        }
+        
     }
 
     public function editData(Request $request, $id)
     {
-        $karyawan = karyawan::find($id) ;
+        //dd($request->all());
+        $karyawan = karyawan::find($id);
         $karyawan->nama = $request->name;
         $karyawan->nohp = $request->phone;
         $karyawan->email = $request->email;

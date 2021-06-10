@@ -1,11 +1,12 @@
 var shoppingCart = (function() {
     cart = []; //private
 
-    function Item(name, price, count, photo, id) {
+    function Item(name, price, count, photo, max, id) {
         this.name = name;
         this.price = price;
         this.count = count;
         this.photo = photo;
+        this.max = max;
         this.id = id;
     }
 
@@ -26,15 +27,19 @@ var shoppingCart = (function() {
     var obj = {}; //public
 
     // Add to cart
-    obj.addItemToCart = function(name, price, count, photo,id) {
+    obj.addItemToCart = function(name, price, count, photo, max, id) {
         for (var item in cart) {
+            if (cart[item].count+1 > cart[item].max) {
+                alert('cant add more than stock');
+                return;
+            }
             if (cart[item].id == id) {
                 cart[item].count++;
                 saveCart();
-                return;
+                return; 
             }
         }
-        var item = new Item(name, price, count, photo, id);
+        var item = new Item(name, price, count, photo, max, id);
         cart.push(item);
         saveCart();
     }
@@ -139,7 +144,8 @@ $('.add-to-cart').click(function(event) {
     var photo = $(this).data('photo');
     var price = Number($(this).data('price'));
     var id = Number($(this).data('id'));
-    shoppingCart.addItemToCart(name, price, 1, photo,id);
+    var max = Number($(this).data('max'));
+    shoppingCart.addItemToCart(name, price, 1, photo, max, id);
     displayCart();
 });
 
@@ -149,6 +155,9 @@ $('.clear-cart').click(function() {
     displayCart();
 });
 
+// $("[type='number']").keypress(function (evt) {
+//     evt.preventDefault();
+// });
 
 function displayCart() {
     var cartArray = shoppingCart.listCart();
@@ -159,7 +168,7 @@ function displayCart() {
             "<td><div class='text-cart'>"+ cartArray[i].name + "</div></td>" +
             "<td><div class='input-group'>"
             //+"<button style='width: 10px;' class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>" 
-            +"<input type='number' style='width: 60px;' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>" 
+            +"<input type='number' style='width: 60px;' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "' max='" + cartArray[i].max + "'>" 
             //+"<button style='width: 10px;' class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>" 
            +"<td><button style='width: 12px;' class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>" 
            //+" = " 
@@ -210,33 +219,33 @@ $('#checkoutModal').on('show.bs.modal', function (event) {
     var cartArray = shoppingCart.listCart();
     for (var i = 0; i < cartArray.length; i++) {
         $('#menudetail').append(`<div class="row">
-                                <div class="col-4">
-                                    <label for="menurec">Menu</label>
-                                    <input type="text" class="form-control" value="`+ cartArray[i].name+`" disabled>
-                                </div>
-                                <div class="col-4">
-                                    <label for="qty">Qty</label>
-                                    <input type="text" class="form-control" value="`+ cartArray[i].count +`" disabled>
-                                </div>
-                                <div class="col-4">
-                                    <label for="qty">Sub total</label>
-                                    <input type="text" class="form-control" value="`+ cartArray[i].total +`" disabled>
-                                </div>
+                            <div class="col-4">
+                                <label for="menurec">Menu</label>
+                                <input type="text" class="form-control" value="`+ cartArray[i].name+`" disabled>
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-4">
-                                    <input type="hidden" class="form-control" value="`+ cartArray[i].name+`" name="menuname`+i+`">
-                                </div>
-                                <div class="col-4">
-                                    <input type="hidden" class="form-control" value="`+ cartArray[i].count +`" name="menuqty`+i+`">
-                                </div>
-                                <div class="col-4">
-                                    <input type="hidden" class="form-control" value="`+ cartArray[i].total +`" name="menutotal`+i+`">
-                                    <input type="hidden" class="form-control" value="`+ cartArray[i].id +`" name="idmenu`+i+`">
-                                </div>
+                            <div class="col-4">
+                                <label for="qty">Qty</label>
+                                <input type="text" class="form-control" value="`+ cartArray[i].count +`" disabled>
                             </div>
-                            `)
+                            <div class="col-4">
+                                <label for="qty">Sub total</label>
+                                <input type="text" class="form-control" value="`+ cartArray[i].total +`" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="hidden" class="form-control" value="`+ cartArray[i].name+`" name="menuname`+i+`">
+                            </div>
+                            <div class="col-4">
+                                <input type="hidden" class="form-control" value="`+ cartArray[i].count +`" name="menuqty`+i+`">
+                            </div>
+                            <div class="col-4">
+                                <input type="hidden" class="form-control" value="`+ cartArray[i].total +`" name="menutotal`+i+`">
+                                <input type="hidden" class="form-control" value="`+ cartArray[i].id +`" name="idmenu`+i+`">
+                            </div>
+                        </div>
+                        `);
     }
     $('#payrec').val(shoppingCart.totalCart());
     $('#paytotal').val(shoppingCart.totalCart());

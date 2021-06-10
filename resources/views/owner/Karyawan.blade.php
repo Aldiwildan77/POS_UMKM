@@ -252,6 +252,7 @@
                                 <div class="form-group">
                                   <label for="name">Nama Karyawan</label>
                                   <input type="text" class="form-control" id="namerec" name="name" required>
+                                  <input type="hidden" class="form-control" id="idrec" name="id">
                                 </div>
                                 <div class="form-group">
                                   <label for="phone">No Hp</label>
@@ -334,6 +335,7 @@
         var id = button.data('id')
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $('#idrec').val(id)
         $('#namerec').val(name)
         $('#phonerec').val(phone)
         $('#emailrec').val(email)

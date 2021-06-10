@@ -128,6 +128,7 @@ class TranksaksiController extends Controller
         $transaksi->status = $request->status;
 
         //dd($request->all());
+        
         $transaksi->save();
         $currentid = $transaksi->id;
         $itemtotal = $request->itemtotal;
@@ -153,6 +154,7 @@ class TranksaksiController extends Controller
             ->orderBy('menu_id', 'asc') 
             ->orderBy('tgl_produksi', 'asc') //use later
             ->get();
+
             $laststok = $stok_jadi_realtime[0]->jumlah;
             if ($laststok <  $qtyorder) {
                 $left = $qtyorder - $laststok;

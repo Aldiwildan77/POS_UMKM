@@ -207,7 +207,9 @@
                 </div>
                 <div class="form-group">
                   <label for="photo">Fraktur</label>
-                  <input type="file" class="form-control-file" id="photo">
+                  <img class="img-thumbnail" id="frakturnew" alt="unavailable">
+                  <input type="file" class="form-control-file" id="photo" data-id="photo" onchange="getImagenew()">
+                  <textarea style="display:none;" id="fnew" name="foto"></textarea>
                 </div>
               </div>
               <div class="modal-footer">
@@ -257,7 +259,7 @@
                               </div>
                               <div class="modal-body">
 
-                              <form method="POST" action="/bahanEdit">
+                              <form method="POST" action="/bahanEdit" id="editform">
                                 @csrf
                                 <div class="form-group">
                                   <label for="namerec">Nama</label>
@@ -292,7 +294,8 @@
                                 <div class="form-group">
                                   <label for="photo">Fraktur</label><br>
                                   <img class="img-thumbnail" id="fraktur" alt="unavailable">
-                                  <input type="file" class="form-control-file" id="photo">
+                                  <input type="file" class="form-control-file" id="photorec" data-id="photorec" onchange="getImage()">
+                                  <textarea style="display:none;" id="frec" name="foto"></textarea>
                                 </div>
                               </div>
                               <div class="modal-footer">
@@ -317,8 +320,31 @@
 		</div>
 
     <script>
+      function getImage() {
+        var reader = new FileReader();
+        var f = document.getElementById("photorec").files;
+
+        reader.onloadend = function () {
+            console.log(reader.result);
+            $('#frec').val(reader.result);
+            $("#fraktur").attr("src",reader.result);
+        }
+        reader.readAsDataURL(f[0]);
+      }
+
+      function getImagenew() {
+        var reader = new FileReader();
+        var f = document.getElementById("photo").files;
+
+        reader.onloadend = function () {
+            console.log(reader.result);
+            $('#fnew').val(reader.result);
+            $("#frakturnew").attr("src",reader.result);
+        }
+        reader.readAsDataURL(f[0]);
+      }
+
       $(document).ready(function(){
-        //$("#mainTable").tablesorter();
         $('#editStock').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('name') 
@@ -337,9 +363,9 @@
         $('#idIngr').val(idIngr)
         });
 
-        var date_input=$('input[name="date"]'); //our date input has the id "date"
+       //our date input has the id "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
+        $('input[name="date"]').datepicker({
             format: 'yyyy/mm/dd',
             container: container,
             todayHighlight: true,

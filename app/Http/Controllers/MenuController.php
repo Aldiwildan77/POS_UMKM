@@ -20,7 +20,7 @@ class MenuController extends Controller
         $menu = new menu;
         $menu->nama = $request->name;
         $menu->harga = $request->price;
-        $menu->foto = $request->photo;
+        $menu->foto = $request->foto;
         $menu->status = $request->status;
         $menu->save();
 
@@ -31,14 +31,14 @@ class MenuController extends Controller
 
     public function editData($id, Request $request)
     {
+        //dd($request->all());
         $menu = menu::find($id);
         $menu->nama = $request->name;
         $menu->harga = $request->price;
-        $menu->foto = $request->photo;
-        $menu->$request->status;
+        $menu->foto = $request->foto;
+        $menu->status = $request->status;
         $menu->save();
 
-        //return "new menu successfully edited";
         return back()->with('status', 'new menu successfully edited!');
     }
 

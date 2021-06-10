@@ -141,8 +141,10 @@
                   <input type="text" class="form-control" id="price" name="price" required>
                 </div>
                 <div class="form-group">
-                  <label for="photo">Foto</label>
-                  <input type="file" class="form-control-file" id="photo" name="photo">
+                  <label for="photo">Photo</label>
+                  <img class="img-thumbnail" id="newphoto" alt="unavailable">
+                  <input type="file" class="form-control-file" id="photo" onchange="getImagenew()">
+                  <textarea style="display:none;" id="fnew" name="foto"></textarea>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
@@ -216,18 +218,19 @@
                       <input type="text" class="form-control" id="pricerec" name="price" required>
                     </div>
                     <div class="form-group">
-                      <label for="photo">Foto</label><br>
+                      <label for="photorec">Fraktur</label><br>
                       <img class="img-thumbnail" id="img" alt="unavailable">
-                      <input type="file" class="form-control-file" id="photo" name="photo">
+                      <input type="file" class="form-control-file" id="photorec" data-id="photorec" onchange="getImage()">
+                      <textarea style="display:none;" id="frec" name="foto"></textarea>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" id="avail" value="1" checked>
+                      <input class="form-check-input" type="radio" name="status" id="available" value="1" checked>
                       <label class="form-check-label" for="avail">
                         Active
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" id="nonavail" value="2">
+                      <input class="form-check-input" type="radio" name="status" id="nonavailable" value="2">
                       <label class="form-check-label" for="nonavail">
                         Not Active
                       </label>
@@ -250,6 +253,30 @@
 		</div>
 
     <script>
+      function getImage() {
+        var reader = new FileReader();
+        var f = document.getElementById("photorec").files;
+
+        reader.onloadend = function () {
+            console.log(reader.result);
+            $('#frec').val(reader.result);
+            $("#img").attr("src",reader.result);
+        }
+        reader.readAsDataURL(f[0]);
+      }
+
+      function getImagenew() {
+        var reader = new FileReader();
+        var f = document.getElementById("photo").files;
+
+        reader.onloadend = function () {
+            console.log(reader.result);
+            $('#fnew').val(reader.result);
+            $("#newphoto").attr("src",reader.result);
+        }
+        reader.readAsDataURL(f[0]);
+      }
+
       $(document).ready(function(){
         $('#editMenu').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal

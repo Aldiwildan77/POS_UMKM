@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\stok_bahan;
 use App\Models\stok_bahan_detail;
+use App\Models\fraktur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,6 +43,10 @@ class StokBahanController extends Controller
     public function editData(Request $request)
     {
         //dd($request->all());
+        $fraktur = new fraktur;
+        $fraktur->foto = $request->foto;
+        $fraktur->save();
+        $frakturId = $fraktur->id;
         $id = $request->idDetail;
         $stokDetail = stok_bahan_detail::find($id);
 
@@ -50,7 +55,7 @@ class StokBahanController extends Controller
         $stokDetail->qty_satuan = $request->unit;
         $stokDetail->jumlah = $request->nominal;
         $stokDetail->tgl_beli = $request->date;
-        $stokDetail->fraktur_id = 4; //handle later
+        $stokDetail->fraktur_id = $frakturId;
         $stokDetail->save();
         
         return back()->with('status', 'new data successfully edited!');
@@ -59,6 +64,10 @@ class StokBahanController extends Controller
     public function newShop(Request $request)
     {
         //dd($request->all());
+        $fraktur = new fraktur;
+        $fraktur->foto = $request->foto;
+        $fraktur->save();
+        $frakturId = $fraktur->id;
         $stokDetail = new stok_bahan_detail;
         
         $stokDetail->stok_bahan_id = $request->ingrId;
@@ -66,7 +75,7 @@ class StokBahanController extends Controller
         $stokDetail->qty_satuan = $request->unit;
         $stokDetail->jumlah = $request->price;
         $stokDetail->tgl_beli = $request->date;
-        $stokDetail->fraktur_id = 4; //handle later
+        $stokDetail->fraktur_id = $frakturId;
         $stokDetail->save();
         
         return back()->with('status', 'new data successfully created!');
